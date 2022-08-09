@@ -12,8 +12,8 @@
     </select>
 
     <insert id="insert">
-        insert into TEMPPET(ABNUMBER, MNUMBER, TEMPDATE, TEMPPERRIOD, RESIDENCE, MARITALSTATUS, JOB, STATUS)
-        values (#{abNumber}, #{mNumber}, #{tempDate}, #{tempPeriod}, #{residence}, #{maritalStatus}, #{job}, #{status})
+        insert into TEMPPET (ABNUMBER, MNUMBER, RESIDENCE, MARITALSTATUS, JOB, TEMPDATE, TEMPPERIOD)
+        values (#{abNumber}, #{mNumber}, #{residence}, #{maritalStatus}, #{job}, SYSDATE, 2)
     </insert>
 
     <update id="update">
