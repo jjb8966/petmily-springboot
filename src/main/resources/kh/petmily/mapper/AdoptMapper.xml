@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh.petmily.mapper.AdoptMapper">
+
+    <!--=======BasicMapper 메소드=======-->
+    <select id="selectByPk" resultType="kh.petmily.domain.adopt.Adopt">
+        select *
+        from ADOPT
+        where ADNUMBER = #{pk}
+    </select>
+
+    <insert id="insert">
+        insert into ADOPT(MNUMBER, ABNUMBER, RESIDENCE, MARITALSTATUS, JOB, STATUS)
+        values (#{mNumber}, #{abNumber}, #{residence}, #{maritalStatus}, #{job}, #{status})
+    </insert>
+
+    <update id="update">
+        update ADOPT
+        set MNUMBER = #{mNumber}, ABNUMBER = #{abNumber}, RESIDENCE = #{residence}, MARITALSTATUS = #{maritalStatus}, JOB = #{job}, STATUS = #{status}
+        where ADNUMBER = #{adNumber}
+    </update>
+
+    <delete id="delete">
+        delete from ADOPT
+        where ADNUMBER = #{pk}
+    </delete>
+    <!--=======BasicMapper 메소드=======-->
+
+</mapper>

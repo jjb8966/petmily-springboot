@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh.petmily.mapper.TempMapper">
+
+    <!--=======BasicMapper 메소드=======-->
+    <select id="selectByPk" resultType="kh.petmily.domain.temp.TempPet">
+        select *
+        from TEMPPET
+        where TNUMBER = #{pk}
+    </select>
+
+    <insert id="insert">
+        insert into TEMPPET(ABNUMBER, MNUMBER, TEMPDATE, TEMPPERRIOD, RESIDENCE, MARITALSTATUS, JOB, STATUS)
+        values (#{abNumber}, #{mNumber}, #{tempDate}, #{tempPeriod}, #{residence}, #{maritalStatus}, #{job}, #{status})
+    </insert>
+
+    <update id="update">
+        update TEMPPET
+        set ABNUMBER = #{abNumber}, MNUMBER = #{mNumber}, TEMPDATE = #{tempDate}, TEMPPERRIOD = #{tempPeriod},
+            RESIDENCE = #{residence}, MARITALSTATUS = #{maritalStatus}, JOB = #{job}, STATUS = #{status}
+        where TNUMBER = #{tNumber}
+    </update>
+
+    <delete id="delete">
+        delete from TEMPPET
+        where TNUMBER = #{pk}
+    </delete>
+    <!--=======BasicMapper 메소드=======-->
+
+</mapper>

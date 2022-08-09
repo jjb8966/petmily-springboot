@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh.petmily.mapper.AbandonedAnimalMapper">
+
+    <!--=======BasicMapper 메소드=======-->
+    <select id="selectByPk" resultType="kh.petmily.domain.abandoned_animal.AbandonedAnimal">
+        select *
+        from ABANDONEDANIMAL
+        where ABNUMBER = #{pk}
+    </select>
+
+    <insert id="insert">
+        insert into ABANDONEDANIMAL(SNUMBER, NAME, SPECIES, KIND, GENDER, AGE, WEIGHT, IMGPATH, LOCATION, ADMISSIONDATE, UNIQUENESS, DESCRIPTION, VIDEO, ANIMALSTATE)
+        values (#{sNumber}, #{name}, #{species}, #{kind}, #{gender}, #{age}, #{weight}, #{weight}, #{imgPath}, #{location}, #{admissionDate}, #{uniqueness}, #{description}, #{video}, #{animalState})
+    </insert>
+
+    <update id="update">
+        update ABANDONEDANIMAL
+        set SNUMBER = #{sNumber}, NAME = #{name}, SPECIES = #{species}, KIND = #{kind}, GENDER = #{gender},
+        AGE = #{age}, WEIGHT = #{weight}, IMGPATH = #{imgPath}, LOCATION = #{location}, ADMISSIONDATE = #{admissionDate},
+        UNIQUENESS = #{uniqueness}, DESCRIPTION = #{description}, VIDEO = #{video}, ANIMALSTATE = #{animalState}
+        where ABNUMBER = #{abNumber}
+    </update>
+
+    <delete id="delete">
+        delete from ABANDONEDANIMAL
+        where ABNUMBER = #{pk}
+    </delete>
+    <!--=======BasicMapper 메소드=======-->
+
+    <select id="selectCount" resultType="int">
+        select count(*)
+        from ABANDONEDANIMAL
+    </select>
+
+    <select id="selectIndex" resultType="kh.petmily.domain.abandoned_animal.AbandonedAnimal">
+        select * from
+        (select ROWNUM as NUM, A.ABNUMBER, A.NAME, A.LOCATION, A.ADMISSIONDATE, A.IMGPATH FROM
+				(select * from ABANDONEDANIMAL order by ABNUMBER DESC) A)
+		where NUM between #{start} and #{end}
+    </select>
+
+    <select id="selectName" resultType="java.lang.String">
+        select NAME
+        from ABANDONEDANIMAL
+        where ABNUMBER = #{pk}
+    </select>
+</mapper>
