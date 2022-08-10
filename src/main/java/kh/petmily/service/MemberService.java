@@ -22,4 +22,6 @@ public interface MemberService {
     public void changeMemberInfo(String id, MemberInfo memberInfo);
 
     String findName(int mNumber);
+
+    public boolean isPwEqualToConfirm(String pw, String confirmPw);
 }

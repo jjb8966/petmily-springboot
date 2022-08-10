@@ -5,7 +5,6 @@ import kh.petmily.domain.member.form.MemberInfo;
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -62,12 +61,19 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public void withdraw(int mNumber) {
-
+        memberDao.delete(mNumber);
     }
 
     @Override
-    public boolean checkPwCorrect(int mNumber, String pw) {
-        return false;
+    public boolean checkPwCorrect(int mNumber, String pw) { //계정 비번 일치하는지
+        Member member = memberDao.findByPk(mNumber);
+
+        return member.getPw().equals(pw);
+    }
+
+    @Override
+    public boolean isPwEqualToConfirm(String pw, String confirmPw) { // 비번, 비번확인 일치하는지
+        return pw != null && pw.equals(confirmPw);
     }
 
     @Override

@@ -7,13 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import kh.petmily.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -103,4 +104,57 @@ public class MemberController {
         Member member = (Member) session.getAttribute("authUser");
         return member;
     }
+
+
+    // 회원탈퇴
+    @GetMapping("/member/withdraw")
+    public String withdrawForm() {
+        return "/member/withdrawForm";
+    }
+
+
+    @PostMapping("/member/withdraw")
+    public String withdraw(HttpServletRequest request, @RequestParam String pw, @RequestParam String confirmPw) {
+
+        log.info("pw = {}", pw);
+        log.info("confirmPw = {}", confirmPw);
+
+        Member member = getAuthMember(request); // 로그인된 회원 정보 member에 담음
+        int mNumber = member.getMNumber(); // member객체에서 mNumber정보 받아옴
+
+        // 검증
+        Map<String, Boolean> errors = new HashMap<>();
+        request.setAttribute("errors", errors);
+
+        if (!memberService.isPwEqualToConfirm(pw, confirmPw)) { // 비번!=비번확인
+            errors.put("notMatch", Boolean.TRUE);
+            return "/member/withdrawForm";
+        } else if (!memberService.checkPwCorrect(mNumber, pw)) { //비밀번호가 틀림
+            errors.put("notCorrect", Boolean.TRUE);
+            return "/member/withdrawForm";
+        }
+
+        memberService.withdraw(mNumber);    // MemberService에서 mNumber 이용해 회원탈퇴
+        request.getSession().invalidate();  // 남아있는 세션 삭제
+
+        return "/member/withdrawSuccess";
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
