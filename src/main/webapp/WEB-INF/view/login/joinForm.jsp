@@ -19,7 +19,7 @@
                             <small>Petmily</small>
                         </a>
                 	</span>
-                    <form action="/join.do" method="post">
+                    <form action="/join" method="post">
                         <div class="form-inputs">
                             <input type="text" name="id" placeholder="아이디" required="required">
 
@@ -49,7 +49,7 @@
                             <p class="login-text">핸드폰 번호 형식으로 입력하세요</p>
 
                             <input id="submit_button" type="submit" value="회원가입">
-                            <p class="login-text">계정이 이미 있습니까? <a href="/login.do">login</a></p>
+                            <p class="login-text">계정이 이미 있습니까? <a href="/login">login</a></p>
                         </div>
                     </form>
                 </div>
