@@ -139,7 +139,7 @@ public class AbandonedAnimalController {
 
         redirectAttributes.addAttribute("abNumber", form.getAbNumber());
 
-        return "redirect:/abandoned_animal/detail?abNumber={abNumber}";
+        return "/abandoned_animal/submitSuccess";
     }
 
     //=======봉사하기=======
