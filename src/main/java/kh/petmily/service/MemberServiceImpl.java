@@ -65,14 +65,14 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean checkPwCorrect(int mNumber, String pw) { //계정 비번 일치하는지
+    public boolean checkPwCorrect(int mNumber, String pw) {
         Member member = memberDao.findByPk(mNumber);
 
         return member.getPw().equals(pw);
     }
 
     @Override
-    public boolean isPwEqualToConfirm(String pw, String confirmPw) { // 비번, 비번확인 일치하는지
+    public boolean isPwEqualToConfirm(String pw, String confirmPw) {
         return pw != null && pw.equals(confirmPw);
     }
 

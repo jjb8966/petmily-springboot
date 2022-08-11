@@ -112,30 +112,28 @@ public class MemberController {
         return "/member/withdrawForm";
     }
 
-
     @PostMapping("/member/withdraw")
     public String withdraw(HttpServletRequest request, @RequestParam String pw, @RequestParam String confirmPw) {
 
         log.info("pw = {}", pw);
         log.info("confirmPw = {}", confirmPw);
 
-        Member member = getAuthMember(request); // 로그인된 회원 정보 member에 담음
-        int mNumber = member.getMNumber(); // member객체에서 mNumber정보 받아옴
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
 
-        // 검증
         Map<String, Boolean> errors = new HashMap<>();
         request.setAttribute("errors", errors);
 
-        if (!memberService.isPwEqualToConfirm(pw, confirmPw)) { // 비번!=비번확인
+        if (!memberService.isPwEqualToConfirm(pw, confirmPw)) {
             errors.put("notMatch", Boolean.TRUE);
             return "/member/withdrawForm";
-        } else if (!memberService.checkPwCorrect(mNumber, pw)) { //비밀번호가 틀림
+        } else if (!memberService.checkPwCorrect(mNumber, pw)) {
             errors.put("notCorrect", Boolean.TRUE);
             return "/member/withdrawForm";
         }
 
-        memberService.withdraw(mNumber);    // MemberService에서 mNumber 이용해 회원탈퇴
-        request.getSession().invalidate();  // 남아있는 세션 삭제
+        memberService.withdraw(mNumber);
+        request.getSession().invalidate();
 
         return "/member/withdrawSuccess";
     }
