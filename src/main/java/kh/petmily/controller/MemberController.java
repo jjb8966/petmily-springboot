@@ -140,19 +140,3 @@ public class MemberController {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

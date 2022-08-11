@@ -13,7 +13,7 @@
             <div class="left-side">
                 <div>
                 	<span class="brand">
-                        <a href="${pageContext.request.contextPath}/index.do"
+                        <a href="${pageContext.request.contextPath}/"
                            style="text-decoration: none; color: black">
                             <img src="https://i.imgur.com/zpXluzv.png">
                             <small>Petmily</small>
