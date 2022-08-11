@@ -5,13 +5,16 @@ import kh.petmily.domain.member.form.MemberInfo;
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberServiceImpl implements MemberService{
 
     private final MemberDao memberDao;
@@ -25,7 +28,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member login(String id, String pw) {
         Member member = memberDao.selectMemberById(id);
-
         if (!pw.equals(member.getPw())) {
             return null;
         }
@@ -38,27 +40,14 @@ public class MemberServiceImpl implements MemberService{
 
     }
 
-//    @Override
-//    public MemberInfo findById(String userId) {
-//        Member member = memberDao.selectById(userId);
-//
-//        if (member == null) {
-//            throw new MemberNotFoundException();
-//        }
-//
-//        String id = member.getId();
-//        String pw = member.getPw();
-//        String name = member.getName();
-//        Date birth = member.getBirth();
-//        String gender = member.getGender();
-//        String email = member.getEmail();
-//        String phone = member.getPhone();
-//        String grade = member.getGrade();
-//
-//        MemberInfo memberInfo = new MemberInfo(id, pw, name, birth, gender, email, phone, grade);
-//
-//        return memberInfo;
-//    }
+    @Override
+    public Member findById(String userId) {
+        Member member = memberDao.selectMemberById(userId);
+        if (member == null) {
+            throw new NoSuchElementException();
+        }
+        return member;
+    }
 
     @Override
     public void withdraw(int mNumber) {
@@ -71,8 +60,11 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void changeMemberInfo(String id, MemberInfo memberInfo) {
-
+    public void changeMemberInfo(int mNumber, MemberInfo memberInfo) {
+        Member member = memberInfo.toMember();
+        member.toInfoInsertMNumber(mNumber);
+        log.info("[update MemberInfo] = {} ", member);
+        memberDao.update(member);
     }
 
     @Override

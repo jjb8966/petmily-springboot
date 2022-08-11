@@ -19,7 +19,7 @@ public interface MemberService {
 
     public boolean checkPwCorrect(int mNumber, String pw);
 
-    public void changeMemberInfo(String id, MemberInfo memberInfo);
+    public void changeMemberInfo(int mNumber, MemberInfo memberInfo);
 
     String findName(int mNumber);
 }

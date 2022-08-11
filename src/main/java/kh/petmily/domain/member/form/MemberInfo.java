@@ -1,10 +1,14 @@
 package kh.petmily.domain.member.form;
 
+import kh.petmily.domain.member.Member;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.sql.Date;
 
 @Data
+@NoArgsConstructor
 public class MemberInfo {
 
     private String id;
@@ -32,5 +36,9 @@ public class MemberInfo {
         this.name = name;
         this.email = email;
         this.phone = phone;
+    }
+
+    public Member toMember() {
+        return  new Member(id, pw, name, birth, gender, email, phone);
     }
 }

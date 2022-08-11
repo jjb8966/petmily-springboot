@@ -13,7 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequiredArgsConstructor
@@ -91,6 +95,41 @@ public class MemberController {
 //        request.setAttribute("memberInfo", memberInfo);
         model.addAttribute("memberInfo", memberInfo);
 
+        return "/member/mypage";
+    }
+
+    //change member Info
+    @GetMapping(value = "/member/change_info")
+    private String processForm(HttpSession session, Model model) {
+        Member user = (Member) session.getAttribute("authUser");
+        log.info("user = {} ", user);
+        String id = user.getId();
+        log.info("id = {} ", id);
+
+        Member memberInfo = memberService.findById(id);
+        model.addAttribute("memberInfo", memberInfo);
+        return "/member/changeMemberInfo";
+    }
+
+    @PostMapping(value = "/member/change_info")
+    private String processSubmit(HttpSession session, Model model, MemberInfo memberInfo, HttpServletResponse res) throws Exception {
+        log.info("[Request MemberInfo] = {} ", memberInfo);
+        Member user = (Member) session.getAttribute("authUser");
+        String id = user.getId();
+        Member info = memberService.findById(id);
+
+        log.info("[findMemberInfo] = {} ", info);
+        Map<String, Boolean> errors = new HashMap<>();
+        model.addAttribute("errors", errors);
+
+        try {
+            memberService.changeMemberInfo(user.getMNumber(), memberInfo);
+            Member member = memberService.findById(id);
+            session.setAttribute("authUser", member);
+        } catch (NoSuchElementException e) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
+        }
         return "/member/mypage";
     }
 
