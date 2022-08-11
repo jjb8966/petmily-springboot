@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+``<%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -11,14 +11,14 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../../petsitting-master/css/animate.css">
-    <link rel="stylesheet" href="../../../petsitting-master/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../../../petsitting-master/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../../../petsitting-master/css/magnific-popup.css">
-    <link rel="stylesheet" href="../../../petsitting-master/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="../../../petsitting-master/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="../../../petsitting-master/css/flaticon.css">
-    <link rel="stylesheet" href="../../../petsitting-master/css/style.css">
+    <link rel="stylesheet" href="/resources/petsitting-master/css/animate.css">
+    <link rel="stylesheet" href="/resources/petsitting-master/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/petsitting-master/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/petsitting-master/css/magnific-popup.css">
+    <link rel="stylesheet" href="/resources/petsitting-master/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/resources/petsitting-master/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="/resources/petsitting-master/css/flaticon.css">
+    <link rel="stylesheet" href="/resources/petsitting-master/css/style.css">
 </head>
 
 
@@ -55,7 +55,7 @@
 
             <!-- 목록 출력 -->
 
-            <c:forEach var="board" items="${boardPage.title}">
+            <c:forEach var="board" items="${readBoardForm.title}">
                 <div class="card mb-2">
                     <div class="card-body p-2 p-sm-3">
                         <div class="media forum-item">
@@ -63,22 +63,22 @@
                             <!-- 글 번호 -->
 
                             <div class="media-body">
-                                <small><i class="far fa-eye"></i>글번호 ${board.bNumber}</small>
+                                <small><i class="far fa-eye"></i>글번호 ${board.getBNumber()}</small>
 
                                 <!-- 제목 -->
 
                                 <div class="text-secondary">
                                     <c:if test="${param.kindOfBoard eq '자유'}">
-                                        <a href="/board/read?kindOfBoard=${param.kindOfBoard}&bNumber=${board.bNumber}"
+                                        <a href="/board/read?kindOfBoard=${param.kindOfBoard}&bNumber=${board.getBNumber()}"
                                            class="text-body" style="font-size: 1.3em;">${board.title}</a>
                                     </c:if>
                                     <c:if test="${param.kindOfBoard eq '문의'}">
                                         <c:choose>
-                                            <c:when test="${authUser.mNumber ne board.mNumber and board.checkPublic eq 'N'}">
+                                            <c:when test="${authUser.getMNumber() ne board.getMNumber() and board.checkPublic eq 'N'}">
                                                 <a class="text-body" style="font-size: 1.3em;">${board.title}</a>
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="/board/read?kindOfBoard=${param.kindOfBoard}&bNumber=${board.bNumber}"
+                                                <a href="/board/read?kindOfBoard=${param.kindOfBoard}&bNumber=${board.getBNumber()}"
                                                    class="text-body" style="font-size: 1.3em;">${board.title}</a>
                                             </c:otherwise>
                                         </c:choose>
@@ -129,20 +129,20 @@
                 <div class="col text-center">
                     <div class="block-27">
                         <ul>
-                            <c:if test="${boardPage.hasBoard()}">
+                            <c:if test="${readBoardForm.hasBoard()}">
                                 <li>
-                                    <c:if test="${boardPage.startPage > 5}">
-                                        <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${boardPage.startPage - 5}">&lt;</a>
+                                    <c:if test="${readBoardForm.startPage > 5}">
+                                        <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${readBoardForm.startPage - 5}">&lt;</a>
                                     </c:if>
                                 </li>
                                 <li>
-                                <c:forEach var="pbNum" begin="${boardPage.startPage}" end="${boardPage.endPage}">
-                                    <c:if test="${boardPage.currentPage == pbNum}">
+                                <c:forEach var="pbNum" begin="${readBoardForm.startPage}" end="${readBoardForm.endPage}">
+                                    <c:if test="${readBoardForm.currentPage == pbNum}">
                                         <li class="active">
                                             <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${pbNum}">${pbNum}</a>
                                         </li>
                                     </c:if>
-                                    <c:if test="${boardPage.currentPage != pbNum}">
+                                    <c:if test="${readBoardForm.currentPage != pbNum}">
                                         <li>
                                             <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${pbNum}">${pbNum}</a>
                                         </li>
@@ -150,8 +150,8 @@
                                 </c:forEach>
                                 </li>
                                 <li>
-                                    <c:if test="${boardPage.endPage < boardPage.totalPages}">
-                                        <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${boardPage.startPage + 5}">&gt;</a>
+                                    <c:if test="${readBoardForm.endPage < readBoardForm.totalPages}">
+                                        <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${readBoardForm.startPage + 5}">&gt;</a>
                                     </c:if>
                                 </li>
                             </c:if>
@@ -179,22 +179,22 @@
     </svg>
 </div>
 
-<script src="../../../petsitting-master/js/jquery.min.js"></script>
-<script src="../../../petsitting-master/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="../../../petsitting-master/js/popper.min.js"></script>
-<script src="../../../petsitting-master/js/bootstrap.min.js"></script>
-<script src="../../../petsitting-master/js/jquery.easing.1.3.js"></script>
-<script src="../../../petsitting-master/js/jquery.waypoints.min.js"></script>
-<script src="../../../petsitting-master/js/jquery.stellar.min.js"></script>
-<script src="../../../petsitting-master/js/jquery.animateNumber.min.js"></script>
-<script src="../../../petsitting-master/js/bootstrap-datepicker.js"></script>
-<script src="../../../petsitting-master/js/jquery.timepicker.min.js"></script>
-<script src="../../../petsitting-master/js/owl.carousel.min.js"></script>
-<script src="../../../petsitting-master/js/jquery.magnific-popup.min.js"></script>
-<script src="../../../petsitting-master/js/scrollax.min.js"></script>
+<script src="/resources/petsitting-master/js/jquery.min.js"></script>
+<script src="/resources/petsitting-master/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/resources/petsitting-master/js/popper.min.js"></script>
+<script src="/resources/petsitting-master/js/bootstrap.min.js"></script>
+<script src="/resources/petsitting-master/js/jquery.easing.1.3.js"></script>
+<script src="/resources/petsitting-master/js/jquery.waypoints.min.js"></script>
+<script src="/resources/petsitting-master/js/jquery.stellar.min.js"></script>
+<script src="/resources/petsitting-master/js/jquery.animateNumber.min.js"></script>
+<script src="/resources/petsitting-master/js/bootstrap-datepicker.js"></script>
+<script src="/resources/petsitting-master/js/jquery.timepicker.min.js"></script>
+<script src="/resources/petsitting-master/js/owl.carousel.min.js"></script>
+<script src="/resources/petsitting-master/js/jquery.magnific-popup.min.js"></script>
+<script src="/resources/petsitting-master/js/scrollax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="../../../petsitting-master/js/google-map.js"></script>
-<script src="../../../petsitting-master/js/main.js"></script>
+<script src="/resources/petsitting-master/js/google-map.js"></script>
+<script src="/resources/petsitting-master/js/main.js"></script>
 
 </body>
 </html>
