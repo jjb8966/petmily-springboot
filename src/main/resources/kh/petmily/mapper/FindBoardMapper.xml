@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh.petmily.mapper.FindBoardMapper">
+
+    <!--=======BasicMapper 메소드=======-->
+    <select id="selectByPk" resultType="kh.petmily.domain.find_board.FindBoard">
+        select *
+        from FINDANIMALBOARD
+        where FANUMBER = #{pk}
+    </select>
+
+    <insert id="insert">
+        insert into FINDANIMALBOARD(MNUMBER, SPECIES, KIND, LOCATION, TITLE, CONTENT)
+        values (#{mNumber}, #{species}, #{kind}, #{location}, #{title}, #{content})
+    </insert>
+
+    <update id="update">
+        update FINDANIMALBOARD
+        set SPECIES  = #{species},
+            KIND     = #{kind},
+            LOCATION = #{location},
+            TITLE    = #{title},
+            CONTENT  = #{content}
+        where FANUMBER = #{faNumber}
+    </update>
+
+    <delete id="delete">
+        delete
+        from FINDANIMALBOARD
+        where FANUMBER = #{pk}
+    </delete>
+    <!--=======BasicMapper 메소드=======-->
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from FINDANIMALBOARD
+    </select>
+
+    <select id="selectIndex" resultType="kh.petmily.domain.find_board.FindBoard">
+        select *
+        from (select ROWNUM as NUM, A.*
+              FROM (select * from FINDANIMALBOARD order by FANUMBER DESC) A)
+        where NUM between #{start} and #{end}
+    </select>
+
+    <select id="selectFindWriteForm" resultType="kh.petmily.domain.find_board.FindBoard">
+        select *
+        from FINDANIMALBOARD
+        where FANUMBER = #{pk}
+    </select>
+
+    <select id="selectName" resultType="java.lang.String">
+        select M.NAME
+        from FINDANIMALBOARD F
+                 inner join MEMBER M on F.MNUMBER = M.MNUMBER
+        where F.FANUMBER = #{pk}
+    </select>
+</mapper>
