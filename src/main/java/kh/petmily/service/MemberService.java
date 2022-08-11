@@ -12,8 +12,7 @@ public interface MemberService {
 
     public void logout();
 
-//    불필요 메소드
-//    public MemberInfo findById(String userId);
+    public Member findById(String userId);
 
     public void withdraw(int mNumber);
 
