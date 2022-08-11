@@ -1,16 +1,20 @@
 package kh.petmily.controller;
 
 import kh.petmily.domain.member.form.JoinRequest;
+import kh.petmily.domain.member.form.MemberInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import kh.petmily.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +24,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberDao memberDao;
 
+    // 회원 가입
     @RequestMapping(value = "/join", method = RequestMethod.GET)
     public String joinForm() {
         return "/login/joinForm";
@@ -38,6 +43,7 @@ public class MemberController {
         return "/login/loginForm";
     }
 
+    // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginForm() {
         return "/login/loginForm";
@@ -60,6 +66,7 @@ public class MemberController {
         return "/main/index";
     }
 
+    // 로그아웃
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
@@ -71,5 +78,65 @@ public class MemberController {
     public String home() {
         return "/main/index";
     }
+
+    // mypage
+    @GetMapping("/member/mypage")
+    public String mypage(HttpServletRequest request, Model model) {
+        Member member = getAuthMember(request);
+
+        String id = member.getId();
+
+//        MemberInfo memberInfo = memberService.findById(id);
+        MemberInfo memberInfo = toMemberInfoForm(member);
+
+//        request.setAttribute("memberInfo", memberInfo);
+        model.addAttribute("memberInfo", memberInfo);
+
+        return "/member/mypage";
+    }
+
+    private MemberInfo toMemberInfoForm(Member member) {
+        return new MemberInfo(member.getId(), member.getPw(), member.getName(), member.getBirth(), member.getGender(), member.getEmail(), member.getPhone(), member.getGrade());
+    }
+
+    private static Member getAuthMember(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member member = (Member) session.getAttribute("authUser");
+        return member;
+    }
+
+
+    // 회원탈퇴
+    @GetMapping("/member/withdraw")
+    public String withdrawForm() {
+        return "/member/withdrawForm";
+    }
+
+    @PostMapping("/member/withdraw")
+    public String withdraw(HttpServletRequest request, @RequestParam String pw, @RequestParam String confirmPw) {
+
+        log.info("pw = {}", pw);
+        log.info("confirmPw = {}", confirmPw);
+
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
+
+        Map<String, Boolean> errors = new HashMap<>();
+        request.setAttribute("errors", errors);
+
+        if (!memberService.isPwEqualToConfirm(pw, confirmPw)) {
+            errors.put("notMatch", Boolean.TRUE);
+            return "/member/withdrawForm";
+        } else if (!memberService.checkPwCorrect(mNumber, pw)) {
+            errors.put("notCorrect", Boolean.TRUE);
+            return "/member/withdrawForm";
+        }
+
+        memberService.withdraw(mNumber);
+        request.getSession().invalidate();
+
+        return "/member/withdrawSuccess";
+    }
+
 
 }

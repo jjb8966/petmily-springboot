@@ -4,15 +4,16 @@ import kh.petmily.domain.member.form.JoinRequest;
 import kh.petmily.domain.member.form.MemberInfo;
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
 
-    @Autowired MemberDao memberDao;
+    private final MemberDao memberDao;
 
     @Override
     public void join(JoinRequest joinReq) {
@@ -36,19 +37,43 @@ public class MemberServiceImpl implements MemberService{
 
     }
 
-    @Override
-    public MemberInfo findById(String userId) {
-        return null;
-    }
+//    @Override
+//    public MemberInfo findById(String userId) {
+//        Member member = memberDao.selectById(userId);
+//
+//        if (member == null) {
+//            throw new MemberNotFoundException();
+//        }
+//
+//        String id = member.getId();
+//        String pw = member.getPw();
+//        String name = member.getName();
+//        Date birth = member.getBirth();
+//        String gender = member.getGender();
+//        String email = member.getEmail();
+//        String phone = member.getPhone();
+//        String grade = member.getGrade();
+//
+//        MemberInfo memberInfo = new MemberInfo(id, pw, name, birth, gender, email, phone, grade);
+//
+//        return memberInfo;
+//    }
 
     @Override
     public void withdraw(int mNumber) {
-
+        memberDao.delete(mNumber);
     }
 
     @Override
     public boolean checkPwCorrect(int mNumber, String pw) {
-        return false;
+        Member member = memberDao.findByPk(mNumber);
+
+        return member.getPw().equals(pw);
+    }
+
+    @Override
+    public boolean isPwEqualToConfirm(String pw, String confirmPw) {
+        return pw != null && pw.equals(confirmPw);
     }
 
     @Override

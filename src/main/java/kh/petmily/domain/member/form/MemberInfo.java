@@ -1,7 +1,10 @@
 package kh.petmily.domain.member.form;
 
+import lombok.Data;
+
 import java.sql.Date;
 
+@Data
 public class MemberInfo {
 
     private String id;
