@@ -17,7 +17,7 @@
     </insert>
 
     <update id="update">
-        update LOOKDANIMALBOARD
+        update LOOKANIMALBOARD
         set SPECIES  = #{species},
             KIND     = #{kind},
             LOCATION = #{location},
