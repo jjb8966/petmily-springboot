@@ -2,6 +2,8 @@ package kh.petmily.controller;
 
 import kh.petmily.domain.look_board.form.LookBoardDetailForm;
 import kh.petmily.domain.look_board.form.LookBoardPageForm;
+import kh.petmily.domain.look_board.form.LookBoardWriteForm;
+import kh.petmily.domain.member.Member;
 import kh.petmily.service.LookBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/lookBoard")
@@ -41,5 +44,33 @@ public class LookBoardController {
         model.addAttribute("lookIn", detailForm);
 
         return "/look_board/detailLookBoard";
+    }
+
+    //=======작성=======
+    @GetMapping("/auth/write")
+    public String writeForm() {
+
+        return "/look_board/writeLookBoardForm";
+    }
+
+    @PostMapping("/auth/write")
+    public String write(@ModelAttribute LookBoardWriteForm lookBoardWriteForm, HttpServletRequest request) {
+        Member member = getAuthMember(request);
+
+        int mNumber = member.getMNumber();
+        lookBoardWriteForm.setMNumber(mNumber);
+
+        log.info("LookWriteForm = {}", lookBoardWriteForm);
+
+        lookBoardService.write(lookBoardWriteForm);
+
+        return "/look_board/submitSuccess";
+    }
+
+    private static Member getAuthMember(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member member = (Member) session.getAttribute("authUser");
+
+        return member;
     }
 }

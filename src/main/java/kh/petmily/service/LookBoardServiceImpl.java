@@ -5,6 +5,7 @@ import kh.petmily.domain.look_board.LookBoard;
 import kh.petmily.domain.look_board.form.LookBoardDetailForm;
 import kh.petmily.domain.look_board.form.LookBoardListForm;
 import kh.petmily.domain.look_board.form.LookBoardPageForm;
+import kh.petmily.domain.look_board.form.LookBoardWriteForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,16 @@ import java.util.List;
 public class LookBoardServiceImpl implements LookBoardService {
     private final LookBoardDao lookBoardDao;
     private int size = 6;
+
+    @Override
+    public void write(LookBoardWriteForm lwForm) {
+        LookBoard lookBoard = toLookFromLW(lwForm);
+        lookBoardDao.insert(lookBoard);
+    }
+
+    private LookBoard toLookFromLW(LookBoardWriteForm req) {
+        return new LookBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), null, req.getTitle(), req.getContent());
+    }
 
     @Override
     public LookBoardPageForm getLookPage(int pageNo) {
