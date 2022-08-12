@@ -1,5 +1,6 @@
 package kh.petmily.controller;
 
+import kh.petmily.domain.look_board.form.LookBoardDetailForm;
 import kh.petmily.domain.look_board.form.LookBoardPageForm;
 import kh.petmily.service.LookBoardService;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +31,15 @@ public class LookBoardController {
         model.addAttribute("Looks", Looks);
 
         return "/look_board/listLookBoard";
+    }
+
+    @GetMapping("/detail")
+    public String detail(@RequestParam("laNumber") int laNumber, Model model) {
+        LookBoardDetailForm detailForm = lookBoardService.getDetailForm(laNumber);
+        log.info("LookDetailForm = {}", detailForm);
+
+        model.addAttribute("lookIn", detailForm);
+
+        return "/look_board/detailLookBoard";
     }
 }
