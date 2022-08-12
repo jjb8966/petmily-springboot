@@ -108,6 +108,14 @@ public class LookBoardController {
         return "redirect:/lookBoard/detail?laNumber={laNumber}";
     }
 
+    //=======삭제=======
+    @GetMapping("/auth/delete")
+    public String delete(@RequestParam("laNumber") int laNumber) {
+        lookBoardService.delete(laNumber);
+
+        return "/look_board/submitSuccess";
+    }
+
     private static Member getAuthMember(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Member member = (Member) session.getAttribute("authUser");

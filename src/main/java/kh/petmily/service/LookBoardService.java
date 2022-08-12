@@ -10,6 +10,8 @@ public interface LookBoardService {
 
     public void modify(LookBoardModifyForm lmForm);
 
+    public void delete(int laNumber);
+
     public LookBoardPageForm getLookPage(int pageNo);
 
     public LookBoardDetailForm getDetailForm(int laNumber);

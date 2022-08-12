@@ -38,6 +38,11 @@ public class LookBoardServiceImpl implements LookBoardService {
     }
 
     @Override
+    public void delete(int laNumber) {
+        lookBoardDao.delete(laNumber);
+    }
+
+    @Override
     public LookBoardPageForm getLookPage(int pageNo) {
         int total = lookBoardDao.selectCount();
         List<LookBoardListForm> content = lookBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
