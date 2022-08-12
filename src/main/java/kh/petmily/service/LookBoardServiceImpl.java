@@ -2,10 +2,7 @@ package kh.petmily.service;
 
 import kh.petmily.dao.LookBoardDao;
 import kh.petmily.domain.look_board.LookBoard;
-import kh.petmily.domain.look_board.form.LookBoardDetailForm;
-import kh.petmily.domain.look_board.form.LookBoardListForm;
-import kh.petmily.domain.look_board.form.LookBoardPageForm;
-import kh.petmily.domain.look_board.form.LookBoardWriteForm;
+import kh.petmily.domain.look_board.form.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,6 +27,17 @@ public class LookBoardServiceImpl implements LookBoardService {
     }
 
     @Override
+    public void modify(LookBoardModifyForm lmForm) {
+        LookBoard lookBoard = toLookFromLM(lmForm);
+        lookBoard.setLaNumber(lmForm.getLaNumber());
+        lookBoardDao.update(lookBoard);
+    }
+
+    private LookBoard toLookFromLM(LookBoardModifyForm req) {
+        return new LookBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), null, req.getTitle(), req.getContent());
+    }
+
+    @Override
     public LookBoardPageForm getLookPage(int pageNo) {
         int total = lookBoardDao.selectCount();
         List<LookBoardListForm> content = lookBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
@@ -47,6 +55,18 @@ public class LookBoardServiceImpl implements LookBoardService {
 
     private LookBoardDetailForm toDetailForm(LookBoard lookBoard) {
         return new LookBoardDetailForm(lookBoard.getLaNumber(), lookBoard.getMNumber(), findName(lookBoard.getLaNumber()), lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getAnimalState(), lookBoard.getImgPath(), lookBoard.getWrTime(), lookBoard.getTitle(), lookBoard.getContent());
+    }
+
+    @Override
+    public LookBoardModifyForm getModifyForm(int laNumber) {
+        LookBoard lookBoard = lookBoardDao.findByPk(laNumber);
+        LookBoardModifyForm modifyForm = toModifyForm(lookBoard);
+
+        return modifyForm;
+    }
+
+    private LookBoardModifyForm toModifyForm(LookBoard lookBoard) {
+        return new LookBoardModifyForm(lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getTitle(), lookBoard.getContent());
     }
 
     @Override
