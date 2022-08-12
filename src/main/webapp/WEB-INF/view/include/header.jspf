@@ -50,7 +50,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a href="/abandoned_animal/list"
                                         class="nav-link">유기동물 조회</a></li>
-                <li class="nav-item"><a href="/find/list" class="nav-link">반려동물
+                <li class="nav-item"><a href="/findBoard/list" class="nav-link">반려동물
                     찾아요</a></li>
                 <li class="nav-item"><a href="/saw/list" class="nav-link">유기동물
                     봤어요</a></li>

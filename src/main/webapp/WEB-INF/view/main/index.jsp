@@ -67,7 +67,7 @@
                     <div class="media-body">
                         <h3 class="heading">반려동물 찾아요</h3>
                         <p>소중한 가족을 잃어버리셨나요? 반려동물 찾아요 게시판에 정보를 등록해주세요. 당신의 가족을 찾기 위한 도움을 제공합니다.</p>
-                        <a href="/find/list.do"
+                        <a href="/findBoard/list.do"
                            class="btn-custom d-flex align-items-center justify-content-center"><span
                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
                     </div>
