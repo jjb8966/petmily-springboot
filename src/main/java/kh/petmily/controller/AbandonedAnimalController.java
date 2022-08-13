@@ -78,13 +78,12 @@ public class AbandonedAnimalController {
     @PostMapping("/auth/donate")
     public String donate(@ModelAttribute DonateSubmitForm donateSubmitForm, HttpServletRequest request) {
 
-        log.info("donateSubmitForm = {}", donateSubmitForm);
-
         Member member = getAuthMember(request);
-
         int mNumber = member.getMNumber();
 
         donateSubmitForm.setMNumber(mNumber);
+        log.info("donateSubmitForm = {}", donateSubmitForm);
+
         donateService.donate(donateSubmitForm);
 
         return "/abandoned_animal/submitSuccess";

@@ -6,11 +6,13 @@ import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.abandoned_animal.form.DonateSubmitForm;
 import kh.petmily.domain.donation.Donation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DonateServiceImpl implements DonateService{
 
     private final DonationDao donationDao;
@@ -20,6 +22,7 @@ public class DonateServiceImpl implements DonateService{
     @Override
     public void donate(DonateSubmitForm donateSubmitForm) {
         Donation donation = toDonation(donateSubmitForm);
+        log.info("donation = {}", donation);
 
         donationDao.insert(donation);
     }
