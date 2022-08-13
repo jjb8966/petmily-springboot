@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh.petmily.mapper.LookBoardMapper">
+
+    <!--=======BasicMapper 메소드=======-->
+    <select id="selectByPk" resultType="kh.petmily.domain.look_board.LookBoard">
+        select *
+        from LOOKANIMALBOARD
+        where LANUMBER = #{pk}
+    </select>
+
+    <insert id="insert">
+        insert into LOOKANIMALBOARD(MNUMBER, SPECIES, KIND, LOCATION, TITLE, CONTENT)
+        values (#{mNumber}, #{species}, #{kind}, #{location}, #{title}, #{content})
+    </insert>
+
+    <update id="update">
+        update LOOKANIMALBOARD
+        set SPECIES  = #{species},
+            KIND     = #{kind},
+            LOCATION = #{location},
+            TITLE    = #{title},
+            CONTENT  = #{content}
+        where LANUMBER = #{laNumber}
+    </update>
+
+    <delete id="delete">
+        delete
+        from LOOKANIMALBOARD
+        where LANUMBER = #{pk}
+    </delete>
+    <!--=======BasicMapper 메소드=======-->
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from LOOKANIMALBOARD
+    </select>
+
+    <select id="selectIndex" resultType="kh.petmily.domain.look_board.LookBoard">
+        select *
+        from (select ROWNUM as NUM, A.*
+              FROM (select * from LOOKANIMALBOARD order by LANUMBER DESC) A)
+        where NUM between #{start} and #{end}
+    </select>
+
+    <select id="selectName" resultType="java.lang.String">
+        select M.NAME
+        from LOOKANIMALBOARD L
+                 inner join MEMBER M on L.MNUMBER = M.MNUMBER
+        where L.LANUMBER = #{pk}
+    </select>
+</mapper>
