@@ -1,6 +1,5 @@
 package kh.petmily.service;
 
-import kh.petmily.domain.abandoned_animal.form.VolunteerApplyForm;
 import kh.petmily.domain.abandoned_animal.form.VolunteerApplySubmitForm;
 
 public interface VolunteerService {
