@@ -18,7 +18,7 @@
 
     <update id="update">
         update MEMBER
-        set PW = #{pw}, NAME = #{name}, PHONE = #{phone}, EMAIL = #{email}
+        set PW = #{pw}, NAME = #{name}, EMAIL = #{email}, PHONE = #{phone}
         where MNUMBER = #{mNumber}
     </update>
 

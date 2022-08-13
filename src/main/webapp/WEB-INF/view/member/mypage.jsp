@@ -46,7 +46,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">마이페이지</h2>
+                <h2 class="heading-section">${member.name}님의 마이페이지</h2>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -59,7 +59,7 @@
                                     <span class="fa fa-map-marker"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>이름 : </span>${memberInfo.name}</p>
+                                    <p><span>생년월일 : </span>${member.birth}</p>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                     <span class="fa fa-phone"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>전화번호 : </span>${memberInfo.phone}</p>
+                                    <p><span>이메일 : </span>${member.email}</p>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                     <span class="fa fa-paper-plane"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>생년월일 : </span>${memberInfo.birth}</p>
+                                    <p><span>전화번호 : </span>${member.phone}</p>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                     <span class="fa fa-globe"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>회원 등급 : </span>${memberInfo.grade}</p>
+                                    <p><span>회원 등급 : </span>${member.grade}</p>
                                 </div>
                             </div>
                         </div>

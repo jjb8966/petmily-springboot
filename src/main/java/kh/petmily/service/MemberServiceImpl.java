@@ -1,16 +1,18 @@
 package kh.petmily.service;
 
 import kh.petmily.domain.member.form.JoinRequest;
-import kh.petmily.domain.member.form.MemberInfo;
+import kh.petmily.domain.member.form.MemberChangeForm;
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberServiceImpl implements MemberService{
 
     private final MemberDao memberDao;
@@ -77,8 +79,18 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void changeMemberInfo(String id, MemberInfo memberInfo) {
+    public Member modify(Member member, MemberChangeForm memberChangeForm) {
+        Member mem = toMemberFromChange(member, memberChangeForm);
 
+        memberDao.update(mem);
+
+        log.info("Service - modify - member : {}", mem);
+
+        return mem;
+    }
+
+    private Member toMemberFromChange(Member member, MemberChangeForm memberChangeForm) {
+        return new Member(member.getMNumber(), member.getId(), memberChangeForm.getPw(), memberChangeForm.getName(), member.getBirth(), member.getGender(), memberChangeForm.getEmail(), memberChangeForm.getPhone(), member.getGrade());
     }
 
     @Override
