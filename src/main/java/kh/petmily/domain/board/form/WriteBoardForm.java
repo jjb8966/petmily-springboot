@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class WriteBoardForm implements DomainObj {
-
     private int mNumber;
     private String kindOfBoard;
     private String title;
@@ -25,27 +24,4 @@ public class WriteBoardForm implements DomainObj {
     public int getmNumber() {
         return mNumber;
     }
-
-    public String getKindOfBoard() {
-        return kindOfBoard;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getCheckPublic() {
-        return checkPublic;
-    }
-
-
-    public void setMNumber(int mNumber) {
-        this.mNumber = mNumber;
-    }
-
-
 }
