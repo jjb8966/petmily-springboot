@@ -3,11 +3,9 @@ package kh.petmily.controller;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
 import kh.petmily.domain.abandoned_animal.form.DonateSubmitForm;
+import kh.petmily.domain.abandoned_animal.form.VolunteerApplySubmitForm;
 import kh.petmily.domain.member.Member;
-import kh.petmily.service.AbandonedAnimalService;
-import kh.petmily.service.AdoptTempService;
-import kh.petmily.service.DonateService;
-import kh.petmily.service.MemberService;
+import kh.petmily.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,6 +25,7 @@ public class AbandonedAnimalController {
     private final AdoptTempService adoptTempService;
     private final DonateService donateService;
     private final MemberService memberService;
+    private final VolunteerService volunteerService;
 
     @GetMapping("/list")
     public String list(HttpServletRequest request, Model model) {
@@ -55,9 +54,7 @@ public class AbandonedAnimalController {
 
     //=======후원하기=======
     @GetMapping("/auth/donate")
-    public String donateForm(@RequestParam("abNumber") int abNumber,
-                             HttpServletRequest request,
-                             Model model) {
+    public String donateForm(@RequestParam("abNumber") int abNumber, HttpServletRequest request, Model model) {
 
         Member member = getAuthMember(request);
 
@@ -77,8 +74,7 @@ public class AbandonedAnimalController {
     }
 
     @PostMapping("/auth/donate")
-    public String donate(@ModelAttribute DonateSubmitForm donateSubmitForm,
-                         HttpServletRequest request) {
+    public String donate(@ModelAttribute DonateSubmitForm donateSubmitForm, HttpServletRequest request) {
 
         log.info("donateSubmitForm = {}", donateSubmitForm);
 
@@ -94,8 +90,7 @@ public class AbandonedAnimalController {
 
     //=======입양/임보하기=======
     @GetMapping("/auth/adopt_temp")
-    public String adoptTempForm(@RequestParam int abNumber,
-                                HttpServletRequest request) {
+    public String adoptTempForm(@RequestParam int abNumber, HttpServletRequest request) {
 
         Member member = getAuthMember(request);
         int mNumber = member.getMNumber();
@@ -120,6 +115,57 @@ public class AbandonedAnimalController {
 //    }
 
     //=======봉사하기=======
+    @GetMapping("/auth/volunteer")
+    public String volunteerForm(@RequestParam("abNumber") int abNumber, HttpServletRequest request, Model model) {
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
+
+        String animalName = volunteerService.findAnimalName(abNumber);
+        String memberName = volunteerService.findMemberName(mNumber);
+        String memberBirth = volunteerService.findMemberBirth(mNumber);
+        String memberPhone = volunteerService.findMemberPhone(mNumber);
+        String memberEmail = volunteerService.findMemberEmail(mNumber);
+
+        if (animalName != null) {
+            model.addAttribute("animalName", animalName);
+        }
+
+        if (memberName != null) {
+            model.addAttribute("memberName", memberName);
+        }
+
+        if (memberBirth != null) {
+            model.addAttribute("memberBirth", memberBirth);
+        }
+
+        if (memberPhone != null) {
+            model.addAttribute("memberPhone", memberPhone);
+        }
+
+        if (memberEmail != null) {
+            model.addAttribute("memberEmail", memberEmail);
+        }
+
+        return "/abandoned_animal/volunteerAbandonedAnimal";
+    }
+
+    @PostMapping("/auth/volunteer")
+    private String volunteer(@RequestParam("abNumber") int abNumber, @ModelAttribute VolunteerApplySubmitForm volunteerApplySubmitForm, HttpServletRequest request) {
+        log.info("volunteerApplySubmitForm = {}", volunteerApplySubmitForm);
+
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
+
+        int sNumber = volunteerService.findsNumber(abNumber);
+
+        volunteerApplySubmitForm.setMNumber(mNumber);
+        volunteerApplySubmitForm.setSNumber(sNumber);
+
+        volunteerService.volunteer(volunteerApplySubmitForm);
+
+        return "/abandoned_animal/submitSuccess";
+    }
+
     private static Member getAuthMember(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Member member = (Member) session.getAttribute("authUser");

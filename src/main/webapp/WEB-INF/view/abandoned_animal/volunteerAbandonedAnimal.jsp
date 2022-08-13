@@ -108,7 +108,7 @@
     <p id="main-title" class="text-center">해당 유기동물 봉사 신청 폼입니다.</p>
 
     <form id="submit-form"
-          action="/abandoned_animal/volunteer?abNumber=${param.abNumber}"
+          action="/abandoned_animal/auth/volunteer?abNumber=${param.abNumber}"
           method="POST">
 
         <div class="form-row">
@@ -207,12 +207,12 @@
             <div class="col">
                 <label for="formGroupExampleInput">봉사활동 기간</label> <input
                     id="volunteerPeriod" type="number" class="form-control"
-                    name="period" placeholder="희망하는 봉사 활동 일 수를 기입해 주세요." required>
+                    name="volunteerPeriod" placeholder="희망하는 봉사 활동 일 수를 기입해 주세요." required>
             </div>
             <div class="col">
                 <label for="formGroupExampleInput">봉사 시작날짜</label> <input
                     id="volunteerStartDate" type="date" class="form-control"
-                    name="startDate" placeholder="입력" required>
+                    name="volunteerStartDay" placeholder="입력" required>
             </div>
         </div>
 

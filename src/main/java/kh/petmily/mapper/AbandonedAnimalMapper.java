@@ -19,10 +19,12 @@ public interface AbandonedAnimalMapper {
 
     void delete(int pk);
     // =======BasicMapper 메소드=======
-    
+
     int selectCount();
 
     List<AbandonedAnimal> selectIndex(@Param("start") int start, @Param("end") int end);
 
     String selectName(int pk);
+
+    int selectsNumber(int pk);
 }

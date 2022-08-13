@@ -22,4 +22,10 @@ public interface MemberMapper {
     Member selectMemberById(String id);
 
     String selectName(int pk);
+
+    String selectBirth(int pk);
+
+    String selectPhone(int pk);
+
+    String selectEmail(int pk);
 }

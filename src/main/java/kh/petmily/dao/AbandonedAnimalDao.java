@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class AbandonedAnimalDao implements BasicDao{
+public class AbandonedAnimalDao implements BasicDao {
 
     private final AbandonedAnimalMapper mapper;
 
@@ -46,5 +46,9 @@ public class AbandonedAnimalDao implements BasicDao{
 
     public String selectName(int pk) {
         return mapper.selectName(pk);
+    }
+
+    public int selectsNumber(int pk) {
+        return mapper.selectsNumber(pk);
     }
 }
