@@ -2,6 +2,7 @@ package kh.petmily.controller;
 
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
+import kh.petmily.domain.abandoned_animal.form.AdoptTempSubmitForm;
 import kh.petmily.domain.abandoned_animal.form.DonateSubmitForm;
 import kh.petmily.domain.abandoned_animal.form.VolunteerApplySubmitForm;
 import kh.petmily.domain.member.Member;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -109,10 +111,31 @@ public class AbandonedAnimalController {
         return "/abandoned_animal/adoptTempSubmitForm";
     }
 
-//    @PostMapping("/auth/adopt_temp")
-//    public String adoptTemp() {
-//
-//    }
+    @PostMapping("/auth/adopt_temp")
+    public String adoptTemp(@ModelAttribute AdoptTempSubmitForm form,
+                            @RequestParam String adoptOrTemp,
+                            HttpServletRequest request,
+                            RedirectAttributes redirectAttributes) {
+
+        log.info("adoptTempSubmitForm = {}", form);
+
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
+
+        form.setMNumber(mNumber);
+
+        if (adoptOrTemp.equals("adopt")) {
+            adoptTempService.adopt(form);
+        }
+
+        if (adoptOrTemp.equals("temp")) {
+            adoptTempService.tempProtect(form);
+        }
+
+        redirectAttributes.addAttribute("abNumber", form.getAbNumber());
+
+        return "/abandoned_animal/submitSuccess";
+    }
 
     //=======봉사하기=======
     @GetMapping("/auth/volunteer")

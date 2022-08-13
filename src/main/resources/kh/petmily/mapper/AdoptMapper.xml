@@ -12,8 +12,8 @@
     </select>
 
     <insert id="insert">
-        insert into ADOPT(MNUMBER, ABNUMBER, RESIDENCE, MARITALSTATUS, JOB, STATUS)
-        values (#{mNumber}, #{abNumber}, #{residence}, #{maritalStatus}, #{job}, #{status})
+        insert into ADOPT(MNUMBER, ABNUMBER, RESIDENCE, MARITALSTATUS, JOB)
+        values (#{mNumber}, #{abNumber}, #{residence}, #{maritalStatus}, #{job})
     </insert>
 
     <update id="update">

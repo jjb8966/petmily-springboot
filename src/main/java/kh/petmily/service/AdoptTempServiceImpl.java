@@ -38,13 +38,13 @@ public class AdoptTempServiceImpl implements AdoptTempService{
     }
 
     private Adopt toAdopt(AdoptTempSubmitForm adoptTempSubmitForm) {
-        return new Adopt(adoptTempSubmitForm.getmNumber(), adoptTempSubmitForm.getAbNumber(),
+        return new Adopt(adoptTempSubmitForm.getMNumber(), adoptTempSubmitForm.getAbNumber(),
                 adoptTempSubmitForm.getResidence(), adoptTempSubmitForm.getMaritalStatus(),
                 adoptTempSubmitForm.getJob());
     }
 
     private TempPet toTempPet(AdoptTempSubmitForm adoptTempSubmitForm) {
-        return new TempPet(adoptTempSubmitForm.getAbNumber(), adoptTempSubmitForm.getmNumber(),
+        return new TempPet(adoptTempSubmitForm.getAbNumber(), adoptTempSubmitForm.getMNumber(),
                 adoptTempSubmitForm.getResidence(), adoptTempSubmitForm.getMaritalStatus(),
                 adoptTempSubmitForm.getJob());
     }
