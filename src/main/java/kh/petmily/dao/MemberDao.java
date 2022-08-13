@@ -46,4 +46,16 @@ public class MemberDao implements BasicDao {
     public String selectName(int pk) {
         return mapper.selectName(pk);
     }
+
+    public String selectBirth(int pk) {
+        return mapper.selectBirth(pk);
+    }
+
+    public String selectPhone(int pk) {
+        return mapper.selectPhone(pk);
+    }
+
+    public String selectEmail(int pk) {
+        return mapper.selectEmail(pk);
+    }
 }
