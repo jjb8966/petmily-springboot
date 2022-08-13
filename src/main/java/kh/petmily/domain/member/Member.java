@@ -1,7 +1,7 @@
 package kh.petmily.domain.member;
 
 import kh.petmily.domain.DomainObj;
-import kh.petmily.domain.member.form.MemberInfo;
+import kh.petmily.domain.member.form.MemberChangeForm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -12,7 +12,6 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 public class Member implements DomainObj {
-
     private int mNumber;
     private String id;
     private String pw;
@@ -64,12 +63,8 @@ public class Member implements DomainObj {
     public boolean matchPw(String pwd) {
         return pw.equals(pwd);
     }
+
     public void toInfoInsertMNumber(int mNumber) {
         this.mNumber =mNumber;
-    }
-
-
-    public MemberInfo toMemberInfo() {
-        return  new MemberInfo(id, pw, name, birth, gender, email, phone, grade);
     }
 }

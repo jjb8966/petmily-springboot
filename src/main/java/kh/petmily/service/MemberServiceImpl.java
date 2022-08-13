@@ -1,12 +1,11 @@
 package kh.petmily.service;
 
 import kh.petmily.domain.member.form.JoinRequest;
-import kh.petmily.domain.member.form.MemberInfo;
+import kh.petmily.domain.member.form.MemberChangeForm;
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -41,15 +40,6 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member findById(String userId) {
-        Member member = memberDao.selectMemberById(userId);
-        if (member == null) {
-            throw new NoSuchElementException();
-        }
-        return member;
-    }
-
-    @Override
     public void withdraw(int mNumber) {
 
     }
@@ -60,11 +50,18 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void changeMemberInfo(int mNumber, MemberInfo memberInfo) {
-        Member member = memberInfo.toMember();
-        member.toInfoInsertMNumber(mNumber);
-        log.info("[update MemberInfo] = {} ", member);
-        memberDao.update(member);
+    public Member modify(Member member, MemberChangeForm memberChangeForm) {
+        Member mem = toMemberFromChange(member, memberChangeForm);
+
+        memberDao.update(mem);
+
+        log.info("Service - modify - member : {}", mem);
+
+        return mem;
+    }
+
+    private Member toMemberFromChange(Member member, MemberChangeForm memberChangeForm) {
+        return new Member(member.getMNumber(), member.getId(), memberChangeForm.getPw(), memberChangeForm.getName(), member.getBirth(), member.getGender(), memberChangeForm.getEmail(), memberChangeForm.getPhone(), member.getGrade());
     }
 
     @Override
