@@ -23,6 +23,10 @@ public interface BoardMapper {
 
     List<Board> selectIndex(@Param("start") int start, @Param("end") int end, @Param("kindOfBoard") String kindOfBoard);
 
+    Board selectWriteBoardForm(int pk);
+
     String selectName(int pk);
+
+
 
 }
