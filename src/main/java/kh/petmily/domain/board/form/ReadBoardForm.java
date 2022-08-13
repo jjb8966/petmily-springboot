@@ -3,9 +3,7 @@ package kh.petmily.domain.board.form;
 import lombok.Data;
 
 import java.util.Date;
-
 @Data
-
 public class ReadBoardForm {
     private int bNumber;
     private int mNumber;
@@ -27,8 +25,3 @@ public class ReadBoardForm {
         this.checkPublic = checkPublic;
     }
 }
-
-
-
-
-

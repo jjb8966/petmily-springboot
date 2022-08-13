@@ -41,4 +41,3 @@ public class BoardServiceImpl implements BoardService {
                 req.getCheckPublic());
     }
 }
-

@@ -32,8 +32,7 @@ public class BoardController {
         int pbNumber = 1;
 
         if (pbNumberVal != null) {
-            pbNumber =
-                    Integer.parseInt(pbNumberVal);
+            pbNumber = Integer.parseInt(pbNumberVal);
         }
 
         BoardPage boardPage = boardService.getBoardPage(pbNumber, kindOfBoard);

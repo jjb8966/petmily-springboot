@@ -26,7 +26,4 @@ public interface BoardMapper {
     Board selectWriteBoardForm(int pk);
 
     String selectName(int pk);
-
-
-
 }
