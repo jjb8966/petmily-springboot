@@ -96,7 +96,7 @@ public class MemberController {
     }
 
     @PostMapping(value = "/member/change_info")
-    private String changeInfoPost(HttpServletRequest request, Model model, MemberChangeForm memberChangeForm, HttpServletResponse res) throws Exception {
+    private String changeInfoPost(HttpServletRequest request, Model model, MemberChangeForm memberChangeForm) {
         Member member = getAuthMember(request);
 
         Member mem = memberService.modify(member, memberChangeForm);
