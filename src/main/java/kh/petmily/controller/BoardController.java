@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/board")
@@ -57,6 +55,37 @@ public class BoardController {
         return "/board/boardDetailForm";
     }
 
+    @GetMapping("/auth/modify")
+    private String modifyForm(@RequestParam("bNumber") int bNumber, HttpServletRequest request, Model model) {
+        BoardModifyForm modReq = boardService.getBoardModify(bNumber);
+        Member authUser = getAuthMember(request);
+
+        int mNumber = authUser.getMNumber();
+        modReq.setMNumber(mNumber);
+
+        log.info("bNumber = {}", bNumber);
+
+        model.addAttribute("modReq", modReq);
+
+        return "/board/modifyForm";
+    }
+
+    @PostMapping("/auth/modify")
+    public String modify(@RequestParam("bNumber") int bNumber,
+                         @ModelAttribute BoardModifyForm modReq, HttpServletRequest request, Model model){
+        Member authUser = getAuthMember(request);
+
+        int mNumber = authUser.getMNumber();
+        modReq.setMNumber(mNumber);
+        modReq.setBNumber(bNumber);
+
+        log.info("BoardModifyForm = {}", modReq);
+
+        boardService.modify(modReq);
+        model.addAttribute("modReq", modReq);
+
+        return "/board/modifySuccess";
+    }
 
     @GetMapping("/auth/delete")
     public String delete(@RequestParam("bNumber") int bNumber){

@@ -1,6 +1,7 @@
 package kh.petmily.service;
 
 import kh.petmily.dao.BoardDao;
+import kh.petmily.domain.board.Board;
 import kh.petmily.domain.board.form.BoardPage;
 import kh.petmily.domain.board.form.BoardModifyForm;
 import kh.petmily.domain.board.form.ReadBoardForm;
@@ -26,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public ReadBoardForm getBoard(int bNumber) {
-        ReadBoardForm readBoardForm = boardDao.selectByContent(bNumber);
+        Board readBoardForm = boardDao.findByPk(bNumber);
 
         return new ReadBoardForm(
                 readBoardForm.getBNumber(),
@@ -41,8 +42,29 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public BoardModifyForm getBoardModify(int bNumber) {
+        Board board = boardDao.findByPk(bNumber);
+        BoardModifyForm modReq =toBoardModify(board);
+        return modReq;
+    }
+
+    @Override
+    public void modify(BoardModifyForm modReq) {
+        Board board = toBoardModifyForm(modReq);
+        board.setBNumber(modReq.getBNumber());
+        boardDao.update(board);
+    }
+
+    private Board toBoardModifyForm(BoardModifyForm modReq){
+        return new Board(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), modReq.getCheckPublic());
+    }
+
+    private BoardModifyForm toBoardModify(Board board){
+        return new BoardModifyForm(board.getBNumber(), board.getTitle(), board.getContent(), board.getCheckPublic());
+    }
+
+    @Override
     public void delete(int bNumber) {
         boardDao.delete(bNumber);
     }
-
 }

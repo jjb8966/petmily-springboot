@@ -7,7 +7,7 @@
     <!--=======BasicMapper 메소드=======-->
     <select id="selectByPk" resultType="kh.petmily.domain.board.Board">
         select *
-        from BoardMapper.xml
+        from BOARD
         where BNUMBER = #{pk}
     </select>
 
@@ -18,7 +18,7 @@
 
     <update id="update">
         update BOARD
-        set TITLE = #{title}, CONTENT = #{content}, CHECKPUBLIC = #{checkPublic}, WRTIME = #{wrTime}
+        set TITLE = #{title}, CONTENT = #{content}, CHECKPUBLIC = #{checkPublic}
         where BNUMBER = #{bNumber}
     </update>
 
@@ -50,7 +50,7 @@
             where B.BNUMBER = #{pk}
     </select>
 
-    <select id="selectByContent" resultType="kh.petmily.domain.board.form.ReadBoardForm">
+    <select id="selectByContent" resultType="kh.petmily.domain.board.Board">
         select B.*, M.ID, M.NAME
         from BOARD B, MEMBER M
         where B.MNUMBER = M.MNUMBER and BNUMBER = #{bNumber}

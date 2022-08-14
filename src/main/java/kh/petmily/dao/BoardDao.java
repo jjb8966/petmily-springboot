@@ -53,7 +53,4 @@ public class BoardDao implements BasicDao{
     }
 
     public String selectName(int pk) { return mapper.selectName(pk); }
-
-    public ReadBoardForm selectByContent(int bNumber){ return mapper.selectByContent(bNumber); }
-
 }

@@ -9,5 +9,9 @@ public interface BoardService {
 
     public ReadBoardForm getBoard(int bNumber);
 
+    public BoardModifyForm getBoardModify(int bNumber);
+
+    public void modify(BoardModifyForm modReq);
+
     public void delete(int bNumber);
 }

@@ -1,7 +1,6 @@
 package kh.petmily.mapper;
 
 import kh.petmily.domain.board.Board;
-import kh.petmily.domain.board.form.ReadBoardForm;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,8 +24,4 @@ public interface BoardMapper {
     List<Board> selectIndex(@Param("start") int start, @Param("end") int end, @Param("kindOfBoard") String kindOfBoard);
 
     String selectName(int pk);
-
-    ReadBoardForm selectByContent(int bNumber);
-
-
 }

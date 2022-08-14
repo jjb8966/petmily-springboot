@@ -54,14 +54,14 @@
 
                     <!-- form 시작 -->
 
-                    <form class="form" name="enq" method="post" action="/board/modify">
+                    <form class="form" name="enq" method="post" action="/board/auth/modify">
                         <div class="modal-body">
                             <div class="row">
 
                                 <!-- 글 bNumber, title, content -->
 
                                 <div class="form-group">
-                                    <input type="hidden" name="bNumber" value="${modReq.bNumber}"/>
+                                    <input type="hidden" name="bNumber" value="${modReq.getBNumber()}"/>
                                     <input type="text" class="form-control" name="title" value="${modReq.title}"
                                            required="required"/>
                                 </div>

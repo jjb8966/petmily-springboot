@@ -45,4 +45,14 @@ public class Board implements DomainObj {
         this.checkPublic = checkPublic;
     }
 
+    public Board(int bNumber, String title, String content, String checkPublic) {
+        this.bNumber = bNumber;
+        this.title = title;
+        this.content = content;
+        this.checkPublic = checkPublic;
+    }
+
+    public void setBNumber(int bNumber){
+        this.bNumber = bNumber;
+    }
 }
