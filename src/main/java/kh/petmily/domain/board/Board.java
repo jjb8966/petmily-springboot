@@ -51,8 +51,4 @@ public class Board implements DomainObj {
         this.content = content;
         this.checkPublic = checkPublic;
     }
-
-    public void setBNumber(int bNumber){
-        this.bNumber = bNumber;
-    }
 }

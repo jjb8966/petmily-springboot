@@ -51,7 +51,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void modify(BoardModifyForm modReq) {
         Board board = toBoardModifyForm(modReq);
-        board.setBNumber(modReq.getBNumber());
         boardDao.update(board);
     }
 

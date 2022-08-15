@@ -77,7 +77,6 @@ public class BoardController {
 
         int mNumber = authUser.getMNumber();
         modReq.setMNumber(mNumber);
-        modReq.setBNumber(bNumber);
 
         log.info("BoardModifyForm = {}", modReq);
 
@@ -93,4 +92,7 @@ public class BoardController {
 
         return "/board/deleteSuccess";
     }
+
+
+
 }

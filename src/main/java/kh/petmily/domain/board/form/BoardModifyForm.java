@@ -17,8 +17,4 @@ public class BoardModifyForm {
         this.content = content;
         this.checkPublic = checkPublic;
     }
-
-    public void setBNumber(int bNumber) {
-        this.bNumber = bNumber;
-    }
 }
