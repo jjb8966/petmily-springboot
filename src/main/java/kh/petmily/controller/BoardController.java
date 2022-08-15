@@ -71,8 +71,7 @@ public class BoardController {
     }
 
     @PostMapping("/auth/modify")
-    public String modify(@RequestParam("bNumber") int bNumber,
-                         @ModelAttribute BoardModifyForm modReq, HttpServletRequest request, Model model){
+    public String modify(@ModelAttribute BoardModifyForm modReq, HttpServletRequest request, Model model){
         Member authUser = getAuthMember(request);
 
         int mNumber = authUser.getMNumber();
