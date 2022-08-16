@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,80 +33,93 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <c:if test="${param.kindOfBoard eq '자유'}">
-                    <h1 class="mb-0 bread">자유 게시판</h1>
-                </c:if>
-                <c:if test="${param.kindOfBoard eq '문의'}">
-                    <h1 class="mb-0 bread">문의 게시판</h1>
-                </c:if>
+                <h1 class="mb-0 bread">상세보기</h1>
             </div>
         </div>
     </div>
 </section>
 
-<!-- modifyForm 시작 -->
+<!-- content 상세보기 -->
 
 <section class="ftco-section bg-light">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="contact">
 
-                    <!-- form 시작 -->
+        <!-- content 내용 출력 -->
 
-                    <form class="form" name="enq" method="post" action="/board/auth/modify">
-                        <div class="modal-body">
-                            <div class="row">
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="media forum-item">
 
-                                <!-- 글 bNumber, title, content -->
+                    <!-- content title, name, wrTime, checkPublic -->
 
-                                <div class="form-group">
-                                    <input type="hidden" name="bNumber" value="${modReq.getBNumber()}"/>
-                                    <input type="text" class="form-control" name="title" value="${modReq.title}"
-                                           required="required"/>
-                                </div>
-                                <textarea rows="20" name="content" class="form-control"
-                                          required="required">${modReq.content}</textarea>
-                                <input type="hidden" name="kindOfBoard" id="kindOfBoard" value="${param.kindOfBoard}"/>
-                            </div>
-                        </div>
+                    <div class="media-body ml-3">
+                        <b> <span style="font-size: 2em;">${detailForm.title}</span> </b>
+                        <h6 class="mt-1"></h6>
+                        <small><a href="javascript:void(0)">${detailForm.name}</a></small>
+                        <small><i class="far fa-comment ml-2"></i> date ${detailForm.wrTime} </small>
 
-                        <!-- checkPublic 공개 / 비공개 여부  -->
+                        <c:if test="${param.kindOfBoard eq '문의'}">
+                            <c:if test="${detailForm.checkPublic eq 'Y'}">
+                                <span><small><i class="far fa-comment ml-2"></i> 공개</small></span>
+                            </c:if>
+                            <c:if test="${detailForm.checkPublic eq 'N'}">
+                                <span><small><i class="far fa-comment ml-2"></i> 비공개</small></span>
+                            </c:if>
+                        </c:if>
 
+                        <div class="modal-footer"></div>
+
+                        <!-- content 내용 -->
+
+                        <div class="mt-3 font-size-lg">${detailForm.content}</div>
+                        <h1 class="mt-1"></h1>
+
+                        <div class="modal-header"></div>
                         <div class="modal-footer">
-                            <c:if test="${param.kindOfBoard eq '자유'}">
-                                <input type="hidden" name="checkPublic" value="Y">
-                            </c:if>
-                            <c:if test="${param.kindOfBoard eq '문의'}">
-                                <c:choose>
-                                    <c:when test="${modReq.checkPublic eq 'Y'}">
-                                        <input type="radio" name="checkPublic" value="Y" checked/> 공개<span>&ensp;</span>
-                                        <input type="radio" name="checkPublic" value="N"/> 비공개<span>&ensp;</span>
-                                    </c:when>
-                                    <c:when test="${modReq.checkPublic eq 'N'}">
-                                        <input type="radio" name="checkPublic" value="Y"/> 공개<span>&ensp;</span>
-                                        <input type="radio" name="checkPublic" value="N"
-                                               checked/> 비공개<span>&ensp;</span>
-                                    </c:when>
-                                </c:choose>
-                            </c:if>
-                            <button type="button" class="btn btn-light" data-dismiss="modal"
-                                    onclick="location.href='/board/list?kindOfBoard=${param.kindOfBoard}'">취소
-                            </button>
-                            <input type="submit" class="btn btn-primary" value="글 수정 등록">
-                        </div>
-                    </form>
 
+                            <!-- content 수정, 삭제 -->
+
+                            <c:if test="${authUser.getMNumber() == detailForm.getMNumber()}">
+                                <button type="button" class="btn btn-light"
+                                        onclick="location.href='/board/auth/modify?kindOfBoard=${param.kindOfBoard}&bNumber=${detailForm.getBNumber()}'">
+                                    수정
+                                </button>
+
+                                <button type="button" class="btn btn-light"
+                                        onclick="if(confirm('정말로 삭제하시겠습니까?'))
+                                                {return location.href='/board/auth/delete?kindOfBoard=${param.kindOfBoard}&bNumber=${detailForm.getBNumber()}';}">
+                                    삭제
+                                </button>
+                            </c:if>
+
+                            <!-- content 목록 이동 버튼 -->
+
+                            <span>
+								<button type="button" class="btn btn-primary"
+                                        onclick="location.href='/board/list?kindOfBoard=${param.kindOfBoard}'">글 목록</button>
+							</span>
+
+                            <!-- 댓글 작성하기 버튼 -->
+
+                            <div class="media forum-item">
+                                <button type="button" class="btn btn-primary" onclick="location.href='#message'">댓글 작성
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </section>
 
-<!-- modifyForm 끝 -->
-
 <!-- 풋터 -->
+
+<%@ include file="/WEB-INF/view/include/footer.jspf" %>
+
+<!-- loader -->
 
 <div id="ftco-loader" class="show fullscreen">
     <svg class="circular" width="48px" height="48px">

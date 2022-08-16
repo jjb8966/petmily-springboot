@@ -31,6 +31,39 @@ public class BoardServiceImpl implements BoardService {
         boardDao.insert(board);
     }
 
+    @Override
+    public ReadBoardForm getBoard(int bNumber) {
+        Board readBoardForm = boardDao.findByPk(bNumber);
+
+        return new ReadBoardForm(
+                readBoardForm.getBNumber(),
+                readBoardForm.getMNumber(),
+                readBoardForm.getName(),
+                readBoardForm.getKindOfBoard(),
+                readBoardForm.getTitle(),
+                readBoardForm.getContent(),
+                readBoardForm.getWrTime(),
+                readBoardForm.getCheckPublic()
+        );
+    }
+
+    @Override
+    public BoardModifyForm getBoardModify(int bNumber) {
+        Board board = boardDao.findByPk(bNumber);
+        BoardModifyForm modReq =toBoardModify(board);
+        return modReq;
+    }
+
+    @Override
+    public void modify(BoardModifyForm modReq) {
+        Board board = toBoardModifyForm(modReq);
+        boardDao.update(board);
+    }
+
+    @Override
+    public void delete(int bNumber) {
+        boardDao.delete(bNumber);
+    }
 
     private Board toBoard(WriteBoardForm req) {
         return new Board(
@@ -39,5 +72,13 @@ public class BoardServiceImpl implements BoardService {
                 req.getTitle(),
                 req.getContent(),
                 req.getCheckPublic());
+    }
+
+    private Board toBoardModifyForm(BoardModifyForm modReq){
+        return new Board(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), modReq.getCheckPublic());
+    }
+
+    private BoardModifyForm toBoardModify(Board board){
+        return new BoardModifyForm(board.getBNumber(), board.getTitle(), board.getContent(), board.getCheckPublic());
     }
 }

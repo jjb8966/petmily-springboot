@@ -1,4 +1,4 @@
-``<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -69,7 +69,7 @@
 
                                 <div class="text-secondary">
                                     <c:if test="${param.kindOfBoard eq '자유'}">
-                                        <a href="/board/read?kindOfBoard=${param.kindOfBoard}&bNumber=${board.getBNumber()}"
+                                        <a href="/board/detail?kindOfBoard=${param.kindOfBoard}&bNumber=${board.getBNumber()}"
                                            class="text-body" style="font-size: 1.3em;">${board.title}</a>
                                     </c:if>
                                     <c:if test="${param.kindOfBoard eq '문의'}">
@@ -78,7 +78,7 @@
                                                 <a class="text-body" style="font-size: 1.3em;">${board.title}</a>
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="/board/read?kindOfBoard=${param.kindOfBoard}&bNumber=${board.getBNumber()}"
+                                                <a href="/board/detail?kindOfBoard=${param.kindOfBoard}&bNumber=${board.getBNumber()}"
                                                    class="text-body" style="font-size: 1.3em;">${board.title}</a>
                                             </c:otherwise>
                                         </c:choose>

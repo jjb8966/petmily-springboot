@@ -28,9 +28,7 @@ public class BoardDao implements BasicDao{
     }
 
     @Override
-    public void update(DomainObj obj) {
-        mapper.update((Board) obj);
-    }
+    public void update(DomainObj obj) { mapper.update((Board) obj); }
 
     @Override
     public void delete(int pk) {
@@ -47,7 +45,7 @@ public class BoardDao implements BasicDao{
         List<ReadBoardForm>  readBoardFormList = new ArrayList<>();
 
         for(Board b : list) {
-            ReadBoardForm bd = new ReadBoardForm(b.getMNumber(), b.getBNumber(), selectName(b.getBNumber()), b.getKindOfBoard(), b.getTitle(), b.getContent(), b.getWrTime(), b.getCheckPublic());
+            ReadBoardForm bd = new ReadBoardForm(b.getBNumber(), b.getMNumber(),selectName(b.getBNumber()), b.getKindOfBoard(), b.getTitle(), b.getContent(), b.getWrTime(), b.getCheckPublic());
             readBoardFormList.add(bd);
         }
 
@@ -55,5 +53,4 @@ public class BoardDao implements BasicDao{
     }
 
     public String selectName(int pk) { return mapper.selectName(pk); }
-
 }

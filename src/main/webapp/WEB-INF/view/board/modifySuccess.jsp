@@ -2,5 +2,5 @@
 
 <script>
     alert("성공적으로 수정 되었습니다.");
-    location.href = "/board/list.do?kindOfBoard=${param.kindOfBoard}";
+    location.href = "/board/list?kindOfBoard=${param.kindOfBoard}";
 </script>
