@@ -2,6 +2,7 @@ package kh.petmily.service;
 
 import kh.petmily.dao.BoardDao;
 import kh.petmily.domain.board.Board;
+import kh.petmily.domain.board.form.BoardModifyForm;
 import kh.petmily.domain.board.form.BoardPage;
 import kh.petmily.domain.board.form.ReadBoardForm;
 import kh.petmily.domain.board.form.WriteBoardForm;
