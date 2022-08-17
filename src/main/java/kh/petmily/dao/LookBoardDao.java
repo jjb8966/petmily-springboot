@@ -63,8 +63,9 @@ public class LookBoardDao implements BasicDao {
         List<LookBoard> list = mapper.selectByAsc(start, end);
         List<LookBoardListForm> liList = new ArrayList<>();
 
+        // ====== 조회수 추가된 부분 ======
         for (LookBoard l : list) {
-            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle());
+            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle(), l.getViewCount());
             liList.add(li);
         }
 
