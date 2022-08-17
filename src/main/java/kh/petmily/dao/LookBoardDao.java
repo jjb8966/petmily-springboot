@@ -54,4 +54,16 @@ public class LookBoardDao implements BasicDao {
     public String selectName(int pk) {
         return mapper.selectName(pk);
     }
+
+    public List<LookBoardListForm> selectByAsc(int start, int end) {
+        List<LookBoard> list = mapper.selectByAsc(start, end);
+        List<LookBoardListForm> liList = new ArrayList<>();
+
+        for (LookBoard l : list) {
+            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle());
+            liList.add(li);
+        }
+
+        return liList;
+    }
 }

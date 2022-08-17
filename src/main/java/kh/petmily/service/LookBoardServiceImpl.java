@@ -78,4 +78,12 @@ public class LookBoardServiceImpl implements LookBoardService {
     public String findName(int laNumber) {
         return lookBoardDao.selectName(laNumber);
     }
+
+    @Override
+    public LookBoardPageForm getLookPageAsc(int pageNo) {
+        int total = lookBoardDao.selectCount();
+        List<LookBoardListForm> content = lookBoardDao.selectByAsc((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
+
+        return new LookBoardPageForm(total, pageNo, size, content);
+    }
 }

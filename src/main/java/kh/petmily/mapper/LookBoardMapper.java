@@ -21,4 +21,6 @@ public interface LookBoardMapper {
     List<LookBoard> selectIndex(@Param("start") int start, @Param("end") int end);
 
     String selectName(int pk);
+
+    List<LookBoard> selectByAsc(@Param("start") int start, @Param("end") int end);
 }

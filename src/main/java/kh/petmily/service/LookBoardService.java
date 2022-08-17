@@ -19,4 +19,6 @@ public interface LookBoardService {
     public LookBoardModifyForm getModifyForm(int laNumber);
 
     String findName(int laNumber);
+
+    public LookBoardPageForm getLookPageAsc(int pageNo);
 }
