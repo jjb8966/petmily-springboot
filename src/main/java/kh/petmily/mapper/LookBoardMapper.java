@@ -21,4 +21,7 @@ public interface LookBoardMapper {
     List<LookBoard> selectIndex(@Param("start") int start, @Param("end") int end);
 
     String selectName(int pk);
+
+    // ====== 조회수 추가 ======
+    int updateViewCount(int pk);
 }

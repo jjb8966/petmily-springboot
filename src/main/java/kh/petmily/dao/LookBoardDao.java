@@ -44,7 +44,8 @@ public class LookBoardDao implements BasicDao {
         List<LookBoardListForm> liList = new ArrayList<>();
 
         for (LookBoard l : list) {
-            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle());
+            // ====== 조회수 추가된 부분 ======
+            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle(), l.getViewCount());
             liList.add(li);
         }
 
@@ -54,4 +55,7 @@ public class LookBoardDao implements BasicDao {
     public String selectName(int pk) {
         return mapper.selectName(pk);
     }
+
+    // ====== 조회수 추가 ======
+    public int updateViewCount(int pk) { return mapper.updateViewCount(pk); }
 }

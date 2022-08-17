@@ -43,6 +43,9 @@ public class LookBoardController {
         LookBoardDetailForm detailForm = lookBoardService.getDetailForm(laNumber);
         log.info("LookDetailForm = {}", detailForm);
 
+        // ====== 조회수 추가된 부분 ======
+        lookBoardService.updateViewCount(laNumber);
+
         model.addAttribute("lookIn", detailForm);
 
         return "/look_board/detailLookBoard";

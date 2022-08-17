@@ -58,6 +58,8 @@
                                 <div><a href="#">${lookBoard.wrTime}</a></div>
                                 <br/>
                                 <div><a href="#">상태: ${lookBoard.animalState}</a></div>
+                                <br/>
+                                <div><a href="#">조회수: ${lookBoard.viewCount}</a></div>
                             </div>
                             <h3 class="heading"><a href="#">${lookBoard.title}</a></h3>
                         </div>

@@ -19,4 +19,7 @@ public interface LookBoardService {
     public LookBoardModifyForm getModifyForm(int laNumber);
 
     String findName(int laNumber);
+
+    //====== 조회수 추가 ======
+    public int updateViewCount(int laNumber);
 }

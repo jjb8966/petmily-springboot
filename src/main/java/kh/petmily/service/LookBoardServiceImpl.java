@@ -58,8 +58,9 @@ public class LookBoardServiceImpl implements LookBoardService {
         return detailForm;
     }
 
+    // ====== 조회수 추가된 부분 ======
     private LookBoardDetailForm toDetailForm(LookBoard lookBoard) {
-        return new LookBoardDetailForm(lookBoard.getLaNumber(), lookBoard.getMNumber(), findName(lookBoard.getLaNumber()), lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getAnimalState(), lookBoard.getImgPath(), lookBoard.getWrTime(), lookBoard.getTitle(), lookBoard.getContent());
+        return new LookBoardDetailForm(lookBoard.getLaNumber(), lookBoard.getMNumber(), findName(lookBoard.getLaNumber()), lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getAnimalState(), lookBoard.getImgPath(), lookBoard.getWrTime(), lookBoard.getTitle(), lookBoard.getContent(), lookBoard.getViewCount());
     }
 
     @Override
@@ -77,5 +78,11 @@ public class LookBoardServiceImpl implements LookBoardService {
     @Override
     public String findName(int laNumber) {
         return lookBoardDao.selectName(laNumber);
+    }
+
+    //====== 조회수 추가 ======
+    @Override
+    public int updateViewCount(int laNumber) {
+        return lookBoardDao.updateViewCount(laNumber);
     }
 }

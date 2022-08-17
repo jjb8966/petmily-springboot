@@ -51,4 +51,11 @@
                  inner join MEMBER M on L.MNUMBER = M.MNUMBER
         where L.LANUMBER = #{pk}
     </select>
+
+    <!--====== 조회수 추가 ======-->
+    <update id="updateViewCount">
+        update LOOKANIMALBOARD
+        set VIEWCOUNT = VIEWCOUNT + 1
+        where LANUMBER = #{pk}
+    </update>
 </mapper>
