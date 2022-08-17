@@ -26,4 +26,6 @@ public interface LookBoardMapper {
     int updateViewCount(int pk);
 
     List<LookBoard> selectByAsc(@Param("start") int start, @Param("end") int end);
+
+    List<LookBoard> selectByViewCount(@Param("start") int start, @Param("end") int end);
 }

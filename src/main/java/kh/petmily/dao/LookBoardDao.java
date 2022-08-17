@@ -71,4 +71,17 @@ public class LookBoardDao implements BasicDao {
 
         return liList;
     }
+
+    // ====== 조회순 정렬 기능 조회수 ======
+    public List<LookBoardListForm> selectByViewCount(int start, int end) {
+        List<LookBoard> list = mapper.selectByViewCount(start, end);
+        List<LookBoardListForm> liList = new ArrayList<>();
+
+        for (LookBoard l : list) {
+            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle(), l.getViewCount());
+            liList.add(li);
+        }
+
+        return liList;
+    }
 }

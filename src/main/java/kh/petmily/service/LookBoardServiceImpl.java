@@ -93,4 +93,12 @@ public class LookBoardServiceImpl implements LookBoardService {
 
         return new LookBoardPageForm(total, pageNo, size, content);
     }
+
+    @Override
+    public LookBoardPageForm getLookPageViewCount(int pageNo) {
+        int total = lookBoardDao.selectCount();
+        List<LookBoardListForm> content = lookBoardDao.selectByViewCount((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
+
+        return new LookBoardPageForm(total, pageNo, size, content);
+    }
 }

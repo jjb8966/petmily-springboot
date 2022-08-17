@@ -66,4 +66,11 @@
         where NUM between #{start} and #{end}
     </select>
 
+    <select id="selectByViewCount" resultType="kh.petmily.domain.look_board.LookBoard">
+        select *
+        from (select ROWNUM as NUM, A.*
+              FROM (select * from LOOKANIMALBOARD order by VIEWCOUNT DESC) A)
+        where NUM between #{start} and #{end}
+    </select>
+
 </mapper>

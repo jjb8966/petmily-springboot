@@ -24,4 +24,6 @@ public interface LookBoardService {
     public int updateViewCount(int laNumber);
 
     public LookBoardPageForm getLookPageAsc(int pageNo);
+
+    public LookBoardPageForm getLookPageViewCount(int pageNo);
 }
