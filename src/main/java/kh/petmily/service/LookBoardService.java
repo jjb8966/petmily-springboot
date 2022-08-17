@@ -22,4 +22,6 @@ public interface LookBoardService {
 
     //====== 조회수 추가 ======
     public int updateViewCount(int laNumber);
+
+    public LookBoardPageForm getLookPageAsc(int pageNo);
 }

@@ -40,6 +40,15 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
+
+        <div class="modal-header">
+            <div class="float-left">
+                <a href="/lookBoard/list"><button class="btn btn-primary" type="button">최신순</button></a> &nbsp;
+                <a href="/lookBoard/list/long"><button class="btn btn-primary" type="button">오래된순</button></a> &nbsp;
+            <button class="btn btn-primary" type="button">조회순</button> &nbsp;
+            </div>
+        </div> &nbsp; &nbsp;
+
         <div class="row d-flex">
             <c:forEach var="lookBoard" items="${Looks.content}">
                 <div class="col-md-4 d-flex ftco-animate" id="d-flex-out">

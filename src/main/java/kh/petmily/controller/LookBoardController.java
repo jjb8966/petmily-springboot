@@ -38,6 +38,22 @@ public class LookBoardController {
         return "/look_board/listLookBoard";
     }
 
+    //오래된순 조회
+    @GetMapping("/list/long")
+    public String listlong(HttpServletRequest request, Model model) {
+        String pageNoVal = request.getParameter("pageNo");
+        int pageNo = 1;
+
+        if (pageNoVal != null) {
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        LookBoardPageForm Looks = lookBoardService.getLookPageAsc(pageNo);
+        model.addAttribute("Looks", Looks);
+
+        return "/look_board/listLookBoard";
+    }
+
     @GetMapping("/detail")
     public String detail(@RequestParam("laNumber") int laNumber, Model model) {
         LookBoardDetailForm detailForm = lookBoardService.getDetailForm(laNumber);

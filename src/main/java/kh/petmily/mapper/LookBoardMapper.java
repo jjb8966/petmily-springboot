@@ -24,4 +24,6 @@ public interface LookBoardMapper {
 
     // ====== 조회수 추가 ======
     int updateViewCount(int pk);
+
+    List<LookBoard> selectByAsc(@Param("start") int start, @Param("end") int end);
 }
