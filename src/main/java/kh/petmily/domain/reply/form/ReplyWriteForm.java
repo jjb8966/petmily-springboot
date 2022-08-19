@@ -4,7 +4,7 @@ import kh.petmily.domain.DomainObj;
 import lombok.Data;
 
 @Data
-public class ReplyWriteForm implements DomainObj {
+public class ReplyWriteForm {
     private int bNumber;
     private int mNumber;
     private String reply;

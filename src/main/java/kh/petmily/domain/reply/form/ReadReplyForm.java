@@ -6,7 +6,7 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-public class ReadReplyForm implements DomainObj {
+public class ReadReplyForm {
     private int brNumber;
     private int mNumber;
     private String reply;
