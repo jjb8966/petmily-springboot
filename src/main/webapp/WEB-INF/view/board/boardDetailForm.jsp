@@ -22,6 +22,8 @@
 <!-- 헤더 -->
 
 <%@ include file="/WEB-INF/view/include/header.jspf" %>
+<script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 <!-- 현재 페이지 -->
 
