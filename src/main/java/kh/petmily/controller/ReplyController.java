@@ -35,8 +35,6 @@ public class ReplyController {
             }
         }
 
-        log.info("list api 메소드 실행 : 댓글 list = {}", list);
-
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
