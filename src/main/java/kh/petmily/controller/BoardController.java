@@ -1,9 +1,10 @@
 package kh.petmily.controller;
 
 import kh.petmily.domain.board.form.BoardPage;
+import kh.petmily.domain.board.form.WriteBoardForm;
+import kh.petmily.domain.member.Member;
 import kh.petmily.domain.board.form.BoardModifyForm;
 import kh.petmily.domain.board.form.ReadBoardForm;
-import kh.petmily.domain.member.Member;
 import kh.petmily.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/board")
@@ -39,13 +41,6 @@ public class BoardController {
         return "/board/boardList";
     }
 
-    private static Member getAuthMember(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Member member = (Member) session.getAttribute("authUser");
-
-        return member;
-    }
-
     @GetMapping("/detail")
     public String detail(@RequestParam("bNumber") int bNumber, Model model) {
         ReadBoardForm detailForm = boardService.getBoard(bNumber);
@@ -53,6 +48,27 @@ public class BoardController {
         model.addAttribute("detailForm", detailForm);
 
         return "/board/boardDetailForm";
+    }
+
+    @GetMapping("/auth/write")
+    public String writeForm() {
+        return "/board/writeBoardForm";
+    }
+
+    @PostMapping("/auth/write")
+    public String write(@ModelAttribute WriteBoardForm writeBoardForm, HttpServletRequest request) {
+        Member member = getAuthMember(request);
+
+        int mNumber = member.getMNumber();
+        writeBoardForm.setMNumber(mNumber);
+
+        log.info("WriteBoardForm = {}", writeBoardForm);
+
+        boardService.write(writeBoardForm);
+
+        log.info("WriteBoardForm = {}", writeBoardForm);
+
+        return "/board/writeBoardSuccess";
     }
 
     @GetMapping("/auth/modify")
@@ -82,6 +98,8 @@ public class BoardController {
         boardService.modify(modReq);
         model.addAttribute("modReq", modReq);
 
+        log.info("boardModifyForm = {}", modReq);
+
         return "/board/modifySuccess";
     }
 
@@ -92,6 +110,9 @@ public class BoardController {
         return "/board/deleteSuccess";
     }
 
-
-
+    private static Member getAuthMember(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member member = (Member) session.getAttribute("authUser");
+        return member;
+    }
 }

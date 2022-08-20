@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Blob;
-import java.util.Date;
+import java.sql.Date;
 
 @Getter
 @NoArgsConstructor
@@ -22,7 +22,7 @@ public class Board implements DomainObj {
     private Date wrTime;
     private String checkPublic;
 
-    public Board(int mNumber, int bNumber, String kindOfBoard, String title, String content, String imgPath, Blob video, Date wrTime, String checkPublic) {
+    public Board(int bNumber, int mNumber, String kindOfBoard, String title, String content, String imgPath, Blob video, Date wrTime, String checkPublic) {
         this.bNumber = bNumber;
         this.mNumber = mNumber;
         this.kindOfBoard = kindOfBoard;
@@ -34,14 +34,22 @@ public class Board implements DomainObj {
         this.checkPublic = checkPublic;
     }
 
-    public Board(int mNumber, int bNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic) {
-        this.mNumber = mNumber;
+    public Board(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic) {
         this.bNumber = bNumber;
+        this.mNumber = mNumber;
         this.name = name;
         this.kindOfBoard = kindOfBoard;
         this.title = title;
         this.content = content;
         this.wrTime = wrTime;
+        this.checkPublic = checkPublic;
+    }
+
+    public Board(int mNumber, String kindOfBoard, String title, String content, String checkPublic) {
+        this.mNumber = mNumber;
+        this.kindOfBoard = kindOfBoard;
+        this.title = title;
+        this.content = content;
         this.checkPublic = checkPublic;
     }
 

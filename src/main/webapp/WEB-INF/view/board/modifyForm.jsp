@@ -30,19 +30,19 @@
 
 <section class="hero-wrap hero-wrap-2"
          style="background-image: url('/resources/petsitting-master/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-            <div class="col-md-9 ftco-animate pb-5">
-                <c:if test="${param.kindOfBoard eq '자유'}">
-                    <h1 class="mb-0 bread">자유 게시판</h1>
-                </c:if>
-                <c:if test="${param.kindOfBoard eq '문의'}">
-                    <h1 class="mb-0 bread">문의 게시판</h1>
-                </c:if>
-            </div>
-        </div>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end">
+      <div class="col-md-9 ftco-animate pb-5">
+        <c:if test="${param.kindOfBoard eq '자유'}">
+          <h1 class="mb-0 bread">자유 게시판 - 글 수정</h1>
+        </c:if>
+        <c:if test="${param.kindOfBoard eq '문의'}">
+          <h1 class="mb-0 bread">문의 게시판 - 글 수정</h1>
+        </c:if>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- modifyForm 시작 -->

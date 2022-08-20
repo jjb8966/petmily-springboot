@@ -44,36 +44,4 @@ public class BoardPage {
 			}
 		}
 	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public boolean hasNoBoard() {
-		return total == 0;
-	}
-
-	public boolean hasBoard() {
-		return total > 0;
-	}
-	
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public int getTotalPages() {
-		return totalPages;
-	}
-
-	public List<ReadBoardForm> getTitle() {
-		return title;
-	}
-
-	public int getStartPage() {
-		return startPage;
-	}
-	
-	public int getEndPage() {
-		return endPage;
-	}
 }

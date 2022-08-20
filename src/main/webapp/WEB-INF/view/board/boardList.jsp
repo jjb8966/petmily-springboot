@@ -26,24 +26,23 @@
 
 <%@ include file="/WEB-INF/view/include/header.jspf" %>
 
-
 <!-- 현재 페이지 -->
 
 <section class="hero-wrap hero-wrap-2"
          style="background-image: url('/resources/petsitting-master/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-            <div class="col-md-9 ftco-animate pb-5">
-                <c:if test="${param.kindOfBoard eq '자유'}">
-                    <h1 class="mb-0 bread">자유 게시판</h1>
-                </c:if>
-                <c:if test="${param.kindOfBoard eq '문의'}">
-                    <h1 class="mb-0 bread">문의 게시판</h1>
-                </c:if>
-            </div>
-        </div>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end">
+      <div class="col-md-9 ftco-animate pb-5">
+        <c:if test="${param.kindOfBoard eq '자유'}">
+          <h1 class="mb-0 bread">자유 게시판</h1>
+        </c:if>
+        <c:if test="${param.kindOfBoard eq '문의'}">
+          <h1 class="mb-0 bread">문의 게시판</h1>
+        </c:if>
+      </div>
     </div>
+  </div>
 </section>
 
 
@@ -120,7 +119,7 @@
 
             <span class="modal-footer">
 				<button type="button" class="btn btn-primary"
-                        onclick="location.href='/board/write?kindOfBoard=${param.kindOfBoard}'">글쓰기</button>
+                        onclick="location.href='/board/auth/write?kindOfBoard=${param.kindOfBoard}'">글쓰기</button>
 			</span>
 
             <!-- 페이징 처리 -->
@@ -129,7 +128,6 @@
                 <div class="col text-center">
                     <div class="block-27">
                         <ul>
-                            <c:if test="${readBoardForm.hasBoard()}">
                                 <li>
                                     <c:if test="${readBoardForm.startPage > 5}">
                                         <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${readBoardForm.startPage - 5}">&lt;</a>
@@ -154,7 +152,6 @@
                                         <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${readBoardForm.startPage + 5}">&gt;</a>
                                     </c:if>
                                 </li>
-                            </c:if>
                         </ul>
                     </div>
                 </div>

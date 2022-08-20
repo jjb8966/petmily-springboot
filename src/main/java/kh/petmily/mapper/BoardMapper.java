@@ -14,7 +14,7 @@ public interface BoardMapper {
 
     void insert(Board board);
 
-    void update(Board obj);
+    void update(Board board);
 
     void delete(int pk);
     // =======BasicMapper 메소드=======
