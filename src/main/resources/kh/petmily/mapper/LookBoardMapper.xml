@@ -53,7 +53,7 @@
     </select>
 
     <!--=======look-find 연결=======-->
-    <select id="checkSame" resultType="java.lang.Integer">
+    <select id="selectMatchedFa" resultType="java.lang.Integer">
         select FANUMBER
         from FINDANIMALBOARD
         where SPECIES = #{species}

@@ -26,7 +26,7 @@ public class LookBoardDao implements BasicDao {
     public void insert(DomainObj obj) {
         LookBoard lookBoard = (LookBoard) obj;
 
-        List<Integer> list = mapper.checkSame(lookBoard);
+        List<Integer> list = mapper.selectMatchedFa(lookBoard);
         log.info("insert : list = {}", list);
 
         if (list.size() != 0) {
@@ -52,7 +52,7 @@ public class LookBoardDao implements BasicDao {
         mapper.backState(lookBoard.getLaNumber());
 
         LookBoard old_lookBoard = mapper.selectByPk(lookBoard.getLaNumber());
-        List<Integer> old_list = mapper.checkSame(old_lookBoard);
+        List<Integer> old_list = mapper.selectMatchedFa(old_lookBoard);
         log.info("update : old_list = {}", old_list);
 
         if(old_list.size() != 0) {
@@ -61,7 +61,7 @@ public class LookBoardDao implements BasicDao {
             }
         }
 
-        List<Integer> list = mapper.checkSame(lookBoard);
+        List<Integer> list = mapper.selectMatchedFa(lookBoard);
         log.info("update : list = {}", list);
 
         if (list.size() != 0) {
@@ -79,7 +79,7 @@ public class LookBoardDao implements BasicDao {
     @Override
     public void delete(int pk) {
         LookBoard lookBoard = mapper.selectByPk(pk);
-        List<Integer> list = mapper.checkSame(lookBoard);
+        List<Integer> list = mapper.selectMatchedFa(lookBoard);
         log.info("delete : list = {}", list);
 
         if(list.size() != 0) {

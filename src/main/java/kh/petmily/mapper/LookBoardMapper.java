@@ -22,7 +22,7 @@ public interface LookBoardMapper {
 
     String selectName(int pk);
 
-    List<Integer> checkSame(LookBoard obj);
+    List<Integer> selectMatchedFa(LookBoard obj);
 
     void changeState(int laNumber);
 
