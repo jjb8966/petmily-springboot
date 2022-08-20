@@ -40,6 +40,54 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
+        <div class="modal-header">
+
+            <!-- 검색 바 -->
+            <form action="/lookBoard/list" method="get">
+                <div class="form-group row">
+
+                    <div class="col">
+                        <select name="species" class="form-control">
+                            <option value="allSpecies" selected>모든 동물</option>
+                            <option value="개">강아지</option>
+                            <option value="고양이">고양이</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <select name="animalState" class="form-control">
+                            <option value="allAnimalState" selected>모든 상태</option>
+                            <option value="보호">보호</option>
+                            <option value="매칭됨">매칭</option>
+                            <option value="완료">완료</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <input type="text" name="keyword" class="form-control" placeholder="검색어">
+                    </div>
+
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary" value="검색">
+                    </div>
+
+                </div>
+            </form>
+
+
+            <%--            <div class="form-group row">--%>
+            <%--                <a href="/lookBoard/list"><button class="btn btn-primary" type="button">최신순</button></a>&nbsp;&nbsp;&nbsp;--%>
+            <%--                <a href="/lookBoard/list/long"><button class="btn btn-primary" type="button">오래된순</button></a>&nbsp;&nbsp;&nbsp;--%>
+            <%--                <a href="/lookBoard/list/viewcount"><button class="btn btn-primary" type="button">조회순</button>--%>
+            <%--            </div>--%>
+
+            <%--class="float-right"--%>
+
+
+        </div>
+        <br>
+
         <div class="row d-flex">
             <c:forEach var="lookBoard" items="${Looks.content}">
                 <div class="col-md-4 d-flex ftco-animate" id="d-flex-out">
@@ -58,6 +106,8 @@
                                 <div><a href="#">${lookBoard.wrTime}</a></div>
                                 <br/>
                                 <div><a href="#">상태: ${lookBoard.animalState}</a></div>
+                                <br/>
+                                <div><a href="#">조회수: ${lookBoard.viewCount}</a></div>
                             </div>
                             <h3 class="heading"><a href="#">${lookBoard.title}</a></h3>
                         </div>
@@ -67,40 +117,73 @@
         </div>
 
         <span class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="location.href='/lookBoard/auth/write'">글쓰기</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="location.href='/lookBoard/auth/write'">글쓰기</button>
         </span>
 
+        <%--        <div class="row mt-5">--%>
+        <%--            <div class="col text-center">--%>
+        <%--                <div class="block-27">--%>
+        <%--                    <ul>--%>
+        <%--                        <li>--%>
+        <%--                            <c:if test="${Looks.startPage > 5}">--%>
+        <%--                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage - 5}">&lt;</a>--%>
+        <%--                            </c:if>--%>
+        <%--                        </li>--%>
+        <%--                        <c:forEach var="pNo" begin="${Looks.startPage}" end="${Looks.endPage}">--%>
+        <%--                            <c:if test="${Looks.currentPage == pNo}">--%>
+        <%--                                <li class="active">--%>
+        <%--                                    <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>--%>
+        <%--                                </li>--%>
+        <%--                            </c:if>--%>
+        <%--                            <c:if test="${Looks.currentPage != pNo}">--%>
+        <%--                                <li>--%>
+        <%--                                    <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>--%>
+        <%--                                </li>--%>
+        <%--                            </c:if>--%>
+        <%--                        </c:forEach>--%>
+        <%--                        <li>--%>
+        <%--                            <c:if test="${Looks.endPage < Looks.totalPages}">--%>
+        <%--                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage + 5}">&gt;</a>--%>
+        <%--                            </c:if>--%>
+        <%--                        </li>--%>
+        <%--                    </ul>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
+    </div>
 
-        <div class="row mt-5">
-            <div class="col text-center">
-                <div class="block-27">
-                    <ul>
-                        <li>
-                            <c:if test="${Looks.startPage > 5}">
-                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage - 5}">&lt;</a>
-                            </c:if>
-                        </li>
-                        <c:forEach var="pNo" begin="${Looks.startPage}" end="${Looks.endPage}">
-                            <c:if test="${Looks.currentPage == pNo}">
-                                <li class="active">
-                                    <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>
-                                </li>
-                            </c:if>
-                            <c:if test="${Looks.currentPage != pNo}">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>
-                                </li>
-                            </c:if>
-                        </c:forEach>
-                        <li>
-                            <c:if test="${Looks.endPage < Looks.totalPages}">
-                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage + 5}">&gt;</a>
-                            </c:if>
-                        </li>
-                    </ul>
-                </div>
+    <div class="row mt-5">
+        <div class="col text-center">
+            <div class="block-27">
+                <ul>
+                    <li>
+                        <c:if test="${Looks.startPage > 5}">
+                            <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage - 5}">&lt;</a>
+                        </c:if>
+                    </li>
+                    <c:forEach var="pNo" begin="${Looks.startPage}" end="${Looks.endPage}">
+                        <c:if test="${Looks.currentPage == pNo}">
+                            <li class="active">
+                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>
+                            </li>
+                        </c:if>
+                        <c:if test="${Looks.currentPage != pNo}">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>
+                            </li>
+                        </c:if>
+                    </c:forEach>
+                    <li>
+                        <c:if test="${Looks.endPage < Looks.totalPages}">
+                            <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage + 5}">&gt;</a>
+                        </c:if>
+                    </li>
+                </ul>
             </div>
         </div>
+    </div>
+
     </div>
 </section>
 
@@ -132,4 +215,5 @@
 <script src="/resources/petsitting-master/js/google-map.js"></script>
 <script src="/resources/petsitting-master/js/main.js"></script>
 
+</html>
 </html>
