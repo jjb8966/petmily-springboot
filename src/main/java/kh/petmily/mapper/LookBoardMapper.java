@@ -21,4 +21,16 @@ public interface LookBoardMapper {
     List<LookBoard> selectIndex(@Param("start") int start, @Param("end") int end);
 
     String selectName(int pk);
+
+    List<Integer> checkSame(LookBoard obj);
+
+    void changeState(int laNumber);
+
+    void backState(int laNumber);
+
+    void changeStateFind(int faNumber);
+
+    void backStateFind(int laNumber);
+
+    int selectByPkMax();
 }
