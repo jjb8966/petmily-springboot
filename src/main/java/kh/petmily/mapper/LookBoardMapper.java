@@ -30,7 +30,7 @@ public interface LookBoardMapper {
 
     void changeStateFind(int faNumber);
 
-    void backStateFind(int laNumber);
+    void backStateFind(int faNumber);
 
     int selectByPkMax();
 }
