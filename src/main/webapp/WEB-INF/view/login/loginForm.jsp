@@ -2,6 +2,16 @@
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/login.css">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <!-- Loding font -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700" rel="stylesheet">
 </head>
 <body>
 
@@ -9,33 +19,35 @@
     <div class="container">
         <div class="form">
             <div class="left-side">
-                <div><span class="brand"><img src="https://i.imgur.com/zpXluzv.png"><small>CYCLO</small></span>
+                <div>
                     <form action="/login" method="post">
+                     <div class="login" id="login">
+                        <b><a href="${pageContext.request.contextPath}/"
+                             style="text-decoration: none; color: black"><h2>Petmily</h2></a></b>
+                        </div>
                         <div class="form-inputs">
-                            <input type="text" name="id" placeholder="User Name" required="required"/>
+                            <input type="text" name="id" placeholder="아이디" required="required"/>
                             <%--                        <input type="text" placeholder="Email Address">--%>
-
                             <div class="password">
-                                <input id="password" name="pw" type="password" placeholder="Password"
-                                       required="required"/> <span
-                                    class="showpass" onclick="toggle()">
+                                <input id="password" name="pw" type="password" placeholder="비밀번호" required="required"/>
+                                    <span class="showpass" onclick="toggle()">
                             <img id="changepasseye" src="https://i.imgur.com/d1M6y1W.jpg"> </span>
                                 <p class="random_password"></p>
                             </div>
-
-                            <input id="submit_button" type="submit" value="login">
-                            <%--<p class="login-text">Already have an account? <a href="#">login</a></p>--%>
+                            <br>
+                            <div class="login">
+                                <div>
+                                    <button type="submit" class="btn btn-lg btn-block btn-success">로그인</button>
+                                    <br>
+                                    <div class="join"><a style="text-decoration:none" href="/join">회원가입</a></div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
-
-            <div class="right-side"><h2>Cyclo</h2> <span class="circle1"></span> <span class="circle2"></span> <span
-                    class="circle3"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#000" fill-opacity="1"
-                          d="M0,96L48,122.7C96,149,192,203,288,229.3C384,256,480,256,576,234.7C672,213,768,171,864,176C960,181,1056,235,1152,229.3C1248,224,1344,160,1392,128L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-                </svg>
+            <div class="right-side" OnClick="location.href ='/'" style="cursor:pointer;">
+                <h2>Petmily</h2>
             </div>
         </div>
     </div>

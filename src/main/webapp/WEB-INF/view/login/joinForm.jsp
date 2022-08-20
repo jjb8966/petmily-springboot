@@ -2,6 +2,19 @@
 <html>
 <head>
     <title>Petmily-Don't buy, Do Adopt</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <!-- Loding font -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700" rel="stylesheet">
+
+        <!-- Custom Styles -->
+        <link rel="stylesheet" type="text/css" href="/resources/css/styles.css">
     <link rel="stylesheet" href="/resources/css/join.css">
     <script src="/resources/js/joinCheck.js"></script>
 </head>
@@ -15,14 +28,12 @@
                 	<span class="brand">
                         <a href="${pageContext.request.contextPath}/"
                            style="text-decoration: none; color: black">
-                            <img src="https://i.imgur.com/zpXluzv.png">
-                            <small>Petmily</small>
+                            <h4><b>Petmily</b></h4>
                         </a>
                 	</span>
                     <form action="/join" method="post">
                         <div class="form-inputs">
                             <input type="text" name="id" placeholder="아이디" required="required">
-
                             <div class="password">
                                 <input id="pw" name="pw" type="password" placeholder="비밀번호" required="required">
                                 <span class="showpass" onclick="toggle()">
@@ -47,22 +58,16 @@
                                    pattern="^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$"
                                    oninput="this.value = this.value.replace(/[^0-9-]/g, '');">
                             <p class="login-text">핸드폰 번호 형식으로 입력하세요</p>
-
-                            <input id="submit_button" type="submit" value="회원가입">
+                            <div class="login">
+                                <button type="submit" class="btn btn-lg btn-block btn-success">회원가입</button>
+                            </div>
                             <p class="login-text">계정이 이미 있습니까? <a href="/login">login</a></p>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="right-side">
+            <div class="right-side" OnClick="location.href ='/'"  style="cursor:pointer;">
                 <h2>Petmily</h2>
-                <span class="circle1"></span>
-                <span class="circle2"></span>
-                <span class="circle3"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#000" fill-opacity="1"
-                          d="M0,96L48,122.7C96,149,192,203,288,229.3C384,256,480,256,576,234.7C672,213,768,171,864,176C960,181,1056,235,1152,229.3C1248,224,1344,160,1392,128L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-                </svg>
             </div>
         </div>
     </div>
