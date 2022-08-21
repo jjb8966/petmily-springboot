@@ -13,17 +13,17 @@
 
     <insert id="insert">
         insert into ABANDONEDANIMAL(SNUMBER, NAME, SPECIES, KIND, GENDER, AGE, WEIGHT, IMGPATH, LOCATION, ADMISSIONDATE,
-        UNIQUENESS, DESCRIPTION, VIDEO, ANIMALSTATE)
+                                    UNIQUENESS, DESCRIPTION, VIDEO, ANIMALSTATE)
         values (#{sNumber}, #{name}, #{species}, #{kind}, #{gender}, #{age}, #{weight}, #{weight}, #{imgPath},
-        #{location}, #{admissionDate}, #{uniqueness}, #{description}, #{video}, #{animalState})
+                #{location}, #{admissionDate}, #{uniqueness}, #{description}, #{video}, #{animalState})
     </insert>
 
     <update id="update">
         update ABANDONEDANIMAL
         set SNUMBER = #{sNumber}, NAME = #{name}, SPECIES = #{species}, KIND = #{kind}, GENDER = #{gender},
-        AGE = #{age}, WEIGHT = #{weight}, IMGPATH = #{imgPath}, LOCATION = #{location}, ADMISSIONDATE =
-        #{admissionDate},
-        UNIQUENESS = #{uniqueness}, DESCRIPTION = #{description}, VIDEO = #{video}, ANIMALSTATE = #{animalState}
+            AGE = #{age}, WEIGHT = #{weight}, IMGPATH = #{imgPath}, LOCATION = #{location}, ADMISSIONDATE =
+                #{admissionDate},
+            UNIQUENESS = #{uniqueness}, DESCRIPTION = #{description}, VIDEO = #{video}, ANIMALSTATE = #{animalState}
         where ABNUMBER = #{abNumber}
     </update>
 
@@ -31,17 +31,62 @@
         delete from ABANDONEDANIMAL
         where ABNUMBER = #{pk}
     </delete>
-    <!--=======BasicMapper 메소드=======-->
 
-    <select id="selectCount" resultType="int">
+    <!--=======BasicMapper 메소드=======-->
+    <select id="selectCountWithCondition" resultType="java.lang.Integer">
         select count(*)
         from ABANDONEDANIMAL
+        <where>
+            <if test="species != null and species != 'allSpecies'">
+                and SPECIES = #{species}
+            </if>
+
+            <if test="gender != null and gender != 'allGender'">
+                and GENDER = #{gender}
+            </if>
+
+            <if test="animalState != null and animalState != 'allAnimalState'">
+                and ANIMALSTATE = #{animalState}
+            </if>
+
+            <if test="keyword != null and keyword != 'allKeyword'">
+                and ( NAME like '%' || #{keyword} || '%'
+                or KIND like '%' || #{keyword} || '%'
+                or AGE like '%' || #{keyword} || '%'
+                or LOCATION like '%' || #{keyword} || '%'
+                or UNIQUENESS like '%' || #{keyword} || '%'
+                or DESCRIPTION like '%' || #{keyword} || '%' )
+            </if>
+        </where>
     </select>
 
-    <select id="selectIndex" resultType="kh.petmily.domain.abandoned_animal.AbandonedAnimal">
+    <select id="selectIndexWithCondition" resultType="kh.petmily.domain.abandoned_animal.AbandonedAnimal">
         select * from
         (select ROWNUM as NUM, A.ABNUMBER, A.NAME, A.LOCATION, A.ADMISSIONDATE, A.IMGPATH FROM
-        (select * from ABANDONEDANIMAL order by ABNUMBER DESC) A)
+        (select * from ABANDONEDANIMAL
+        <where>
+            <if test="species != null and species != 'allSpecies'">
+                and SPECIES = #{species}
+            </if>
+
+            <if test="animalState != null and animalState != 'allAnimalState'">
+                and ANIMALSTATE = #{animalState}
+            </if>
+
+            <if test="gender != null and gender != 'allGender'">
+                and GENDER = #{gender}
+            </if>
+
+            <if test="keyword != null and keyword != 'allKeyword'">
+                and ( NAME like '%' || #{keyword} || '%'
+                or KIND like '%' || #{keyword} || '%'
+                or AGE like '%' || #{keyword} || '%'
+                or LOCATION like '%' || #{keyword} || '%'
+                or UNIQUENESS like '%' || #{keyword} || '%'
+                or DESCRIPTION like '%' || #{keyword} || '%' )
+            </if>
+        </where>
+        order by ABNUMBER DESC) A)
         where NUM between #{start} and #{end}
     </select>
 
