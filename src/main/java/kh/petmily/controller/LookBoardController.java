@@ -41,9 +41,9 @@ public class LookBoardController {
 
         saveCondition(species, animalState, keyword, session);
 
-        species = (String) request.getSession().getAttribute("species");
-        animalState = (String) request.getSession().getAttribute("animalState");
-        keyword = (String) request.getSession().getAttribute("keyword");
+        species = (String) session.getAttribute("species");
+        animalState = (String) session.getAttribute("animalState");
+        keyword = (String) session.getAttribute("keyword");
 
         log.info("species = {}", species);
         log.info("animalState = {}", animalState);
@@ -149,7 +149,7 @@ public class LookBoardController {
             session.setAttribute("species", species);
         }
 
-        if (species != null) {
+        if (animalState != null) {
             session.setAttribute("animalState", animalState);
         }
 
