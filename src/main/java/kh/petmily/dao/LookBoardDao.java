@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class LookBoardDao implements BasicDao {
+
     private final LookBoardMapper mapper;
 
     @Override
@@ -35,25 +36,8 @@ public class LookBoardDao implements BasicDao {
         mapper.delete(pk);
     }
 
-    public int selectCount() {
-        return mapper.selectCount();
-    }
-
     public int selectCount(String species, String animalState, String keyword) {
         return mapper.selectCountWithCondition(species, animalState, keyword);
-    }
-
-    public List<LookBoardListForm> selectIndex(int start, int end) {
-        List<LookBoard> list = mapper.selectIndex(start, end);
-        List<LookBoardListForm> liList = new ArrayList<>();
-
-        for (LookBoard l : list) {
-            // ====== 조회수 추가된 부분 ======
-            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle(), l.getViewCount());
-            liList.add(li);
-        }
-
-        return liList;
     }
 
     public List<LookBoardListForm> selectIndex(int start, int end, String species, String animalState, String keyword) {

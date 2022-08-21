@@ -84,7 +84,6 @@
 
             <%--class="float-right"--%>
 
-
         </div>
         <br>
 
@@ -121,36 +120,6 @@
                         onclick="location.href='/lookBoard/auth/write'">글쓰기</button>
         </span>
 
-        <%--        <div class="row mt-5">--%>
-        <%--            <div class="col text-center">--%>
-        <%--                <div class="block-27">--%>
-        <%--                    <ul>--%>
-        <%--                        <li>--%>
-        <%--                            <c:if test="${Looks.startPage > 5}">--%>
-        <%--                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage - 5}">&lt;</a>--%>
-        <%--                            </c:if>--%>
-        <%--                        </li>--%>
-        <%--                        <c:forEach var="pNo" begin="${Looks.startPage}" end="${Looks.endPage}">--%>
-        <%--                            <c:if test="${Looks.currentPage == pNo}">--%>
-        <%--                                <li class="active">--%>
-        <%--                                    <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>--%>
-        <%--                                </li>--%>
-        <%--                            </c:if>--%>
-        <%--                            <c:if test="${Looks.currentPage != pNo}">--%>
-        <%--                                <li>--%>
-        <%--                                    <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>--%>
-        <%--                                </li>--%>
-        <%--                            </c:if>--%>
-        <%--                        </c:forEach>--%>
-        <%--                        <li>--%>
-        <%--                            <c:if test="${Looks.endPage < Looks.totalPages}">--%>
-        <%--                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage + 5}">&gt;</a>--%>
-        <%--                            </c:if>--%>
-        <%--                        </li>--%>
-        <%--                    </ul>--%>
-        <%--                </div>--%>
-        <%--            </div>--%>
-        <%--        </div>--%>
     </div>
 
     <div class="row mt-5">

@@ -13,8 +13,6 @@ public interface LookBoardService {
 
     public void delete(int laNumber);
 
-    public LookBoardPageForm getLookPage(int pageNo);
-
     public LookBoardPageForm getLookPage(int pageNo, String animalType, String stateType, String keyword);
 
     public LookBoardDetailForm getDetailForm(int laNumber);

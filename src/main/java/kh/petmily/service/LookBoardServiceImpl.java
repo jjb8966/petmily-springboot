@@ -43,19 +43,7 @@ public class LookBoardServiceImpl implements LookBoardService {
     }
 
     @Override
-    public LookBoardPageForm getLookPage(int pageNo) {
-        int total = lookBoardDao.selectCount();
-        List<LookBoardListForm> content = lookBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
-
-        return new LookBoardPageForm(total, pageNo, size, content);
-    }
-
-    @Override
     public LookBoardPageForm getLookPage(int pageNo, String species, String animalState, String keyword) {
-//        if (species.equals("allSpecies") && animalState.equals("allAnimalState") && keyword == null) {
-//            return getLookPage(pageNo);
-//        }
-
         int total = lookBoardDao.selectCount(species, animalState, keyword);
         List<LookBoardListForm> content = lookBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, species, animalState, keyword);
 
