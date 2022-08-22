@@ -50,6 +50,7 @@
             <div class="col-md-7 pl-md-5 py-md-5">
                 <div class="heading-section pt-md-5">
                     <h2 class="mb-4">${lookIn.title}</h2>
+                    <p>조회수: ${lookIn.viewCount}</p>
                 </div>
                 <div class="row">
                     <div class="col-md-6 services-2 w-100 d-flex">
@@ -102,7 +103,7 @@
                         </button>
                     </c:if>
                     <button type="button" class="btn btn-primary"
-                            onclick="location.href='/lookBoard/list'">목록으로
+                            onclick="location.href = document.referrer">목록으로
                     </button>
                 </div>
             </div>
