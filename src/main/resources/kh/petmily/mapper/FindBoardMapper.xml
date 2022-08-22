@@ -62,9 +62,15 @@
     <select id="selectMatchedLa" resultType="java.lang.Integer">
         select LANUMBER
         from LOOKANIMALBOARD
-        where SPECIES = #{species}
-          and (KIND = #{kind} or KIND = '모름')
-          and (LOCATION = #{location} or LOCATION = '모름')
+        <where>
+            SPECIES = #{species}
+            <if test="kind != '모름'">
+                and (KIND = #{kind} or KIND = '모름')
+            </if>
+            <if test="location != '모름'">
+                and (LOCATION = #{location} or LOCATION = '모름')
+            </if>
+        </where>
     </select>
 
     <update id="changeState">
