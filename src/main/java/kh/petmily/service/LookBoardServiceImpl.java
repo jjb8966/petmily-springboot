@@ -43,9 +43,9 @@ public class LookBoardServiceImpl implements LookBoardService {
     }
 
     @Override
-    public LookBoardPageForm getLookPage(int pageNo) {
-        int total = lookBoardDao.selectCount();
-        List<LookBoardListForm> content = lookBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
+    public LookBoardPageForm getLookPage(int pageNo, String species, String animalState, String keyword) {
+        int total = lookBoardDao.selectCount(species, animalState, keyword);
+        List<LookBoardListForm> content = lookBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, species, animalState, keyword);
 
         return new LookBoardPageForm(total, pageNo, size, content);
     }
@@ -58,10 +58,6 @@ public class LookBoardServiceImpl implements LookBoardService {
         return detailForm;
     }
 
-    private LookBoardDetailForm toDetailForm(LookBoard lookBoard) {
-        return new LookBoardDetailForm(lookBoard.getLaNumber(), lookBoard.getMNumber(), findName(lookBoard.getLaNumber()), lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getAnimalState(), lookBoard.getImgPath(), lookBoard.getWrTime(), lookBoard.getTitle(), lookBoard.getContent());
-    }
-
     @Override
     public LookBoardModifyForm getModifyForm(int laNumber) {
         LookBoard lookBoard = lookBoardDao.findByPk(laNumber);
@@ -70,12 +66,23 @@ public class LookBoardServiceImpl implements LookBoardService {
         return modifyForm;
     }
 
-    private LookBoardModifyForm toModifyForm(LookBoard lookBoard) {
-        return new LookBoardModifyForm(lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getTitle(), lookBoard.getContent());
-    }
-
     @Override
     public String findName(int laNumber) {
         return lookBoardDao.selectName(laNumber);
+    }
+
+    //====== 조회수 추가 ======
+    @Override
+    public int updateViewCount(int laNumber) {
+        return lookBoardDao.updateViewCount(laNumber);
+    }
+
+    //====== 조회수 추가 ======
+    private LookBoardDetailForm toDetailForm(LookBoard lookBoard) {
+        return new LookBoardDetailForm(lookBoard.getLaNumber(), lookBoard.getMNumber(), findName(lookBoard.getLaNumber()), lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getAnimalState(), lookBoard.getImgPath(), lookBoard.getWrTime(), lookBoard.getTitle(), lookBoard.getContent(), lookBoard.getViewCount());
+    }
+
+    private LookBoardModifyForm toModifyForm(LookBoard lookBoard) {
+        return new LookBoardModifyForm(lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getTitle(), lookBoard.getContent());
     }
 }
