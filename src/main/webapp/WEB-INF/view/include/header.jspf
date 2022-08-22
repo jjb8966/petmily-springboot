@@ -35,6 +35,12 @@
 						<div>
                             <a class="text-white" href="/logout">로그아웃</a>
                         </div>
+
+						<c:if test="${authUser.getMNumber() == 1}">
+							<div>
+								<a class="text-white" href="/admin" style="padding: 15px">관리자 페이지</a>
+							</div>
+						</c:if>
 					</p>
 				</c:if>
 			</div>
