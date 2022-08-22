@@ -23,4 +23,16 @@ public interface FindBoardMapper {
     FindBoard selectFindWriteForm(int pk);
 
     String selectName(int pk);
+
+    List<Integer> selectMatchedLa(FindBoard obj);
+
+    void changeState(int faNumber);
+
+    void backState(int faNumber);
+
+    void changeStateLook(int laNumber);
+
+    void backStateLook(int laNumber);
+
+    int selectByPkMax();
 }
