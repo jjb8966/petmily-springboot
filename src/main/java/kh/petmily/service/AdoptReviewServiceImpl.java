@@ -19,9 +19,10 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
     private int size = 6;
 
     @Override
-    public BoardPage getAdoptReviewPage(int pageNum, String kindOfBoard) {
-        int total = adoptReviewDao.selectCount(kindOfBoard);
-        List<AdoptReviewForm> content = adoptReviewDao.selectIndex((pageNum - 1) * size + 1, (pageNum - 1) * size + size, kindOfBoard);
+    public BoardPage getAdoptReviewPage(int pageNum, String kindOfBoard, String searchType, String keyword) {
+        int total = adoptReviewDao.selectCount(kindOfBoard, searchType, keyword);
+
+        List<AdoptReviewForm> content = adoptReviewDao.selectIndex((pageNum - 1) * size + 1, (pageNum - 1) * size + size, kindOfBoard, searchType, keyword);
 
         return new BoardPage(total, pageNum, size, content);
     }
@@ -38,7 +39,9 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
                 arForm.getTitle(),
                 arForm.getContent(),
                 arForm.getWrTime(),
-                arForm.getCheckPublic()
+                arForm.getCheckPublic(),
+                arForm.getViewCount(),
+                arForm.getReplyCount()
         );
     }
 
@@ -71,7 +74,12 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
         return adoptReviewDao.selectName(bNumber);
     }
 
-    private AdoptReview toAdoptReview(AdoptReviewWriteForm req){
+    @Override
+    public int updateViewCount(int bNumber) {
+        return adoptReviewDao.updateViewCount(bNumber);
+    }
+
+    private AdoptReview toAdoptReview(AdoptReviewWriteForm req) {
         return new AdoptReview(
                 req.getmNumber(),
                 req.getKindOfBoard(),
@@ -85,7 +93,7 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
         return new AdoptReviewModifyForm(adoptReview.getBNumber(), adoptReview.getTitle(), adoptReview.getContent(), adoptReview.getCheckPublic());
     }
 
-    private AdoptReview toAdoptReviewModifyForm(AdoptReviewModifyForm modReq){
+    private AdoptReview toAdoptReviewModifyForm(AdoptReviewModifyForm modReq) {
         return new AdoptReview(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), "Y");
     }
 }

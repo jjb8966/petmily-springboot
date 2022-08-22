@@ -55,6 +55,7 @@ pageEncoding="UTF-8" %>
 				<h6 class="mt-1"></h6>
 				<small><a href="javascript:void(0)">${detailForm.name}</a></small>
 				<small><i class="far fa-comment ml-2"></i> date ${detailForm.wrTime} </small>
+				<small><i class="far fa-comment ml-2"></i> 조회수 ${detailForm.viewCount} </small>
 
 				<!-- content s내용 -->
 
@@ -84,7 +85,7 @@ pageEncoding="UTF-8" %>
 
 					<span>
             		<button type="button" class="btn btn-primary"
-							onclick="location.href='/adopt_review/list?kindOfBoard=${param.kindOfBoard}'">글 목록</button>
+							onclick="location.href = document.referrer">글 목록</button>
             	    </span>
 
 					<!-- 댓글 작성하기 버튼 -->
