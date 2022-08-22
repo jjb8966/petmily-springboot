@@ -16,7 +16,9 @@ public interface FindBoardService {
 
     public FindBoardModifyForm getModifyForm(int faNumber);
 
-    public FindBoardPageForm getFindPage(int pageNo);
+    public FindBoardPageForm getFindPage(int pageNo, String animalType, String stateType, String keyword);
 
     String findName(int faNumber);
+
+    public int updateViewCount(int faNumber);
 }

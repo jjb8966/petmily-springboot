@@ -102,7 +102,7 @@
                         </button>
                     </c:if>
                     <button type="button" class="btn btn-primary"
-                            onclick="location.href='/findBoard/list'">목록으로
+                            onclick="location.href= document.referrer">목록으로
                     </button>
                 </div>
             </div>
