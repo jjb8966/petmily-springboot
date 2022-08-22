@@ -35,16 +35,17 @@ public class FindBoardDao implements BasicDao {
         mapper.delete(pk);
     }
 
-    public int selectCount() {
-        return mapper.selectCount();
+    public int selectCount(String species, String animalState, String keyword) {
+        return mapper.selectCountWithCondition(species, animalState, keyword);
     }
 
-    public List<FindBoardListForm> selectIndex(int start, int end) {
-        List<FindBoard> list = mapper.selectIndex(start, end);
+    public List<FindBoardListForm> selectIndex(int start, int end, String species, String animalState, String keyword) {
         List<FindBoardListForm> fiList = new ArrayList<>();
 
-        for (FindBoard f : list) {
-            FindBoardListForm fi = new FindBoardListForm(f.getFaNumber(), selectName(f.getFaNumber()), f.getSpecies(), f.getKind(), f.getLocation(), f.getAnimalState(), f.getImgPath(), f.getWrTime(), f.getTitle());
+        List<FindBoard> findBoards = mapper.selectIndexWithCondition(start, end, species, animalState, keyword);
+
+        for (FindBoard board : findBoards) {
+            FindBoardListForm fi = new FindBoardListForm(board.getFaNumber(), selectName(board.getFaNumber()), board.getSpecies(), board.getKind(), board.getLocation(), board.getAnimalState(), board.getImgPath(), board.getWrTime(), board.getTitle(), board.getViewCount());
             fiList.add(fi);
         }
 
@@ -53,5 +54,10 @@ public class FindBoardDao implements BasicDao {
 
     public String selectName(int pk) {
         return mapper.selectName(pk);
+    }
+
+    // 조회수
+    public int updateViewCount(int pk) {
+        return mapper.updateViewCount(pk);
     }
 }
