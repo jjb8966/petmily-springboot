@@ -57,4 +57,48 @@
                  inner join MEMBER M on F.MNUMBER = M.MNUMBER
         where F.FANUMBER = #{pk}
     </select>
+
+    <!--=======find-look 연결=======-->
+    <select id="selectMatchedLa" resultType="java.lang.Integer">
+        select LANUMBER
+        from LOOKANIMALBOARD
+        <where>
+            SPECIES = #{species}
+            <if test="kind != '모름'">
+                and (KIND = #{kind} or KIND = '모름')
+            </if>
+            <if test="location != '모름'">
+                and (LOCATION = #{location} or LOCATION = '모름')
+            </if>
+        </where>
+    </select>
+
+    <update id="changeState">
+        update FINDANIMALBOARD
+        set ANIMALSTATE = '매칭됨'
+        where FANUMBER = #{faNumber}
+    </update>
+
+    <update id="backState">
+        update FINDANIMALBOARD
+        set ANIMALSTATE = '실종'
+        where FANUMBER = #{faNumber}
+    </update>
+
+    <update id="changeStateLook">
+        update LOOKANIMALBOARD
+        set ANIMALSTATE = '매칭됨'
+        where LANUMBER = #{laNumber}
+    </update>
+
+    <update id="backStateLook">
+        update LOOKANIMALBOARD
+        set ANIMALSTATE = '보호'
+        where LANUMBER = #{laNumber}
+    </update>
+
+    <select id="selectByPkMax" resultType="java.lang.Integer">
+        select MAX(FANUMBER)
+        from FINDANIMALBOARD
+    </select>
 </mapper>
