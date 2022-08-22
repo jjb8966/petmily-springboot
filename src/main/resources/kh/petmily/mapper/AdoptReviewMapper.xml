@@ -13,12 +13,15 @@
 
     <insert id="insert">
         insert into BOARD(BNUMBER, MNUMBER, KINDOFBOARD, TITLE, CONTENT, IMGPATH, VIDEO, WRTIME, CHECKPUBLIC)
-        values (#{bNumber}, #{mNumber}, #{kindOfBoard}, #{title}, #{content}, null, null, SYSDATE, #{checkPublic})
+        values (#{bNumber}, #{mNumber}, #{kindOfBoard}, #{title}, #{content}, #{imgPath}, null, SYSDATE, #{checkPublic})
     </insert>
 
     <update id="update">
         update BOARD
-        set TITLE = #{title}, CONTENT = #{content}, IMGPATH = null, CHECKPUBLIC = #{checkPublic}, WRTIME = SYSDATE
+        set TITLE = #{title}, CONTENT = #{content}, CHECKPUBLIC = #{checkPublic}, WRTIME = SYSDATE
+        <if test='imgPath != null '>
+            ,IMGPATH = #{imgPath}
+        </if>
         where BNUMBER = #{bNumber}
     </update>
 

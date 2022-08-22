@@ -59,6 +59,14 @@ pageEncoding="UTF-8" %>
 				<!-- content s내용 -->
 
 				<div class="modal-footer"></div>
+                <c:choose>
+                    <c:when test="${not empty detailForm.imgPath}">
+				        <img width="50%" src="/adopt_review/upload?filename=${detailForm.imgPath}" >
+                    </c:when>
+                    <c:otherwise>
+				        <img width="100%" src=" " >
+                    </c:otherwise>
+                </c:choose>
 				<p>${detailForm.content}</p>
 				<p>
 					<img src="images/image_2.jpg" alt="" class="img-fluid">

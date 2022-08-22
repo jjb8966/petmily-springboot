@@ -8,13 +8,19 @@ import kh.petmily.domain.member.Member;
 import kh.petmily.service.AdoptReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 @Controller
 @RequestMapping("/adopt_review")
@@ -22,6 +28,27 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class AdoptReviewController {
     private final AdoptReviewService adoptReviewService;
+
+    @Value("${file.dir}")
+    private String fileDir;
+
+    @ResponseBody
+    @GetMapping("/upload")
+    public ResponseEntity<Resource> list(String filename) {
+        String fullPath = fileDir + filename;
+
+        log.info("fullPath = {} ", fullPath);
+
+        try {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(new UrlResource("file:" + fullPath));
+        } catch (MalformedURLException e) {
+            log.info("fullPath = {} ", fullPath);
+
+            throw new RuntimeException(e);
+        }
+    }
 
     @GetMapping("/list")
     public String list(HttpServletRequest request, Model model) {
@@ -48,6 +75,8 @@ public class AdoptReviewController {
 
         model.addAttribute("detailForm", detailForm);
 
+        log.info("detailForm={}", detailForm);
+
         return "/adopt_review/detailFormAdoptReview";
     }
 
@@ -59,12 +88,23 @@ public class AdoptReviewController {
     @PostMapping("/auth/write")
     public String write(@ModelAttribute AdoptReviewWriteForm adoptReviewWriteForm, HttpServletRequest request) {
         Member member = getAuthMember(request);
-
         int mNumber = member.getMNumber();
+
         adoptReviewWriteForm.setMNumber(mNumber);
+        String filename = "";
 
-        log.info("WriteBoardForm = {}", adoptReviewWriteForm);
+        if (!adoptReviewWriteForm.getImgPath().isEmpty()) {
 
+            try {
+                filename = adoptReviewService.storeFile(adoptReviewWriteForm.getImgPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            adoptReviewWriteForm.setFullPath(filename);
+        } else {
+            adoptReviewWriteForm.setFullPath("");
+        }
         adoptReviewService.write(adoptReviewWriteForm);
 
         return "/adopt_review/writeAdoptReviewSuccess";
@@ -92,7 +132,15 @@ public class AdoptReviewController {
         int mNumber = authUser.getMNumber();
         modReq.setMNumber(mNumber);
 
-        log.info("AdoptModifyForm = {}", modReq);
+        log.info("BoardModifyForm = {}", modReq);
+        String filename = null;
+
+        try {
+            filename = adoptReviewService.storeFile(modReq.getImgPath());
+            modReq.setFullPath(filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         adoptReviewService.modify(modReq);
         model.addAttribute("modReq", modReq);

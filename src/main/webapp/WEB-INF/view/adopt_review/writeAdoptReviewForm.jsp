@@ -52,7 +52,7 @@ pageEncoding="UTF-8" %>
 
                     <!-- form 시작 -->
 
-                    <form class="form" name="enq" method="post" action="/adopt_review/auth/write">
+                    <form class="form" name="enq" method="post" action="/adopt_review/auth/write"  enctype='multipart/form-data'>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="form-group">
@@ -68,6 +68,13 @@ pageEncoding="UTF-8" %>
                                           placeholder="내용을 입력해주세요" required="required"/></textarea>
                                 <input type="hidden" name="kindOfBoard" id="kindOfBoard" value="${param.kindOfBoard}"/>
                             </div>
+                        </div>
+
+                        <!-- 첨부파일 -->
+
+                        <div>
+                           <div class="custom-file form-control-sm mt-3" style="max-width: 300px;">
+                             <input type="file" name="imgPath" id="file" accept="image/*">
                         </div>
 
                         <!-- checkPublic 공개 / 비공개 여부  -->

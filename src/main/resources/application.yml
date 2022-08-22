@@ -12,10 +12,14 @@
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@petmily_medium?TNS_ADMIN=/Users/joojongbum/oracle_db/Wallet_petmily/
-    username: jjb1
-    password: Petmilymember1
+    url: jdbc:oracle:thin:@petmily_medium?TNS_ADMIN=C:/wallet/Wallet_petmily
+    username: psh2
+    password: Petmilymember2
+    hikari:
+      maximum-pool-size: 1
   mvc:
     view:
       prefix: /WEB-INF/view/
       suffix: .jsp
+file:
+  dir: C:/file/

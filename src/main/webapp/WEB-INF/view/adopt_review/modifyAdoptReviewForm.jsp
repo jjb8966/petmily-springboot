@@ -52,7 +52,7 @@ pageEncoding="UTF-8" %>
 
                     <!-- form 시작 -->
 
-                    <form class="form" name="enq" method="post" action="/adopt_review/auth/modify">
+                    <form class="form" name="enq" method="post" action="/adopt_review/auth/modify" enctype='multipart/form-data'>
                         <div class="modal-body">
                             <div class="row">
 
@@ -67,6 +67,12 @@ pageEncoding="UTF-8" %>
                                           required="required">${modReq.content}</textarea>
                                 <input type="hidden" name="kindOfBoard" id="kindOfBoard" value="${param.kindOfBoard}"/>
                             </div>
+                        </div>
+
+                        <!-- 첨부파일 -->
+
+                        <div class="custom-file form-control-sm mt-3" style="max-width: 300px;">
+                            <input type="file" name="imgPath" id="file" accept="image/*">
                         </div>
 
                         <!-- checkPublic 공개 / 비공개 여부  -->

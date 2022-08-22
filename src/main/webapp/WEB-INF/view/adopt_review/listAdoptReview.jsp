@@ -51,7 +51,7 @@ pageEncoding="UTF-8" %>
         <c:forEach var="board" items="${boardList.content}">
             <div class="col-md-4">
                 <div class="blog-entry align-self-stretch">
-                    <a href="/adopt_review/detail?kindOfBoard=${param.kindOfBoard}&bNumber=${board.getBNumber()}" class="block-20 rounded""></a>
+                  <a href="/adopt_review/detail?kindOfBoard=${param.kindOfBoard}&bNumber=${board.getBNumber()}" class="block-20 rounded" style="background-image: url('/adopt_review/upload?filename=${board.imgPath}')"></a>
                     <div class="text p-4">
                         <div class="meta mb-2">
                             <div><i class="far fa-eye"></i>date ${board.wrTime}</div><br/>

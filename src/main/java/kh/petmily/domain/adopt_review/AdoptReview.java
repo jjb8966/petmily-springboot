@@ -35,9 +35,22 @@ public class AdoptReview implements DomainObj {
         this.checkPublic = checkPublic;
     }
 
-    public AdoptReview(int bNumber, int mNumber, String kindOfBoard, String title, String content, Date wrTime, String checkPublic) {
+    public AdoptReview(int mNumber, int bNumber, String kindOfBoard, String title, String content, String imgPath, Blob video, Date wrTime, String checkPublic) {
         this.bNumber = bNumber;
         this.mNumber = mNumber;
+        this.kindOfBoard = kindOfBoard;
+        this.title = title;
+        this.content = content;
+        this.imgPath = imgPath;
+        this.video = video;
+        this.wrTime = wrTime;
+        this.checkPublic = checkPublic;
+    }
+
+    public AdoptReview(int mNumber, int bNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic) {
+        this.mNumber = mNumber;
+        this.bNumber = bNumber;
+        this.name = name;
         this.kindOfBoard = kindOfBoard;
         this.title = title;
         this.content = content;
@@ -45,18 +58,20 @@ public class AdoptReview implements DomainObj {
         this.checkPublic = checkPublic;
     }
 
-    public AdoptReview(int mNumber, String kindOfBoard, String title, String content, String checkPublic) {
+    public AdoptReview(int bNumber, String title, String content, String checkPublic, String imgPath) {
+        this.bNumber = bNumber;
+        this.title = title;
+        this.content = content;
+        this.checkPublic = checkPublic;
+        this.imgPath = imgPath;
+    }
+
+    public AdoptReview(int mNumber, String kindOfBoard, String title, String content, String checkPublic, String imgPath) {
         this.mNumber = mNumber;
         this.kindOfBoard = kindOfBoard;
         this.title = title;
         this.content = content;
         this.checkPublic = checkPublic;
-    }
-
-    public AdoptReview(int bNumber, String title, String content, String checkPublic) {
-        this.bNumber = bNumber;
-        this.title = title;
-        this.content = content;
-        this.checkPublic = checkPublic;
+        this.imgPath = imgPath;
     }
 }

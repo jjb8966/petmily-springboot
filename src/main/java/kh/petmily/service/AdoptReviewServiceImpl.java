@@ -7,16 +7,30 @@ import kh.petmily.domain.adopt_review.form.AdoptReviewModifyForm;
 import kh.petmily.domain.adopt_review.form.AdoptReviewWriteForm;
 import kh.petmily.domain.adopt_review.form.BoardPage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AdoptReviewServiceImpl implements AdoptReviewService {
 
     private final AdoptReviewDao adoptReviewDao;
     private int size = 6;
+
+    @Value("${file.dir}")
+    private String fileDir;
+
+    private String getFullPath(String filename) {
+        return fileDir + filename;
+    }
 
     @Override
     public BoardPage getAdoptReviewPage(int pageNum, String kindOfBoard) {
@@ -24,6 +38,32 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
         List<AdoptReviewForm> content = adoptReviewDao.selectIndex((pageNum - 1) * size + 1, (pageNum - 1) * size + size, kindOfBoard);
 
         return new BoardPage(total, pageNum, size, content);
+    }
+
+    private String extractExt(String originalFilename) {
+        int position = originalFilename.lastIndexOf(".");
+
+        return originalFilename.substring(position + 1);
+    }
+
+    public String storeFile(MultipartFile file) throws IOException {
+        log.info("storeFile = {} ", file.getOriginalFilename());
+
+        if (file.isEmpty()) {
+            return null;
+        }
+
+        File storeFolder = new File(fileDir);
+        if (!storeFolder.exists()) {
+            storeFolder.mkdir();
+        }
+        String originalFilename = file.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString();
+        String storeFileName = uuid + "." + extractExt(originalFilename);
+        String fullPath = getFullPath(storeFileName);
+        file.transferTo(new File(fullPath));
+
+        return storeFileName;
     }
 
     @Override
@@ -37,6 +77,7 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
                 arForm.getKindOfBoard(),
                 arForm.getTitle(),
                 arForm.getContent(),
+                arForm.getImgPath(),
                 arForm.getWrTime(),
                 arForm.getCheckPublic()
         );
@@ -58,6 +99,9 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
     @Override
     public void modify(AdoptReviewModifyForm modReq) {
         AdoptReview adoptReview = toAdoptReviewModifyForm(modReq);
+
+        log.info("adoptReview.getImgPath() = {} ", adoptReview.getImgPath());
+
         adoptReviewDao.update(adoptReview);
     }
 
@@ -77,7 +121,8 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
                 req.getKindOfBoard(),
                 req.getTitle(),
                 req.getContent(),
-                req.getCheckPublic()
+                req.getCheckPublic(),
+                req.getFullPath()
         );
     }
 
@@ -85,7 +130,7 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
         return new AdoptReviewModifyForm(adoptReview.getBNumber(), adoptReview.getTitle(), adoptReview.getContent(), adoptReview.getCheckPublic());
     }
 
-    private AdoptReview toAdoptReviewModifyForm(AdoptReviewModifyForm modReq){
-        return new AdoptReview(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), "Y");
+    private AdoptReview toAdoptReviewModifyForm(AdoptReviewModifyForm modReq) {
+        return new AdoptReview(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), "Y", modReq.getFullPath());
     }
 }

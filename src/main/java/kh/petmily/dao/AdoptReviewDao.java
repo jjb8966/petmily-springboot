@@ -44,8 +44,8 @@ public class AdoptReviewDao implements BasicDao{
         List<AdoptReview> list = mapper.selectIndex(start, end, kindOfBoard);
         List<AdoptReviewForm> adoptReviewFormList = new ArrayList<>();
 
-        for(AdoptReview a : list) {
-            AdoptReviewForm ar = new AdoptReviewForm(a.getBNumber(), a.getMNumber(),selectName(a.getBNumber()), a.getKindOfBoard(), a.getTitle(), a.getContent(), a.getWrTime(), a.getCheckPublic());
+        for (AdoptReview a : list) {
+            AdoptReviewForm ar = new AdoptReviewForm(a.getBNumber(), a.getMNumber(), selectName(a.getBNumber()), a.getKindOfBoard(), a.getTitle(), a.getContent(), a.getImgPath(), a.getWrTime(), a.getCheckPublic());
             adoptReviewFormList.add(ar);
         }
 

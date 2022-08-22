@@ -11,6 +11,7 @@ public class AdoptReviewForm {
     private String kindOfBoard;
     private String title;
     private String content;
+    private String imgPath;
     private Date wrTime;
     private String checkPublic;
 
@@ -21,6 +22,18 @@ public class AdoptReviewForm {
         this.kindOfBoard = kindOfBoard;
         this.title = title;
         this.content = content;
+        this.wrTime = wrTime;
+        this.checkPublic = checkPublic;
+    }
+
+    public AdoptReviewForm(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, String imgPath, Date wrTime, String checkPublic) {
+        this.bNumber = bNumber;
+        this.mNumber = mNumber;
+        this.name = name;
+        this.kindOfBoard = kindOfBoard;
+        this.title = title;
+        this.content = content;
+        this.imgPath = imgPath;
         this.wrTime = wrTime;
         this.checkPublic = checkPublic;
     }
