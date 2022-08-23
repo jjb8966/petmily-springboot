@@ -19,9 +19,9 @@ public class BoardServiceImpl implements BoardService {
     private int size = 5;
 
     @Override
-    public BoardPage getBoardPage(int pageNum, String kindOfBoard) {
+    public BoardPage getBoardPage(int pageNum, String kindOfBoard, String sort) {
         int total = boardDao.selectCount(kindOfBoard);
-        List<ReadBoardForm> content = boardDao.selectIndex((pageNum - 1) * size + 1, (pageNum - 1) * size + size, kindOfBoard);
+        List<ReadBoardForm> content = boardDao.selectIndex((pageNum - 1) * size + 1, (pageNum - 1) * size + size, kindOfBoard, sort);
 
         return new BoardPage(total, pageNum, size, content);
     }
@@ -44,7 +44,9 @@ public class BoardServiceImpl implements BoardService {
                 readBoardForm.getTitle(),
                 readBoardForm.getContent(),
                 readBoardForm.getWrTime(),
-                readBoardForm.getCheckPublic()
+                readBoardForm.getCheckPublic(),
+                readBoardForm.getViewCount(),
+                readBoardForm.getSort()
         );
     }
 
@@ -64,6 +66,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void delete(int bNumber) {
         boardDao.delete(bNumber);
+    }
+
+    @Override
+    public int updateViewCount(int bNumber) {
+        return boardDao.updateViewCount(bNumber);
     }
 
     private Board toBoard(WriteBoardForm req) {

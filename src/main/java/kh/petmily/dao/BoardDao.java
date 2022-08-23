@@ -40,12 +40,12 @@ public class BoardDao implements BasicDao{
         return mapper.selectCount(kindOfBoard);
     }
 
-    public List<ReadBoardForm> selectIndex(int start, int end, String kindOfBoard) {
-        List<Board> list = mapper.selectIndex(start, end, kindOfBoard);
-        List<ReadBoardForm>  readBoardFormList = new ArrayList<>();
+    public List<ReadBoardForm> selectIndex(int start, int end, String kindOfBoard, String sort) {
+        List<Board> list = mapper.selectIndex(start, end, kindOfBoard, sort);
+        List<ReadBoardForm> readBoardFormList = new ArrayList<>();
 
         for(Board b : list) {
-            ReadBoardForm bd = new ReadBoardForm(b.getBNumber(), b.getMNumber(),selectName(b.getBNumber()), b.getKindOfBoard(), b.getTitle(), b.getContent(), b.getWrTime(), b.getCheckPublic());
+            ReadBoardForm bd = new ReadBoardForm(b.getBNumber(), b.getMNumber(),selectName(b.getBNumber()), b.getKindOfBoard(), b.getTitle(), b.getContent(), b.getWrTime(), b.getCheckPublic(), b.getViewCount(), b.getSort());
             readBoardFormList.add(bd);
         }
 
@@ -53,4 +53,6 @@ public class BoardDao implements BasicDao{
     }
 
     public String selectName(int pk) { return mapper.selectName(pk); }
+
+    public int updateViewCount(int pk) { return mapper.updateViewCount(pk); }
 }

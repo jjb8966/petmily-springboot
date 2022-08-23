@@ -21,8 +21,10 @@ public class Board implements DomainObj {
     private Blob video;
     private Date wrTime;
     private String checkPublic;
+    private int viewCount;
+    private String sort;
 
-    public Board(int mNumber, int bNumber, String kindOfBoard, String title, String content, String imgPath, Blob video, Date wrTime, String checkPublic) {
+    public Board(int mNumber, int bNumber, String kindOfBoard, String title, String content, String imgPath, Blob video, Date wrTime, String checkPublic, int viewCount) {
         this.bNumber = bNumber;
         this.mNumber = mNumber;
         this.kindOfBoard = kindOfBoard;
@@ -32,6 +34,7 @@ public class Board implements DomainObj {
         this.video = video;
         this.wrTime = wrTime;
         this.checkPublic = checkPublic;
+        this.viewCount = viewCount;
     }
 
     public Board(int mNumber, int bNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic) {
@@ -43,6 +46,19 @@ public class Board implements DomainObj {
         this.content = content;
         this.wrTime = wrTime;
         this.checkPublic = checkPublic;
+    }
+
+    public Board(int mNumber, int bNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic, int viewCount, String sort) {
+        this.mNumber = mNumber;
+        this.bNumber = bNumber;
+        this.name = name;
+        this.kindOfBoard = kindOfBoard;
+        this.title = title;
+        this.content = content;
+        this.wrTime = wrTime;
+        this.checkPublic = checkPublic;
+        this.viewCount = viewCount;
+        this.sort = sort;
     }
 
     public Board(int mNumber, String kindOfBoard, String title, String content, String checkPublic) {
