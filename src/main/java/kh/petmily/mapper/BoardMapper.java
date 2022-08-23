@@ -21,10 +21,12 @@ public interface BoardMapper {
 
     int selectCount(String kindOfBoard);
 
-    List<Board> selectIndex(@Param("start") int start, @Param("end") int end, @Param("kindOfBoard") String kindOfBoard);
+    List<Board> selectIndex(@Param("start") int start, @Param("end") int end, @Param("kindOfBoard") String kindOfBoard, @Param("sort") String sort);
 
-    Board selectWriteBoardForm(int pk);
+    //Board selectWriteBoardForm(int pk);
 
     String selectName(int pk);
+
+    int updateViewCount(int pk);
 
 }

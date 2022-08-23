@@ -39,9 +39,22 @@
         (select ROWNUM as NUM, A.* from
         (select * from BOARD
         where KINDOFBOARD = #{kindOfBoard}
-        order by BNUMBER desc) A)
+        <include refid="sort" />
+            ) A)
         where NUM between #{start} and #{end}
     </select>
+
+    <sql id="sort">
+        <if test="sort == 'bno'">
+            order by BNUMBER desc
+        </if>
+        <if test="sort == 'bnoAsc'">
+            order by BNUMBER asc
+        </if>
+        <if test="sort == 'viewCount'">
+            order by VIEWCOUNT desc
+        </if>
+    </sql>
 
     <select id="selectName" resultType="java.lang.String">
             select M.NAME
@@ -56,4 +69,10 @@
         from BOARD B, MEMBER M
         where B.MNUMBER = M.MNUMBER and BNUMBER = #{bNumber}
     </select>
+
+    <update id="updateViewCount">
+        update BOARD
+        set VIEWCOUNT = VIEWCOUNT + 1
+        where BNUMBER = #{pk}
+    </update>
 </mapper>

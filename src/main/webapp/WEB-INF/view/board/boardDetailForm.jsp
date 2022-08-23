@@ -97,7 +97,7 @@
 
                             <span>
 								<button type="button" class="btn btn-primary"
-                                        onclick="location.href='/board/list?kindOfBoard=${param.kindOfBoard}'">글 목록</button>
+                                        onclick="location.href = document.referrer">글 목록</button>
 							</span>
 
                             <!-- 댓글 작성하기 버튼 -->

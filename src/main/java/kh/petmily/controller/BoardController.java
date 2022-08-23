@@ -24,19 +24,18 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public String list(HttpServletRequest request, Model model) {
-        String pbNumberVal = request.getParameter("pbNumber");
-        String kindOfBoard = request.getParameter("kindOfBoard");
+    public String list(@RequestParam String kindOfBoard,
+                       @RequestParam(defaultValue = "1") int pbNumber,
+                       @RequestParam String sort,
+                       Model model) {
 
-        int pbNumber = 1;
+        log.info("kindOfBoard = {}", kindOfBoard);
+        log.info("pbNumber = {}", pbNumber);
+        log.info("sort = {}", sort);
 
-        if (pbNumberVal != null) {
-            pbNumber = Integer.parseInt(pbNumberVal);
-        }
+        BoardPage boardPage = boardService.getBoardPage(pbNumber, kindOfBoard, sort);
 
-        BoardPage boardPage = boardService.getBoardPage(pbNumber, kindOfBoard);
         model.addAttribute("readBoardForm", boardPage);
-        model.addAttribute("kindOfBoard", kindOfBoard);
 
         return "/board/boardList";
     }
@@ -44,6 +43,7 @@ public class BoardController {
     @GetMapping("/detail")
     public String detail(@RequestParam("bNumber") int bNumber, Model model) {
         ReadBoardForm detailForm = boardService.getBoard(bNumber);
+        boardService.updateViewCount(bNumber);
 
         model.addAttribute("detailForm", detailForm);
 

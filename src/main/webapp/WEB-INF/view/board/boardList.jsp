@@ -51,7 +51,18 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
-        <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+
+        <div class="modal-header">
+            <div class="float-left">
+                <a href="/board/list?kindOfBoard=${param.kindOfBoard}&sort=bno"><button class="btn btn-primary" type="button">최신순</button></a> &nbsp;
+                <a href="/board/list?kindOfBoard=${param.kindOfBoard}&sort=bnoAsc"><button class="btn btn-primary" type="button">오래된순</button></a> &nbsp;
+                <a href="/board/list?kindOfBoard=${param.kindOfBoard}&sort=viewCount"><button class="btn btn-primary" type="button">조회순</button> &nbsp;
+            </div>
+        </div> &nbsp; &nbsp;
+
+
+
+        <br class="inner-main-body p-2 p-sm-3 collapse forum-content show">
 
             <!-- 목록 출력 -->
 
@@ -109,6 +120,10 @@
                                         <a class="text-body" style="font-size: 1.3em;">비공개</a>
                                     </c:if>
                                 </c:if>
+
+                                <div>
+                                    조회수 : ${board.viewCount}
+                                </div>
                             </div>
 
                         </div>
@@ -117,10 +132,10 @@
             </c:forEach>
 
             <!-- 글쓰기 버튼  -->
-
+        </br>
             <span class="modal-footer">
 				<button type="button" class="btn btn-primary"
-                        onclick="location.href='/board/auth/write?kindOfBoard=${param.kindOfBoard}'">글쓰기</button>
+                        onclick="location.href='/board/auth/write?kindOfBoard=${param.kindOfBoard}'">글쓰기${pbNumber}</button>
 			</span>
 
             <!-- 페이징 처리 -->
@@ -132,26 +147,26 @@
                             <c:if test="${readBoardForm.hasBoard()}">
                                 <li>
                                     <c:if test="${readBoardForm.startPage > 5}">
-                                        <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${readBoardForm.startPage - 5}">&lt;</a>
+                                        <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${readBoardForm.startPage - 5}&sort=${param.sort}">&lt;</a>
                                     </c:if>
                                 </li>
                                 <li>
                                 <c:forEach var="pbNum" begin="${readBoardForm.startPage}" end="${readBoardForm.endPage}">
                                     <c:if test="${readBoardForm.currentPage == pbNum}">
                                         <li class="active">
-                                            <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${pbNum}">${pbNum}</a>
+                                            <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${pbNum}&sort=${param.sort}">${pbNum}</a>
                                         </li>
                                     </c:if>
                                     <c:if test="${readBoardForm.currentPage != pbNum}">
                                         <li>
-                                            <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${pbNum}">${pbNum}</a>
+                                            <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${pbNum}&sort=${param.sort}">${pbNum}</a>
                                         </li>
                                     </c:if>
                                 </c:forEach>
                                 </li>
                                 <li>
                                     <c:if test="${readBoardForm.endPage < readBoardForm.totalPages}">
-                                        <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${readBoardForm.startPage + 5}">&gt;</a>
+                                        <a href="/board/list?kindOfBoard=${param.kindOfBoard}&pbNumber=${readBoardForm.startPage + 5}&sort=${param.sort}">&gt;</a>
                                     </c:if>
                                 </li>
                             </c:if>

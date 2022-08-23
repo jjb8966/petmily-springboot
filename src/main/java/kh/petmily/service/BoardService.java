@@ -6,9 +6,10 @@ import kh.petmily.domain.board.form.ReadBoardForm;
 import kh.petmily.domain.board.form.WriteBoardForm;
 
 public interface BoardService {
-    public BoardPage getBoardPage(int pbNumber, String kindOfBoard);
+    public BoardPage getBoardPage(int pbNumber, String kindOfBoard, String sort);
 
     public void write(WriteBoardForm writeBoardForm);
+
     public ReadBoardForm getBoard(int bNumber);
 
     public BoardModifyForm getBoardModify(int bNumber);
@@ -16,4 +17,6 @@ public interface BoardService {
     public void modify(BoardModifyForm modReq);
 
     public void delete(int bNumber);
+
+    public int updateViewCount(int bNumber);
 }
