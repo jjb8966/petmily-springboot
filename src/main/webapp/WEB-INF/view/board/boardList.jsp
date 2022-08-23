@@ -135,7 +135,7 @@
         </br>
             <span class="modal-footer">
 				<button type="button" class="btn btn-primary"
-                        onclick="location.href='/board/auth/write?kindOfBoard=${param.kindOfBoard}'">글쓰기${pbNumber}</button>
+                        onclick="location.href='/board/auth/write?kindOfBoard=${param.kindOfBoard}'">글쓰기</button>
 			</span>
 
             <!-- 페이징 처리 -->
