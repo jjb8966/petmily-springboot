@@ -78,4 +78,17 @@ public class FindBoardServiceImpl implements FindBoardService {
     public String findName(int faNumber) {
         return findBoardDao.selectName(faNumber);
     }
+
+    @Override
+    public FindBoardPageForm getMembersFindPage(int pageNo, int mNumber, String matched) {
+        int total = findBoardDao.selectMemberCount(mNumber, matched);
+        List<FindBoardListForm> content = findBoardDao.selectMemberIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, mNumber, matched);
+
+        return new FindBoardPageForm(total, pageNo, size, content);
+    }
+
+    @Override
+    public FindBoard getFindBoard(int faNumber) {
+        return findBoardDao.findByPk(faNumber);
+    }
 }

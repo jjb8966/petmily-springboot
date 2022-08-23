@@ -1,5 +1,6 @@
 package kh.petmily.service;
 
+import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.find_board.form.FindBoardModifyForm;
 import kh.petmily.domain.find_board.form.FindBoardPageForm;
 import kh.petmily.domain.find_board.form.FindBoardDetailForm;
@@ -18,5 +19,9 @@ public interface FindBoardService {
 
     public FindBoardPageForm getFindPage(int pageNo);
 
+    public FindBoardPageForm getMembersFindPage(int pageNo, int mNumber, String matched);
+
     String findName(int faNumber);
+
+    FindBoard getFindBoard(int faNumber);
 }

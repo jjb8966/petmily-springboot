@@ -91,7 +91,6 @@ public class FindBoardDao implements BasicDao {
         mapper.delete(pk);
     }
 
-
     public int selectCount() {
         return mapper.selectCount();
     }
@@ -110,5 +109,21 @@ public class FindBoardDao implements BasicDao {
 
     public String selectName(int pk) {
         return mapper.selectName(pk);
+    }
+
+    public int selectMemberCount(int mNumber, String matched) {
+        return mapper.selectMemberCount(mNumber, matched);
+    }
+
+    public List<FindBoardListForm> selectMemberIndex(int start, int end, int mNumber, String matched) {
+        List<FindBoard> list = mapper.selectMemberIndex(start, end, mNumber, matched);
+        List<FindBoardListForm> fiList = new ArrayList<>();
+
+        for (FindBoard f : list) {
+            FindBoardListForm fi = new FindBoardListForm(f.getFaNumber(), selectName(f.getFaNumber()), f.getSpecies(), f.getKind(), f.getLocation(), f.getAnimalState(), f.getImgPath(), f.getWrTime(), f.getTitle());
+            fiList.add(fi);
+        }
+
+        return fiList;
     }
 }

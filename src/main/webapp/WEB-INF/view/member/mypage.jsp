@@ -99,12 +99,8 @@
                         <div class="row mb-5 pb-5">
                             <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
                                 <div class="d-block services text-center">
-                                    <%--                                    <div class="icon d-flex align-items-center justify-content-center">--%>
-                                    <%--                                        <span class="flaticon-blind"></span>--%>
-                                    <%--                                    </div>--%>
                                     <div class="media-body p-4">
                                         <h3 class="heading">신청 내역</h3>
-                                        <%--                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right.</p>--%>
                                         <a href="#" class="btn-custom d-flex align-items-center justify-content-center"><span
                                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
                                     </div>
@@ -112,13 +108,18 @@
                             </div>
                             <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
                                 <div class="d-block services text-center">
-                                    <%--                                    <div class="icon d-flex align-items-center justify-content-center">--%>
-                                    <%--                                        <span class="flaticon-dog-eating"></span>--%>
-                                    <%--                                    </div>--%>
                                     <div class="media-body p-4">
                                         <h3 class="heading">내가 쓴 게시글</h3>
-                                        <%--                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right.</p>--%>
                                         <a href="#" class="btn-custom d-flex align-items-center justify-content-center"><span
+                                                class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
+                                <div class="d-block services text-center">
+                                    <div class="media-body p-4">
+                                        <h3 class="heading">찾아요 매칭 결과</h3>
+                                        <a href="/member/checkMatching" class="btn-custom d-flex align-items-center justify-content-center"><span
                                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
                                     </div>
                                 </div>
@@ -127,12 +128,8 @@
                         <div class="row mt-5 pt-4">
                             <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
                                 <div class="d-block services text-center">
-                                    <%--                                    <div class="icon d-flex align-items-center justify-content-center">--%>
-                                    <%--                                        <span class="flaticon-blind"></span>--%>
-                                    <%--                                    </div>--%>
                                     <div class="media-body p-4">
                                         <h3 class="heading">회원 정보 변경</h3>
-                                        <%--                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right.</p>--%>
                                         <a href="/member/change_info"
                                            class="btn-custom d-flex align-items-center justify-content-center"><span
                                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
@@ -141,12 +138,8 @@
                             </div>
                             <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
                                 <div class="d-block services text-center">
-                                    <%--                                    <div class="icon d-flex align-items-center justify-content-center">--%>
-                                    <%--                                        <span class="flaticon-dog-eating"></span>--%>
-                                    <%--                                    </div>--%>
                                     <div class="media-body p-4">
                                         <h3 class="heading">회원 탈퇴</h3>
-                                        <%--                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right.</p>--%>
                                         <a href="/member/withdraw"
                                            class="btn-custom d-flex align-items-center justify-content-center"><span
                                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
@@ -155,7 +148,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -173,7 +165,6 @@
     </svg>
 </div>
 
-
 <script src="/resources/petsitting-master/js/jquery.min.js"></script>
 <script src="/resources/petsitting-master/js/jquery-migrate-3.0.1.min.js"></script>
 <script src="/resources/petsitting-master/js/popper.min.js"></script>
@@ -190,7 +181,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="/resources/petsitting-master/js/google-map.js"></script>
 <script src="/resources/petsitting-master/js/main.js"></script>
-
 
 </body>
 </html>

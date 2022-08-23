@@ -1,8 +1,10 @@
 package kh.petmily.dao;
 
 import kh.petmily.domain.DomainObj;
+import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.look_board.LookBoard;
 import kh.petmily.domain.look_board.form.LookBoardListForm;
+import kh.petmily.mapper.FindBoardMapper;
 import kh.petmily.mapper.LookBoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import java.util.List;
 @Slf4j
 public class LookBoardDao implements BasicDao {
     private final LookBoardMapper mapper;
+    private final FindBoardMapper findBoardMapper;
 
     @Override
     public LookBoard findByPk(int pk) {
@@ -109,5 +112,27 @@ public class LookBoardDao implements BasicDao {
 
     public String selectName(int pk) {
         return mapper.selectName(pk);
+    }
+
+    public int selectMatchedCount(FindBoard findBoard) {
+        List<Integer> list = findBoardMapper.selectMatchedLa(findBoard);
+        return list.size();
+    }
+
+    public List<LookBoardListForm> selectMatchedIndex(int start, int end, FindBoard findBoard) {
+        List<Integer> list = findBoardMapper.selectMatchedLa(findBoard);
+        List<LookBoard> lookBoardList = new ArrayList<>();
+        for(Integer i : list) {
+            lookBoardList.add(mapper.selectByPk(i));
+
+        }
+        List<LookBoardListForm> liList = new ArrayList<>();
+
+        for (LookBoard l : lookBoardList) {
+            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle());
+            liList.add(li);
+        }
+
+        return liList;
     }
 }

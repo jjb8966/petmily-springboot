@@ -1,5 +1,6 @@
 package kh.petmily.service;
 
+import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.look_board.form.LookBoardDetailForm;
 import kh.petmily.domain.look_board.form.LookBoardModifyForm;
 import kh.petmily.domain.look_board.form.LookBoardPageForm;
@@ -19,4 +20,6 @@ public interface LookBoardService {
     public LookBoardModifyForm getModifyForm(int laNumber);
 
     String findName(int laNumber);
+
+    LookBoardPageForm getMatchedLookPage(int pageNo, FindBoard findBoard);
 }
