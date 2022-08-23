@@ -63,6 +63,7 @@
                     <div class="col">
                         <select name="gender" class="form-control">
                             <option value="allGender" selected>모든 성별</option>
+                            <option value="-">모름</option>
                             <option value="M">수컷</option>
                             <option value="F">암컷</option>
                         </select>
@@ -71,10 +72,8 @@
                     <div class="col">
                         <select name="animalState" class="form-control">
                             <option value="allAnimalState" selected>모든 상태</option>
-                            <option value="입양">입양 완료</option>
+                            <option value="보호">보호중</option>
                             <option value="임보">임시 보호중</option>
-                            <option value="안락사">안락사</option>
-                            <option value="자연사">자연사</option>
                         </select>
                     </div>
 

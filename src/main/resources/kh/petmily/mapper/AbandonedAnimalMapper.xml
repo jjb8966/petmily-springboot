@@ -65,6 +65,7 @@
         (select ROWNUM as NUM, A.ABNUMBER, A.NAME, A.LOCATION, A.ADMISSIONDATE, A.IMGPATH FROM
         (select * from ABANDONEDANIMAL
         <where>
+                and ANIMALSTATE in('보호', '임보')
             <if test="species != null and species != 'allSpecies'">
                 and SPECIES = #{species}
             </if>
