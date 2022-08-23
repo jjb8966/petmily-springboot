@@ -43,6 +43,55 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
+
+
+        <div class="modal-header">
+
+            <!-- 검색 바 -->
+            <form action="/abandoned_animal/list" method="get">
+                <div class="form-group row">
+
+                    <div class="col">
+                        <select name="species" class="form-control">
+                            <option value="allSpecies" selected>모든 동물</option>
+                            <option value="개">강아지</option>
+                            <option value="고양이">고양이</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <select name="gender" class="form-control">
+                            <option value="allGender" selected>모든 성별</option>
+                            <option value="-">모름</option>
+                            <option value="M">수컷</option>
+                            <option value="F">암컷</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <select name="animalState" class="form-control">
+                            <option value="allAnimalState" selected>모든 상태</option>
+                            <option value="보호">보호중</option>
+                            <option value="임보">임시 보호중</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <input type="text" name="keyword" class="form-control" placeholder="검색어">
+                    </div>
+
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary" value="검색">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <br>
+
+
+
         <div class="row">
             <c:forEach var="abandonedAnimal" items="${abandonedAnimals.content}">
                 <div class="col-md-6 col-lg-3 ftco-animate"
@@ -87,7 +136,7 @@
                         </c:forEach>
                         <li>
                             <c:if test="${abandonedAnimals.endPage < abandonedAnimals.totalPages}">
-                                <a href="${pageContext.request.contextPath}/find/list?pageNo=${abandonedAnimals.startPage + 5}">&gt;</a>
+                                <a href="${pageContext.request.contextPath}/abandonedAnimals/list?pageNo=${abandonedAnimals.startPage + 5}">&gt;</a>
                             </c:if>
                         </li>
                     </ul>

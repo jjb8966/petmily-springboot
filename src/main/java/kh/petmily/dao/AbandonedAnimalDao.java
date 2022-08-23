@@ -36,12 +36,12 @@ public class AbandonedAnimalDao implements BasicDao {
     }
     // =======BasicDao 메소드=======
 
-    public int selectCount() {
-        return mapper.selectCount();
+    public int selectCount(String species, String gender, String animalState, String keyword) {
+        return mapper.selectCountWithCondition(species, gender, animalState, keyword);
     }
 
-    public List<AbandonedAnimal> selectIndex(int start, int end) {
-        return mapper.selectIndex(start, end);
+    public List<AbandonedAnimal> selectIndex(int start, int end, String species, String gender, String animalState, String keyword) {
+        return mapper.selectIndexWithCondition(start, end, species, gender, animalState, keyword);
     }
 
     public String selectName(int pk) {
