@@ -35,4 +35,8 @@ public interface FindBoardMapper {
     void backStateLook(int laNumber);
 
     int selectByPkMax();
+
+    int selectMemberCount(int mNumber, String matched);
+
+    List<FindBoard> selectMemberIndex(int start, int end, int mNumber, String matched);
 }

@@ -1,13 +1,16 @@
 package kh.petmily.controller;
 
+import kh.petmily.domain.find_board.FindBoard;
+import kh.petmily.domain.find_board.form.FindBoardPageForm;
+import kh.petmily.domain.look_board.form.LookBoardPageForm;
 import kh.petmily.domain.member.form.JoinRequest;
 import kh.petmily.domain.member.form.MemberChangeForm;
+import kh.petmily.service.FindBoardService;
+import kh.petmily.service.LookBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import kh.petmily.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,8 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
-    private final MemberDao memberDao;
+    private final FindBoardService findBoardService;
+    private final LookBoardService lookBoardService;
 
     // 회원 가입
     @GetMapping("/join")
@@ -149,5 +153,42 @@ public class MemberController {
         request.getSession().invalidate();
 
         return "/member/withdrawSuccess";
+    }
+
+    //찾아요 게시판 매칭 결과
+    @GetMapping("/member/checkMatching")
+    public String checkMatching(@RequestParam(required = false) String matched, HttpServletRequest request, Model model) {
+        String pageNoVal = request.getParameter("pageNo");
+
+        int pageNo = 1;
+
+        if (pageNoVal != null) {
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
+
+        FindBoardPageForm Finds = findBoardService.getMembersFindPage(pageNo, mNumber, matched);
+        model.addAttribute("Finds", Finds);
+
+        return "/member/listFindBoard";
+    }
+
+    @GetMapping("/member/checkMatching/lookList")
+    public String checkMatchingDetail(@RequestParam("faNumber") int faNumber, HttpServletRequest request, Model model) {
+        FindBoard findBoard = findBoardService.getFindBoard(faNumber);
+        String pageNoVal = request.getParameter("pageNo");
+
+        int pageNo = 1;
+
+        if (pageNoVal != null) {
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        LookBoardPageForm boardPage = lookBoardService.getMatchedLookPage(pageNo, findBoard);
+        model.addAttribute("matchedLookBoardForm", boardPage);
+
+        return "/member/listLookBoard";
     }
 }

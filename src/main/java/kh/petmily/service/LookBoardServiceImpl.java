@@ -1,6 +1,7 @@
 package kh.petmily.service;
 
 import kh.petmily.dao.LookBoardDao;
+import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.look_board.LookBoard;
 import kh.petmily.domain.look_board.form.*;
 import lombok.RequiredArgsConstructor;
@@ -77,5 +78,13 @@ public class LookBoardServiceImpl implements LookBoardService {
     @Override
     public String findName(int laNumber) {
         return lookBoardDao.selectName(laNumber);
+    }
+
+    @Override
+    public LookBoardPageForm getMatchedLookPage(int pageNo, FindBoard findBoard) {
+        int total = lookBoardDao.selectMatchedCount(findBoard);
+        List<LookBoardListForm> content = lookBoardDao.selectMatchedIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, findBoard);
+
+        return new LookBoardPageForm(total, pageNo, size, content);
     }
 }
