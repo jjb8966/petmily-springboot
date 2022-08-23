@@ -36,7 +36,7 @@ public interface FindBoardMapper {
 
     int selectByPkMax();
 
-    int selectMemberCount(int mNumber, String matched);
+    int selectMemberCount(@Param("mNumber") int mNumber, @Param("matched")String matched);
 
-    List<FindBoard> selectMemberIndex(int start, int end, int mNumber, String matched);
+    List<FindBoard> selectMemberIndex(@Param("start") int start, @Param("end") int end, @Param("mNumber") int mNumber, @Param("matched") String matched);
 }

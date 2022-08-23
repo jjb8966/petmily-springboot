@@ -172,6 +172,8 @@ public class MemberController {
         FindBoardPageForm Finds = findBoardService.getMembersFindPage(pageNo, mNumber, matched);
         model.addAttribute("Finds", Finds);
 
+        request.getSession().setAttribute("matched", matched);
+
         return "/member/listFindBoard";
     }
 

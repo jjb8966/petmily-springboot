@@ -41,10 +41,16 @@
 <section class="ftco-section bg-light">
     <div class="container">
         <div>
-            <input type="button" class="btn btn-primary" id="matched" name="matched" value="매칭됨만 보기" onclick="matchedButton()">
+            <input type="button" class="btn btn-primary" id="matched" name="matched"
+               <c:if test="${matched == null}">
+                       value="매칭됨만 보기"
+               </c:if>
+                <c:if test="${matched != null}">
+                       value="전부 보기"
+                </c:if>
+                   onclick="matchedButton()">
         </div>
         <br/>
-
         <div class="row d-flex">
             <c:forEach var="findBoard" items="${Finds.content}">
                 <div class="col-md-4 d-flex ftco-animate" id="d-flex-out">
@@ -109,14 +115,12 @@
 </section>
 
 <script>
-    function matchedButton()  {
+    function matchedButton() {
         const btn = document.getElementById('matched');
         if(btn.value == "매칭됨만 보기") {
-            btn.value = "전부 보기";
             window.location.href = "/member/checkMatching?matched=matched";
         }
         else {
-            btn.value = "매칭됨만 보기";
             window.location.href = "/member/checkMatching";
         }
     }
