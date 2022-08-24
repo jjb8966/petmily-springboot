@@ -2,6 +2,9 @@ package kh.petmily.mapper;
 
 import kh.petmily.domain.temp.TempPet;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface TempMapper {
@@ -13,4 +16,8 @@ public interface TempMapper {
     void update(TempPet obj);
 
     void delete(int pk);
+
+    int selectCount(int mNumber);
+
+    List<TempPet> selectIndex(@Param("start") int start,@Param("end") int end,@Param("mNumber") int mNumber);
 }

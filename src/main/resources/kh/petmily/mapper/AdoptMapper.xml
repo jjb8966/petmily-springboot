@@ -28,4 +28,16 @@
     </delete>
     <!--=======BasicMapper 메소드=======-->
 
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from ADOPT
+        where MNUMBER = #{mNumber}
+    </select>
+
+    <select id="selectIndex" resultType="kh.petmily.domain.adopt.Adopt">
+        select *
+        from (select ROWNUM as NUM, A.*
+              from (select * from ADOPT where MNUMBER = #{mNumber} order by ADNUMBER DESC) A)
+        where NUM between #{start} and #{end}
+    </select>
 </mapper>

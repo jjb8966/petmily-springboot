@@ -29,4 +29,16 @@
     </delete>
     <!--=======BasicMapper 메소드=======-->
 
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from TEMPPET
+        where MNUMBER = #{mNumber}
+    </select>
+
+    <select id="selectIndex" resultType="kh.petmily.domain.temp.TempPet">
+        select *
+        from (select ROWNUM as NUM, T.*
+              from (select * from TEMPPET where MNUMBER = #{mNumber} order by TNUMBER DESC) T)
+        where NUM between #{start} and #{end}
+    </select>
 </mapper>
