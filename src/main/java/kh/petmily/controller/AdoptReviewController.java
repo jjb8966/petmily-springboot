@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -29,14 +28,12 @@ import java.net.MalformedURLException;
 @Slf4j
 public class AdoptReviewController {
     private final AdoptReviewService adoptReviewService;
-    @Autowired
-    ServletContext servletContext;
 
     @ResponseBody
     @GetMapping("/upload")
-    public ResponseEntity<Resource> list(String filename) {
+    public ResponseEntity<Resource> list(String filename, HttpServletRequest request) {
 
-        String fullPath = servletContext.getRealPath("/");
+        String fullPath =request.getSession().getServletContext().getRealPath("/");
         fullPath = fullPath+"resources\\upload\\";
         fullPath = fullPath+filename;
 
@@ -91,8 +88,9 @@ public class AdoptReviewController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute AdoptReviewWriteForm adoptReviewWriteForm, HttpServletRequest request) {
-        String filePath = servletContext.getRealPath("/");
-        filePath = filePath+"resources\\upload\\";
+
+        String fullPath =request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath+"resources\\upload\\";
 
         Member member = getAuthMember(request);
         int mNumber = member.getMNumber();
@@ -103,7 +101,7 @@ public class AdoptReviewController {
         if (!adoptReviewWriteForm.getImgPath().isEmpty()) {
 
             try {
-                filename = adoptReviewService.storeFile(adoptReviewWriteForm.getImgPath(), filePath);
+                filename = adoptReviewService.storeFile(adoptReviewWriteForm.getImgPath(), fullPath);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -135,8 +133,8 @@ public class AdoptReviewController {
     @PostMapping("/auth/modify")
     public String modify(@ModelAttribute AdoptReviewModifyForm modReq, HttpServletRequest request, Model model) {
 
-        String filePath = servletContext.getRealPath("/");
-        filePath = filePath+"resources\\upload\\";
+        String fullPath =request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath+"resources\\upload\\";
 
         Member authUser = getAuthMember(request);
 
@@ -147,7 +145,7 @@ public class AdoptReviewController {
         String filename = null;
 
         try {
-            filename = adoptReviewService.storeFile(modReq.getImgPath(), filePath);
+            filename = adoptReviewService.storeFile(modReq.getImgPath(), fullPath);
             modReq.setFullPath(filename);
         } catch (IOException e) {
             throw new RuntimeException(e);
