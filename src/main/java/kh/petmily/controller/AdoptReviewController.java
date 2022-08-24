@@ -34,7 +34,7 @@ public class AdoptReviewController {
     public ResponseEntity<Resource> list(String filename, HttpServletRequest request) {
 
         String fullPath =request.getSession().getServletContext().getRealPath("/");
-        fullPath = fullPath+"resources\\upload\\";
+        fullPath = fullPath+"resources/upload/";
         fullPath = fullPath+filename;
 
         log.info("fullPath = {} ", fullPath);
@@ -90,7 +90,7 @@ public class AdoptReviewController {
     public String write(@ModelAttribute AdoptReviewWriteForm adoptReviewWriteForm, HttpServletRequest request) {
 
         String fullPath =request.getSession().getServletContext().getRealPath("/");
-        fullPath = fullPath+"resources\\upload\\";
+        fullPath = fullPath+"resources/upload/";
 
         Member member = getAuthMember(request);
         int mNumber = member.getMNumber();
@@ -134,7 +134,7 @@ public class AdoptReviewController {
     public String modify(@ModelAttribute AdoptReviewModifyForm modReq, HttpServletRequest request, Model model) {
 
         String fullPath =request.getSession().getServletContext().getRealPath("/");
-        fullPath = fullPath+"resources\\upload\\";
+        fullPath = fullPath+"resources/upload/";
 
         Member authUser = getAuthMember(request);
 
