@@ -69,6 +69,7 @@ public class AdoptReviewController {
         model.addAttribute("kindOfBoard", kindOfBoard);
 
         log.info("kindOfBoard = {}", kindOfBoard);
+
         return "/adopt_review/listAdoptReview";
     }
 
@@ -132,7 +133,11 @@ public class AdoptReviewController {
     }
 
     @PostMapping("/auth/modify")
-    public String modify(@ModelAttribute AdoptReviewModifyForm modReq, HttpServletRequest request, Model model){
+    public String modify(@ModelAttribute AdoptReviewModifyForm modReq, HttpServletRequest request, Model model) {
+
+        String filePath = servletContext.getRealPath("/");
+        filePath = filePath+"resources\\upload\\";
+
         Member authUser = getAuthMember(request);
 
         int mNumber = authUser.getMNumber();
@@ -164,6 +169,7 @@ public class AdoptReviewController {
     private static Member getAuthMember(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Member member = (Member) session.getAttribute("authUser");
+
         return member;
     }
 }

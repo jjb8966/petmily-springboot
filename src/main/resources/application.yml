@@ -21,5 +21,3 @@ spring:
     view:
       prefix: /WEB-INF/view/
       suffix: .jsp
-file:
-  dir: C:/file/
