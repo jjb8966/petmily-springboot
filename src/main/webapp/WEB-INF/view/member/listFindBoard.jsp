@@ -56,7 +56,7 @@
                 <div class="col-md-4 d-flex ftco-animate" id="d-flex-out">
                     <div class="blog-entry align-self-stretch" id="d-flex-in">
                         <a  <c:if test="${findBoard.animalState == '매칭됨'}">
-                                href="${pageContext.request.contextPath}/member/checkMatching/lookList?faNumber=${findBoard.faNumber}"
+                                href="${pageContext.request.contextPath}/member/auth/checkMatching/lookList?faNumber=${findBoard.faNumber}"
                             </c:if>
                            class="block-20 rounded"
                            style="background-image: url('/upload/${findBoard.imgPath}');">
@@ -87,24 +87,24 @@
                     <ul>
                         <li>
                             <c:if test="${Finds.startPage > 5}">
-                                <a href="${pageContext.request.contextPath}/member/checkMatching?pageNo=${Finds.startPage - 5}">&lt;</a>
+                                <a href="${pageContext.request.contextPath}/member/auth/checkMatching?pageNo=${Finds.startPage - 5}">&lt;</a>
                             </c:if>
                         </li>
                         <c:forEach var="pNo" begin="${Finds.startPage}" end="${Finds.endPage}">
                             <c:if test="${Finds.currentPage == pNo}">
                                 <li class="active">
-                                    <a href="${pageContext.request.contextPath}/member/checkMatching?pageNo=${pNo}">${pNo}</a>
+                                    <a href="${pageContext.request.contextPath}/member/auth/checkMatching?pageNo=${pNo}">${pNo}</a>
                                 </li>
                             </c:if>
                             <c:if test="${Finds.currentPage != pNo}">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/member/checkMatching?pageNo=${pNo}">${pNo}</a>
+                                    <a href="${pageContext.request.contextPath}/member/auth/checkMatching?pageNo=${pNo}">${pNo}</a>
                                 </li>
                             </c:if>
                         </c:forEach>
                         <li>
                             <c:if test="${Finds.endPage < Finds.totalPages}">
-                                <a href="${pageContext.request.contextPath}/member/checkMatching?pageNo=${Finds.startPage + 5}">&gt;</a>
+                                <a href="${pageContext.request.contextPath}/member/auth/checkMatching?pageNo=${Finds.startPage + 5}">&gt;</a>
                             </c:if>
                         </li>
                     </ul>
@@ -118,10 +118,10 @@
     function matchedButton() {
         const btn = document.getElementById('matched');
         if(btn.value == "매칭됨만 보기") {
-            window.location.href = "/member/checkMatching?matched=matched";
+            window.location.href = "/member/auth/checkMatching?matched=matched";
         }
         else {
-            window.location.href = "/member/checkMatching";
+            window.location.href = "/member/auth/checkMatching";
         }
     }
 </script>
