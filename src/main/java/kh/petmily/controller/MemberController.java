@@ -1,10 +1,13 @@
 package kh.petmily.controller;
 
+import kh.petmily.domain.adopt.form.AdoptApplyPageForm;
 import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.find_board.form.FindBoardPageForm;
 import kh.petmily.domain.look_board.form.LookBoardPageForm;
 import kh.petmily.domain.member.form.JoinRequest;
 import kh.petmily.domain.member.form.MemberChangeForm;
+import kh.petmily.domain.temp.form.TempApplyPageForm;
+import kh.petmily.service.AdoptTempService;
 import kh.petmily.service.FindBoardService;
 import kh.petmily.service.LookBoardService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +27,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {
-
     private final MemberService memberService;
     private final FindBoardService findBoardService;
     private final LookBoardService lookBoardService;
+    private final AdoptTempService adoptTempService;
 
     // 회원 가입
     @GetMapping("/join")
@@ -192,5 +195,33 @@ public class MemberController {
         model.addAttribute("matchedLookBoardForm", boardPage);
 
         return "/member/listLookBoard";
+    }
+
+    @GetMapping("/member/auth/myApply/{type}")
+    public String getMyApply(@PathVariable("type") String type, HttpServletRequest request, Model model) {
+        String pageNoVal = request.getParameter("pageNo");
+
+        int pageNo = 1;
+
+        if (pageNoVal != null) {
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
+
+        log.info("type : {}", type);
+
+        if(type.equals("adopt")) {
+            AdoptApplyPageForm applyPage = adoptTempService.getAdoptApplyPage(pageNo, mNumber, type);
+            model.addAttribute("applyListForm", applyPage);
+        } else {
+            TempApplyPageForm applyPage = adoptTempService.getTempApplyPage(pageNo, mNumber, type);
+            model.addAttribute("applyListForm", applyPage);
+        }
+
+        request.getSession().setAttribute("type", type);
+
+        return "/member/applyList";
     }
 }

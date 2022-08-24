@@ -101,7 +101,7 @@
                                 <div class="d-block services text-center">
                                     <div class="media-body p-4">
                                         <h3 class="heading">신청 내역</h3>
-                                        <a href="#" class="btn-custom d-flex align-items-center justify-content-center"><span
+                                        <a href="/member/auth/myApply/adopt" class="btn-custom d-flex align-items-center justify-content-center"><span
                                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
                                     </div>
                                 </div>
