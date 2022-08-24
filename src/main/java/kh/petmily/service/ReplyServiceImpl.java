@@ -20,7 +20,7 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public void write(ReplyWriteForm replyWriteForm) {
-        Reply reply = new Reply(replyWriteForm.getBNumber(), replyWriteForm.getMNumber(), replyWriteForm.getReply());
+        Reply reply = new Reply(replyWriteForm.getbNumber(), replyWriteForm.getmNumber(), replyWriteForm.getReply());
         replyDao.insert(reply);
     }
 

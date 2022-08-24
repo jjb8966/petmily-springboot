@@ -92,7 +92,7 @@
                                 </c:choose>
                             </c:if>
                             <button type="button" class="btn btn-light" data-dismiss="modal"
-                                    onclick="location.href='/board/list?kindOfBoard=${param.kindOfBoard}'">취소
+                                    onclick="location.href='/board/list?kindOfBoard=${param.kindOfBoard}&sort=bno'">취소
                             </button>
                             <input type="submit" class="btn btn-primary" value="글 수정 등록">
                         </div>
