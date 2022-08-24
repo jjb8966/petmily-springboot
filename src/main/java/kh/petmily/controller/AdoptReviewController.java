@@ -8,7 +8,7 @@ import kh.petmily.domain.member.Member;
 import kh.petmily.service.AdoptReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -28,14 +29,16 @@ import java.net.MalformedURLException;
 @Slf4j
 public class AdoptReviewController {
     private final AdoptReviewService adoptReviewService;
-
-    @Value("${file.dir}")
-    private String fileDir;
+    @Autowired
+    ServletContext servletContext;
 
     @ResponseBody
     @GetMapping("/upload")
     public ResponseEntity<Resource> list(String filename) {
-        String fullPath = fileDir + filename;
+
+        String fullPath = servletContext.getRealPath("/");
+        fullPath = fullPath+"resources\\upload\\";
+        fullPath = fullPath+filename;
 
         log.info("fullPath = {} ", fullPath);
 
@@ -87,6 +90,9 @@ public class AdoptReviewController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute AdoptReviewWriteForm adoptReviewWriteForm, HttpServletRequest request) {
+        String filePath = servletContext.getRealPath("/");
+        filePath = filePath+"resources\\upload\\";
+
         Member member = getAuthMember(request);
         int mNumber = member.getMNumber();
 
@@ -96,7 +102,7 @@ public class AdoptReviewController {
         if (!adoptReviewWriteForm.getImgPath().isEmpty()) {
 
             try {
-                filename = adoptReviewService.storeFile(adoptReviewWriteForm.getImgPath());
+                filename = adoptReviewService.storeFile(adoptReviewWriteForm.getImgPath(), filePath);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -136,7 +142,7 @@ public class AdoptReviewController {
         String filename = null;
 
         try {
-            filename = adoptReviewService.storeFile(modReq.getImgPath());
+            filename = adoptReviewService.storeFile(modReq.getImgPath(), filePath);
             modReq.setFullPath(filename);
         } catch (IOException e) {
             throw new RuntimeException(e);

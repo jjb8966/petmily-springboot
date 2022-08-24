@@ -8,7 +8,6 @@ import kh.petmily.domain.adopt_review.form.AdoptReviewWriteForm;
 import kh.petmily.domain.adopt_review.form.BoardPage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,11 +24,8 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
     private final AdoptReviewDao adoptReviewDao;
     private int size = 6;
 
-    @Value("${file.dir}")
-    private String fileDir;
-
-    private String getFullPath(String filename) {
-        return fileDir + filename;
+    private String getFullPath(String filename, String filePath) {
+        return filePath + filename;
     }
 
     @Override
@@ -46,21 +42,21 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
         return originalFilename.substring(position + 1);
     }
 
-    public String storeFile(MultipartFile file) throws IOException {
+    public String storeFile(MultipartFile file, String filePath) throws IOException {
         log.info("storeFile = {} ", file.getOriginalFilename());
 
         if (file.isEmpty()) {
             return null;
         }
 
-        File storeFolder = new File(fileDir);
+        File storeFolder = new File(filePath);
         if (!storeFolder.exists()) {
             storeFolder.mkdir();
         }
         String originalFilename = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         String storeFileName = uuid + "." + extractExt(originalFilename);
-        String fullPath = getFullPath(storeFileName);
+        String fullPath = getFullPath(storeFileName, filePath);
         file.transferTo(new File(fullPath));
 
         return storeFileName;

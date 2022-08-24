@@ -94,10 +94,7 @@ pageEncoding="UTF-8" %>
             </div>
         </div>
     </div>
-
 </section>
-
-<!-- modifyForm 끝 -->
 
 <!-- modifyForm 끝 -->
 

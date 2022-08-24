@@ -26,7 +26,6 @@ pageEncoding="UTF-8" %>
 
 <%@ include file="/WEB-INF/view/include/header.jspf" %>
 
-
 <!-- 현재 페이지 -->
 
 <section class="hero-wrap hero-wrap-2"

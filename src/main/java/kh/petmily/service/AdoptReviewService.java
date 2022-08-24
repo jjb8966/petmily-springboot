@@ -2,8 +2,8 @@ package kh.petmily.service;
 
 import kh.petmily.domain.adopt_review.form.AdoptReviewForm;
 import kh.petmily.domain.adopt_review.form.AdoptReviewModifyForm;
-import kh.petmily.domain.adopt_review.form.BoardPage;
 import kh.petmily.domain.adopt_review.form.AdoptReviewWriteForm;
+import kh.petmily.domain.adopt_review.form.BoardPage;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,5 +24,5 @@ public interface AdoptReviewService {
 
     String boardName(int bNumber);
 
-    public String storeFile(MultipartFile file) throws IOException;
+    public String storeFile(MultipartFile file, String filePath) throws IOException;
 }

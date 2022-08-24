@@ -41,7 +41,6 @@ pageEncoding="UTF-8" %>
   </div>
 </section>
 
-
 <!-- 글 상세보기 -->
 
 <section class="ftco-section bg-light">
@@ -56,7 +55,7 @@ pageEncoding="UTF-8" %>
 				<small><a href="javascript:void(0)">${detailForm.name}</a></small>
 				<small><i class="far fa-comment ml-2"></i> date ${detailForm.wrTime} </small>
 
-				<!-- content s내용 -->
+				<!-- content 내용 -->
 
 				<div class="modal-footer"></div>
                 <c:choose>
@@ -104,11 +103,11 @@ pageEncoding="UTF-8" %>
 
 				<!-- 댓글 내용 -->
 
-
 			</div>
 		</div>
 </section>
-<!-- .section -->
+
+<!-- section -->
 
 <!-- 풋터 -->
 

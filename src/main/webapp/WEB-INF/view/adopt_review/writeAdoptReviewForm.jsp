@@ -79,11 +79,9 @@ pageEncoding="UTF-8" %>
 
                         <!-- checkPublic 공개 / 비공개 여부  -->
 
-                        <div class="modal-footer">
                             <c:if test="${param.kindOfBoard eq '입양후기'}">
                                 <input type="hidden" name="checkPublic" value="Y"/>
                             </c:if>
-                        </div>
 
                         <!-- 취소 버튼  -->
 
