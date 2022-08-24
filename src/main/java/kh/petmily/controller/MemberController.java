@@ -85,7 +85,7 @@ public class MemberController {
     }
 
     // mypage
-    @GetMapping("/member/mypage")
+    @GetMapping("/member/auth/mypage")
     public String mypage(HttpServletRequest request, Model model) {
         Member member = getAuthMember(request);
 
@@ -95,7 +95,7 @@ public class MemberController {
     }
 
     //change member Info
-    @GetMapping(value = "/member/change_info")
+    @GetMapping(value = "/member/auth/change_info")
     private String changeInfo(HttpServletRequest request, Model model) {
         Member member = getAuthMember(request);
 
@@ -104,7 +104,7 @@ public class MemberController {
         return "/member/changeMemberInfo";
     }
 
-    @PostMapping(value = "/member/change_info")
+    @PostMapping(value = "/member/auth/change_info")
     private String changeInfoPost(HttpServletRequest request, Model model, MemberChangeForm memberChangeForm) {
         Member member = getAuthMember(request);
 
@@ -124,12 +124,12 @@ public class MemberController {
     }
 
     // 회원탈퇴
-    @GetMapping("/member/withdraw")
+    @GetMapping("/member/auth/withdraw")
     public String withdrawForm() {
         return "/member/withdrawForm";
     }
 
-    @PostMapping("/member/withdraw")
+    @PostMapping("/member/auth/withdraw")
     public String withdraw(HttpServletRequest request, @RequestParam String pw, @RequestParam String confirmPw) {
 
         log.info("pw = {}", pw);
@@ -156,7 +156,7 @@ public class MemberController {
     }
 
     //찾아요 게시판 매칭 결과
-    @GetMapping("/member/checkMatching")
+    @GetMapping("/member/auth/checkMatching")
     public String checkMatching(@RequestParam(required = false) String matched, HttpServletRequest request, Model model) {
         String pageNoVal = request.getParameter("pageNo");
 
@@ -177,7 +177,7 @@ public class MemberController {
         return "/member/listFindBoard";
     }
 
-    @GetMapping("/member/checkMatching/lookList")
+    @GetMapping("/member/auth/checkMatching/lookList")
     public String checkMatchingDetail(@RequestParam("faNumber") int faNumber, HttpServletRequest request, Model model) {
         FindBoard findBoard = findBoardService.getFindBoard(faNumber);
         String pageNoVal = request.getParameter("pageNo");

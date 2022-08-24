@@ -27,7 +27,7 @@
     <div class="col-md-7">
         <div class="contact-wrap w-100 p-md-5 p-4">
             <h3 class="mb-4">회원 정보 변경</h3>
-            <form action="/member/change_info" method="POST" id="contactForm"
+            <form action="/member/auth/change_info" method="POST" id="contactForm"
                   name="contactForm" class="contactForm">
                 <div class="row">
                     <div class="col-md-12">

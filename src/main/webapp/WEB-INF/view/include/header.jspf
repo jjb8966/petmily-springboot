@@ -29,7 +29,7 @@
 					    </div>
 						&emsp;
 						<div>
-							<a class="text-white" href="/member/mypage">마이페이지</a>
+							<a class="text-white" href="/member/auth/mypage">마이페이지</a>
 						</div>
 						&emsp;
 						<div>

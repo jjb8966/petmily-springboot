@@ -119,7 +119,7 @@
                                 <div class="d-block services text-center">
                                     <div class="media-body p-4">
                                         <h3 class="heading">찾아요 매칭 결과</h3>
-                                        <a href="/member/checkMatching" class="btn-custom d-flex align-items-center justify-content-center"><span
+                                        <a href="/member/auth/checkMatching" class="btn-custom d-flex align-items-center justify-content-center"><span
                                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                 <div class="d-block services text-center">
                                     <div class="media-body p-4">
                                         <h3 class="heading">회원 정보 변경</h3>
-                                        <a href="/member/change_info"
+                                        <a href="/member/auth/change_info"
                                            class="btn-custom d-flex align-items-center justify-content-center"><span
                                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
                                     </div>
@@ -140,7 +140,7 @@
                                 <div class="d-block services text-center">
                                     <div class="media-body p-4">
                                         <h3 class="heading">회원 탈퇴</h3>
-                                        <a href="/member/withdraw"
+                                        <a href="/member/auth/withdraw"
                                            class="btn-custom d-flex align-items-center justify-content-center"><span
                                                 class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
                                     </div>
