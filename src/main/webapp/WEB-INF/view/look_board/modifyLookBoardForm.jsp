@@ -108,10 +108,10 @@
                                                   placeholder=" 내용을 입력해주세요"
                                                   required="required">${lookMod.content}</textarea>
 
-<%--                                        <div class="custom-file form-control-sm mt-3"
+                                        <div class="custom-file form-control-sm mt-3"
                                              style="max-width: 300px;">
                                             <input type="file" name="imgPath" id="file" accept="image/*">
-                                        </div>--%>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

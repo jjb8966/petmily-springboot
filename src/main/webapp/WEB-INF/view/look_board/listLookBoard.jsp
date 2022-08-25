@@ -89,24 +89,23 @@
 
         <div class="row d-flex">
             <c:forEach var="lookBoard" items="${Looks.content}">
-                <div class="col-md-4 d-flex ftco-animate" id="d-flex-out">
+                <div class="col-md-4 ftco-animate" id="d-flex-out">
                     <div class="blog-entry align-self-stretch" id="d-flex-in">
                         <a href="${pageContext.request.contextPath}/lookBoard/detail?laNumber=${lookBoard.laNumber}"
                            class="block-20 rounded"
-                           style="background-image: url('/upload/${lookBoard.imgPath}');">
+                           style="background-image: url('/lookBoard/upload/?filename=${lookBoard.imgPath}');">
                         </a>
                         <div class="text p-4">
                             <div class="meta mb-2">
-                                <div><a href="#">${lookBoard.species}</a></div>
-                                <div><a href="#">${lookBoard.location}</a></div>
-                                <br/>
-                                <div><a href="#">작성자: ${lookBoard.name}</a></div>
-                                <br/>
-                                <div><a href="#">${lookBoard.wrTime}</a></div>
-                                <br/>
-                                <div><a href="#">상태: ${lookBoard.animalState}</a></div>
-                                <br/>
-                                <div><a href="#">조회수: ${lookBoard.viewCount}</a></div>
+                                 <div><a href="#">${lookBoard.species}</a></div>
+                                 <br/>
+                                 <div><a href="#">상태: ${lookBoard.animalState}</a></div>
+                                 <br/>
+                                 <div><a href="#">장소: ${lookBoard.location}</a></div>
+                                 <br/>
+                                 <div><a href="#">작성일: ${lookBoard.wrTime}</a></div>
+                                 <br/>
+                                 <div><a href="#">작성자: ${lookBoard.name}</a></div>
                             </div>
                             <h3 class="heading"><a href="#">${lookBoard.title}</a></h3>
                         </div>
@@ -116,43 +115,40 @@
         </div>
 
         <span class="modal-footer">
-                <button type="button" class="btn btn-primary"
-                        onclick="location.href='/lookBoard/auth/write'">글쓰기</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='/lookBoard/auth/write'">글쓰기</button>
         </span>
 
-    </div>
 
-    <div class="row mt-5">
-        <div class="col text-center">
-            <div class="block-27">
-                <ul>
-                    <li>
-                        <c:if test="${Looks.startPage > 5}">
-                            <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage - 5}">&lt;</a>
-                        </c:if>
-                    </li>
-                    <c:forEach var="pNo" begin="${Looks.startPage}" end="${Looks.endPage}">
-                        <c:if test="${Looks.currentPage == pNo}">
-                            <li class="active">
-                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>
-                            </li>
-                        </c:if>
-                        <c:if test="${Looks.currentPage != pNo}">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>
-                            </li>
-                        </c:if>
-                    </c:forEach>
-                    <li>
-                        <c:if test="${Looks.endPage < Looks.totalPages}">
-                            <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage + 5}">&gt;</a>
-                        </c:if>
-                    </li>
-                </ul>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    <ul>
+                        <li>
+                            <c:if test="${Looks.startPage > 5}">
+                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage - 5}">&lt;</a>
+                            </c:if>
+                        </li>
+                        <c:forEach var="pNo" begin="${Looks.startPage}" end="${Looks.endPage}">
+                            <c:if test="${Looks.currentPage == pNo}">
+                                <li class="active">
+                                    <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${Looks.currentPage != pNo}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${pNo}">${pNo}</a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
+                        <li>
+                            <c:if test="${Looks.endPage < Looks.totalPages}">
+                                <a href="${pageContext.request.contextPath}/lookBoard/list?pageNo=${Looks.startPage + 5}">&gt;</a>
+                            </c:if>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-
     </div>
 </section>
 
@@ -184,5 +180,4 @@
 <script src="/resources/petsitting-master/js/google-map.js"></script>
 <script src="/resources/petsitting-master/js/main.js"></script>
 
-</html>
 </html>
