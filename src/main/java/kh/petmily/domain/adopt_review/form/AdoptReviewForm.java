@@ -18,4 +18,19 @@ public class AdoptReviewForm {
     private int viewCount;
     private int replyCount;
 
+    public AdoptReviewForm(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, String imgPath, Date wrTime, String checkPublic, int viewCount, int replyCount) {
+        this.bNumber = bNumber;
+        this.mNumber = mNumber;
+        this.name = name;
+        this.kindOfBoard = kindOfBoard;
+        this.title = title;
+        this.content = content;
+        this.imgPath = imgPath;
+        this.wrTime = wrTime;
+        this.checkPublic = checkPublic;
+        this.viewCount = viewCount;
+        this.replyCount = replyCount;
+    }
+
+
 }

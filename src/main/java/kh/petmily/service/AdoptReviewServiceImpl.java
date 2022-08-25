@@ -105,7 +105,12 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
     }
 
     private AdoptReview toAdoptReviewModifyForm(AdoptReviewModifyForm modReq) {
-        return new AdoptReview(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), "Y", modReq.getFullPath());
+        return new AdoptReview(
+                modReq.getBNumber(),
+                modReq.getTitle(),
+                modReq.getContent(),
+                "Y",
+                modReq.getFullPath());
     }
 
     private String getFullPath(String filename, String filePath) {

@@ -26,17 +26,20 @@ public class AdoptReview implements DomainObj {
     private int viewCount;
     private int replyCount;
 
-    public AdoptReview(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, String imgPath, Blob video, Date wrTime, String checkPublic) {
-        this.bNumber = bNumber;
+    public AdoptReview(int mNumber, String kindOfBoard, String title, String content, String imgPath, String checkPublic) {
         this.mNumber = mNumber;
-        this.name = name;
         this.kindOfBoard = kindOfBoard;
         this.title = title;
         this.content = content;
         this.imgPath = imgPath;
-        this.video = video;
-        this.wrTime = wrTime;
         this.checkPublic = checkPublic;
     }
 
+    public AdoptReview(int bNumber, String title, String content, String checkPublic, String imgPath) {
+        this.bNumber = bNumber;
+        this.title = title;
+        this.content = content;
+        this.checkPublic = checkPublic;
+        this.imgPath = imgPath;
+    }
 }

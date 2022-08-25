@@ -48,7 +48,19 @@ public class AdoptReviewDao implements BasicDao {
         List<AdoptReviewForm> adoptReviewFormList = new ArrayList<>();
 
         for (AdoptReview a : list) {
-            AdoptReviewForm ar = new AdoptReviewForm(a.getBNumber(), a.getMNumber(), selectName(a.getBNumber()), a.getKindOfBoard(), a.getTitle(), a.getContent(), a.getWrTime(), a.getCheckPublic(), a.getViewCount(), a.getReplyCount());
+            AdoptReviewForm ar = new AdoptReviewForm(
+                    a.getBNumber(),
+                    a.getMNumber(),
+                    selectName(a.getBNumber()),
+                    a.getKindOfBoard(),
+                    a.getTitle(),
+                    a.getContent(),
+                    a.getImgPath(),
+                    a.getWrTime(),
+                    a.getCheckPublic(),
+                    a.getViewCount(),
+                    a.getReplyCount());
+
             adoptReviewFormList.add(ar);
         }
 
