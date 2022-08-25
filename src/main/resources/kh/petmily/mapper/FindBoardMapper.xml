@@ -12,8 +12,17 @@
     </select>
 
     <insert id="insert">
-        insert into FINDANIMALBOARD(MNUMBER, SPECIES, KIND, LOCATION, TITLE, CONTENT)
-        values (#{mNumber}, #{species}, #{kind}, #{location}, #{title}, #{content})
+        insert into FINDANIMALBOARD(MNUMBER, SPECIES, KIND, LOCATION, TITLE, CONTENT
+        <if test='imgPath != null and imgPath !=""'>
+            ,IMGPATH
+        </if>
+        )
+        values (#{mNumber}, #{species}, #{kind}, #{location}, #{title}, #{content}
+
+        <if test='imgPath != null and imgPath !=""'>
+            ,#{imgPath}
+        </if>
+        )
     </insert>
 
     <update id="update">
@@ -21,6 +30,9 @@
         set SPECIES  = #{species},
             KIND     = #{kind},
             LOCATION = #{location},
+        <if test='imgPath != null '>
+            IMGPATH = #{imgPath},
+        </if>
             TITLE    = #{title},
             CONTENT  = #{content}
         where FANUMBER = #{faNumber}
