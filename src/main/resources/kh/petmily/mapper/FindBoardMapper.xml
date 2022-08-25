@@ -33,15 +33,49 @@
     </delete>
     <!--=======BasicMapper 메소드=======-->
 
-    <select id="selectCount" resultType="java.lang.Integer">
+    <select id="selectCountWithCondition" resultType="java.lang.Integer">
         select count(*)
         from FINDANIMALBOARD
+        <where>
+            <if test="species != null and species != 'allSpecies'">
+                and SPECIES = #{species}
+            </if>
+
+            <if test="animalState != null and animalState != 'allAnimalState'">
+                and AnimalState = #{animalState}
+            </if>
+
+            <if test="keyword != null and keyword != 'allKeyword'">
+                and ( TITLE like '%' || #{keyword} || '%'
+                or CONTENT like '%' || #{keyword} || '%'
+                or KIND like '%' || #{keyword} || '%'
+                or LOCATION like '%' || #{keyword} || '%')
+            </if>
+        </where>
     </select>
 
-    <select id="selectIndex" resultType="kh.petmily.domain.find_board.FindBoard">
+    <select id="selectIndexWithCondition" resultType="kh.petmily.domain.find_board.FindBoard">
         select *
         from (select ROWNUM as NUM, A.*
-              FROM (select * from FINDANIMALBOARD order by FANUMBER DESC) A)
+        FROM (select *
+        from FINDANIMALBOARD
+        <where>
+            <if test="species != null and species != 'allSpecies'">
+                and SPECIES = #{species}
+            </if>
+
+            <if test="animalState != null and animalState != 'allAnimalState'">
+                and AnimalState = #{animalState}
+            </if>
+
+            <if test="keyword != null and keyword != 'allKeyword'">
+                and ( TITLE like '%' || #{keyword} || '%'
+                or CONTENT like '%' || #{keyword} || '%'
+                or KIND like '%' || #{keyword} || '%'
+                or LOCATION like '%' || #{keyword} || '%')
+            </if>
+        </where>
+        order by FANUMBER DESC) A)
         where NUM between #{start} and #{end}
     </select>
 
@@ -54,9 +88,15 @@
     <select id="selectName" resultType="java.lang.String">
         select M.NAME
         from FINDANIMALBOARD F
-                 inner join MEMBER M on F.MNUMBER = M.MNUMBER
+        inner join MEMBER M on F.MNUMBER = M.MNUMBER
         where F.FANUMBER = #{pk}
     </select>
+
+    <update id="updateViewCount">
+        update FINDANIMALBOARD
+        set VIEWCOUNT = VIEWCOUNT + 1
+        where FANUMBER = #{pk}
+    </update>
 
     <!--=======find-look 연결=======-->
     <select id="selectMatchedLa" resultType="java.lang.Integer">
@@ -116,14 +156,14 @@
     <select id="selectMemberIndex" resultType="kh.petmily.domain.find_board.FindBoard">
         select *
         from (select ROWNUM as NUM, A.*
-              FROM (select * from FINDANIMALBOARD
-                            <where>
-                                MNUMBER = #{mNumber}
-                                <if test="matched == 'matched'">
-                                    and ANIMALSTATE = '매칭됨'
-                                </if>
-                                order by FANUMBER DESC) A)
-                            </where>
+        FROM (select * from FINDANIMALBOARD
+        <where>
+            MNUMBER = #{mNumber}
+            <if test="matched == 'matched'">
+                and ANIMALSTATE = '매칭됨'
+            </if>
+            order by FANUMBER DESC) A)
+        </where>
         where NUM between #{start} and #{end}
     </select>
 </mapper>

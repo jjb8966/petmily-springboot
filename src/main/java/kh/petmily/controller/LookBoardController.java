@@ -21,19 +21,36 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Slf4j
 public class LookBoardController {
+
     private final LookBoardService lookBoardService;
 
     @GetMapping("/list")
-    public String list(HttpServletRequest request, Model model) {
-        String pageNoVal = request.getParameter("pageNo");
-        int pageNo = 1;
+    public String list(@RequestParam(required = false) Integer pageNo,
+                       @RequestParam(required = false) String species,
+                       @RequestParam(required = false) String animalState,
+                       @RequestParam(required = false) String keyword,
+                       HttpServletRequest request,
+                       Model model) {
 
-        if (pageNoVal != null) {
-            pageNo = Integer.parseInt(pageNoVal);
+        HttpSession session = request.getSession();
+
+        if (pageNo == null) {
+            initCondition(species, animalState, keyword, session);
+            pageNo = 1;
         }
 
-        LookBoardPageForm Looks = lookBoardService.getLookPage(pageNo);
-        model.addAttribute("Looks", Looks);
+        saveCondition(species, animalState, keyword, session);
+
+        species = (String) session.getAttribute("species");
+        animalState = (String) session.getAttribute("animalState");
+        keyword = (String) session.getAttribute("keyword");
+
+        log.info("species = {}", species);
+        log.info("animalState = {}", animalState);
+        log.info("keyword = {}", keyword);
+
+        LookBoardPageForm lookBoardPageForm = lookBoardService.getLookPage(pageNo, species, animalState, keyword);
+        model.addAttribute("Looks", lookBoardPageForm);
 
         return "/look_board/listLookBoard";
     }
@@ -42,6 +59,9 @@ public class LookBoardController {
     public String detail(@RequestParam("laNumber") int laNumber, Model model) {
         LookBoardDetailForm detailForm = lookBoardService.getDetailForm(laNumber);
         log.info("LookDetailForm = {}", detailForm);
+
+        // ====== 조회수 추가된 부분 ======
+        lookBoardService.updateViewCount(laNumber);
 
         model.addAttribute("lookIn", detailForm);
 
@@ -91,6 +111,7 @@ public class LookBoardController {
                          HttpServletRequest request,
                          Model model,
                          RedirectAttributes redirectAttributes) {
+
         Member member = getAuthMember(request);
 
         int mNumber = member.getMNumber();
@@ -121,5 +142,31 @@ public class LookBoardController {
         Member member = (Member) session.getAttribute("authUser");
 
         return member;
+    }
+
+    private void saveCondition(String species, String animalState, String keyword, HttpSession session) {
+        if (species != null) {
+            session.setAttribute("species", species);
+        }
+
+        if (animalState != null) {
+            session.setAttribute("animalState", animalState);
+        }
+
+        if (keyword != null) {
+            if (!keyword.equals("")) {
+                session.setAttribute("keyword", keyword);
+            } else {
+                session.setAttribute("keyword", "allKeyword");
+            }
+        }
+    }
+
+    private void initCondition(String species, String animalState, String keyword, HttpSession session) {
+        if (species == null && animalState == null && keyword == null) {
+            session.removeAttribute("species");
+            session.removeAttribute("animalState");
+            session.removeAttribute("keyword");
+        }
     }
 }

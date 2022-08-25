@@ -24,42 +24,13 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
     private final AdoptReviewDao adoptReviewDao;
     private int size = 6;
 
-    private String getFullPath(String filename, String filePath) {
-        return filePath + filename;
-    }
-
     @Override
-    public BoardPage getAdoptReviewPage(int pageNum, String kindOfBoard) {
-        int total = adoptReviewDao.selectCount(kindOfBoard);
-        List<AdoptReviewForm> content = adoptReviewDao.selectIndex((pageNum - 1) * size + 1, (pageNum - 1) * size + size, kindOfBoard);
+    public BoardPage getAdoptReviewPage(int pageNum, String kindOfBoard, String searchType, String keyword) {
+        int total = adoptReviewDao.selectCount(kindOfBoard, searchType, keyword);
+
+        List<AdoptReviewForm> content = adoptReviewDao.selectIndex((pageNum - 1) * size + 1, (pageNum - 1) * size + size, kindOfBoard, searchType, keyword);
 
         return new BoardPage(total, pageNum, size, content);
-    }
-
-    private String extractExt(String originalFilename) {
-        int position = originalFilename.lastIndexOf(".");
-
-        return originalFilename.substring(position + 1);
-    }
-
-    public String storeFile(MultipartFile file, String filePath) throws IOException {
-        log.info("storeFile = {} ", file.getOriginalFilename());
-
-        if (file.isEmpty()) {
-            return null;
-        }
-
-        File storeFolder = new File(filePath);
-        if (!storeFolder.exists()) {
-            storeFolder.mkdir();
-        }
-        String originalFilename = file.getOriginalFilename();
-        String uuid = UUID.randomUUID().toString();
-        String storeFileName = uuid + "." + extractExt(originalFilename);
-        String fullPath = getFullPath(storeFileName, filePath);
-        file.transferTo(new File(fullPath));
-
-        return storeFileName;
     }
 
     @Override
@@ -75,7 +46,9 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
                 arForm.getContent(),
                 arForm.getImgPath(),
                 arForm.getWrTime(),
-                arForm.getCheckPublic()
+                arForm.getCheckPublic(),
+                arForm.getViewCount(),
+                arForm.getReplyCount()
         );
     }
 
@@ -111,7 +84,12 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
         return adoptReviewDao.selectName(bNumber);
     }
 
-    private AdoptReview toAdoptReview(AdoptReviewWriteForm req){
+    @Override
+    public int updateViewCount(int bNumber) {
+        return adoptReviewDao.updateViewCount(bNumber);
+    }
+
+    private AdoptReview toAdoptReview(AdoptReviewWriteForm req) {
         return new AdoptReview(
                 req.getmNumber(),
                 req.getKindOfBoard(),
@@ -128,5 +106,35 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
 
     private AdoptReview toAdoptReviewModifyForm(AdoptReviewModifyForm modReq) {
         return new AdoptReview(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), "Y", modReq.getFullPath());
+    }
+
+    private String getFullPath(String filename, String filePath) {
+        return filePath + filename;
+    }
+
+    private String extractExt(String originalFilename) {
+        int position = originalFilename.lastIndexOf(".");
+
+        return originalFilename.substring(position + 1);
+    }
+
+    public String storeFile(MultipartFile file, String filePath) throws IOException {
+        log.info("storeFile = {} ", file.getOriginalFilename());
+
+        if (file.isEmpty()) {
+            return null;
+        }
+
+        File storeFolder = new File(filePath);
+        if (!storeFolder.exists()) {
+            storeFolder.mkdir();
+        }
+        String originalFilename = file.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString();
+        String storeFileName = uuid + "." + extractExt(originalFilename);
+        String fullPath = getFullPath(storeFileName, filePath);
+        file.transferTo(new File(fullPath));
+
+        return storeFileName;
     }
 }

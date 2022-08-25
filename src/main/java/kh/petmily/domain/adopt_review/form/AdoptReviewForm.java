@@ -3,6 +3,7 @@ package kh.petmily.domain.adopt_review.form;
 import lombok.Data;
 
 import java.sql.Date;
+
 @Data
 public class AdoptReviewForm {
     private int bNumber;
@@ -14,27 +15,7 @@ public class AdoptReviewForm {
     private String imgPath;
     private Date wrTime;
     private String checkPublic;
+    private int viewCount;
+    private int replyCount;
 
-    public AdoptReviewForm(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic) {
-        this.bNumber = bNumber;
-        this.mNumber = mNumber;
-        this.name = name;
-        this.kindOfBoard = kindOfBoard;
-        this.title = title;
-        this.content = content;
-        this.wrTime = wrTime;
-        this.checkPublic = checkPublic;
-    }
-
-    public AdoptReviewForm(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, String imgPath, Date wrTime, String checkPublic) {
-        this.bNumber = bNumber;
-        this.mNumber = mNumber;
-        this.name = name;
-        this.kindOfBoard = kindOfBoard;
-        this.title = title;
-        this.content = content;
-        this.imgPath = imgPath;
-        this.wrTime = wrTime;
-        this.checkPublic = checkPublic;
-    }
 }

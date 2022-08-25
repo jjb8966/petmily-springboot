@@ -18,11 +18,11 @@ public interface AbandonedAnimalMapper {
     void update(AbandonedAnimal abandonedAnimal);
 
     void delete(int pk);
+
     // =======BasicMapper 메소드=======
+    int selectCountWithCondition(@Param("species") String species, @Param("gender") String gender, @Param("animalState") String animalState, @Param("keyword") String keyword);
 
-    int selectCount();
-
-    List<AbandonedAnimal> selectIndex(@Param("start") int start, @Param("end") int end);
+    List<AbandonedAnimal> selectIndexWithCondition(@Param("start") int start, @Param("end") int end, @Param("species") String species, @Param("gender") String gender, @Param("animalState") String animalState, @Param("keyword") String keyword);
 
     String selectName(int pk);
 

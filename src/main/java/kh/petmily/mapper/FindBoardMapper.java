@@ -16,13 +16,15 @@ public interface FindBoardMapper {
 
     void delete(int pk);
 
-    int selectCount();
+    int selectCountWithCondition(@Param("species") String species, @Param("animalState") String animalState, @Param("keyword") String keyword);
 
-    List<FindBoard> selectIndex(@Param("start") int start, @Param("end") int end);
+    List<FindBoard> selectIndexWithCondition(@Param("start") int start, @Param("end") int end, @Param("species") String species, @Param("animalState") String animalState, @Param("keyword") String keyword);
 
     FindBoard selectFindWriteForm(int pk);
 
     String selectName(int pk);
+
+    int updateViewCount(int pk);
 
     List<Integer> selectMatchedLa(FindBoard obj);
 

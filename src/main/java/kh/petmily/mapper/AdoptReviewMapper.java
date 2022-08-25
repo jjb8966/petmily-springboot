@@ -19,9 +19,14 @@ public interface AdoptReviewMapper {
     void delete(int pk);
     // =======BasicMapper 메소드=======
 
-    int selectCount(String kindOfBoard);
+    //====== 검색 추가 ======
+    int selectCountWithCondition(@Param("kindOfBoard") String kindOfBoard, @Param("searchType") String searchType, @Param("keyword") String keyword);
 
-    List<AdoptReview> selectIndex(@Param("start") int start, @Param("end") int end, @Param("kindOfBoard") String kindOfBoard);
+    //====== 검색 추가 ======
+    List<AdoptReview> selectIndexWithCondition(@Param("start") int start, @Param("end") int end, @Param("kindOfBoard") String kindOfBoard, @Param("searchType") String searchType, @Param("keyword") String keyword);
 
     String selectName(int pk);
+
+    // ====== 조회수 추가 ======
+    int updateViewCount(int pk);
 }

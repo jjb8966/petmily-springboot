@@ -30,15 +30,34 @@ public class AbandonedAnimalController {
     private final VolunteerService volunteerService;
 
     @GetMapping("/list")
-    public String list(HttpServletRequest request, Model model) {
-        String pageNoVal = request.getParameter("pageNo");
-        int pageNo = 1;
+    public String list(@RequestParam(required = false) Integer pageNo,
+                       @RequestParam(required = false) String species,
+                       @RequestParam(required = false) String gender,
+                       @RequestParam(required = false) String animalState,
+                       @RequestParam(required = false) String keyword,
+                       HttpServletRequest request,
+                       Model model) {
 
-        if (pageNoVal != null) {
-            pageNo = Integer.parseInt(pageNoVal);
+        HttpSession session = request.getSession();
+
+        if (pageNo == null) {
+            initCondition(species, gender, animalState, keyword, session);
+            pageNo = 1;
         }
 
-        AbandonedAnimalPageForm abandonedAnimals = abandonedAnimalService.getAbandonedAnimalPage(pageNo);
+        saveCondition(species, gender, animalState, keyword, session);
+
+        species = (String) session.getAttribute("species");
+        gender = (String) session.getAttribute("gender");
+        animalState = (String) session.getAttribute("animalState");
+        keyword = (String) session.getAttribute("keyword");
+
+        log.info("species = {}", species);
+        log.info("gender = {}", gender);
+        log.info("animalState = {}", animalState);
+        log.info("keyword = {}", keyword);
+
+        AbandonedAnimalPageForm abandonedAnimals = abandonedAnimalService.getAbandonedAnimalPage(pageNo, species, gender, animalState, keyword);
         model.addAttribute("abandonedAnimals", abandonedAnimals);
 
         return "/abandoned_animal/listAbandonedAnimal";
@@ -192,5 +211,36 @@ public class AbandonedAnimalController {
         HttpSession session = request.getSession(false);
         Member member = (Member) session.getAttribute("authUser");
         return member;
+    }
+
+    private void saveCondition(String species, String gender, String animalState, String keyword, HttpSession session) {
+        if (species != null) {
+            session.setAttribute("species", species);
+        }
+
+        if (gender != null) {
+            session.setAttribute("gender", gender);
+        }
+
+        if (animalState != null) {
+            session.setAttribute("animalState", animalState);
+        }
+
+        if (keyword != null) {
+            if (!keyword.equals("")) {
+                session.setAttribute("keyword", keyword);
+            } else {
+                session.setAttribute("keyword", "allKeyword");
+            }
+        }
+    }
+
+    private void initCondition(String species, String gender, String animalState, String keyword, HttpSession session) {
+        if (species == null && gender == null && animalState == null && keyword == null) {
+            session.removeAttribute("species");
+            session.removeAttribute("gender");
+            session.removeAttribute("animalState");
+            session.removeAttribute("keyword");
+        }
     }
 }

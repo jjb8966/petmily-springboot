@@ -40,6 +40,40 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
+<div class="modal-header">
+
+            <!-- 검색 바 -->
+            <form action="/findBoard/list" method="get">
+                <div class="form-group row">
+
+                    <div class="col">
+                        <select name="species" class="form-control">
+                            <option value="allSpecies" selected>모든 동물</option>
+                            <option value="개">강아지</option>
+                            <option value="고양이">고양이</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <select name="animalState" class="form-control">
+                            <option value="allAnimalState" selected>모든 상태</option>
+                            <option value="실종">실종</option>
+                            <option value="매칭됨">매칭</option>
+                            <option value="완료">완료</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <input type="text" name="keyword" class="form-control" placeholder="검색어">
+                    </div>
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary" value="검색">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
         <div class="row d-flex">
             <c:forEach var="findBoard" items="${Finds.content}">
                 <div class="col-md-4 d-flex ftco-animate" id="d-flex-out">
@@ -58,6 +92,8 @@
                                 <div><a href="#">${findBoard.wrTime}</a></div>
                                 <br/>
                                 <div><a href="#">상태: ${findBoard.animalState}</a></div>
+                                <br/>
+                                <div><a href="#">조회수: ${findBoard.viewCount}</a></div>
                             </div>
                             <h3 class="heading"><a href="#">${findBoard.title}</a></h3>
                         </div>
@@ -69,7 +105,7 @@
         <span class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="location.href='/findBoard/auth/write'">글쓰기</button>
         </span>
-
+        </div>
 
         <div class="row mt-5">
             <div class="col text-center">

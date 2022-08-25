@@ -25,16 +25,27 @@ public class FindBoardController {
     private final FindBoardService findBoardService;
 
     @GetMapping("/list")
-    public String list(HttpServletRequest request, Model model) {
-        String pageNoVal = request.getParameter("pageNo");
-        int pageNo = 1;
+    public String list(@RequestParam(required = false) Integer pageNo,
+                       @RequestParam(required = false) String species,
+                       @RequestParam(required = false) String animalState,
+                       @RequestParam(required = false) String keyword,
+                       HttpServletRequest request,
+                       Model model) {
+        HttpSession session = request.getSession();
 
-        if (pageNoVal != null) {
-            pageNo = Integer.parseInt(pageNoVal);
+        if (pageNo == null) {
+            initCondition(species, animalState, keyword, session);
+            pageNo = 1;
         }
 
-        FindBoardPageForm Finds = findBoardService.getFindPage(pageNo);
-        model.addAttribute("Finds", Finds);
+        saveCondition(species, animalState, keyword, session);
+
+        species = (String) session.getAttribute("species");
+        animalState = (String) session.getAttribute("animalState");
+        keyword = (String) session.getAttribute("keyword");
+
+        FindBoardPageForm findBoardPageForm = findBoardService.getFindPage(pageNo, species, animalState, keyword);
+        model.addAttribute("Finds", findBoardPageForm);
 
         return "/find_board/listFindBoard";
     }
@@ -43,6 +54,9 @@ public class FindBoardController {
     public String detail(@RequestParam("faNumber") int faNumber, Model model) {
         FindBoardDetailForm detailForm = findBoardService.getDetailForm(faNumber);
         log.info("FindDetailForm = {}", detailForm);
+
+        // 조회수
+        findBoardService.updateViewCount(faNumber);
 
         model.addAttribute("findIn", detailForm);
 
@@ -122,5 +136,31 @@ public class FindBoardController {
         Member member = (Member) session.getAttribute("authUser");
 
         return member;
+    }
+
+    private void saveCondition(String species, String animalState, String keyword, HttpSession session) {
+        if (species != null) {
+            session.setAttribute("species", species);
+        }
+
+        if (animalState != null) {
+            session.setAttribute("animalState", animalState);
+        }
+
+        if (keyword != null) {
+            if (!keyword.equals("")) {
+                session.setAttribute("keyword", keyword);
+            } else {
+                session.setAttribute("keyword", "allKeyword");
+            }
+        }
+    }
+
+    private void initCondition(String species, String animalState, String keyword, HttpSession session) {
+        if (species == null && animalState == null && keyword == null) {
+            session.removeAttribute("species");
+            session.removeAttribute("animalState");
+            session.removeAttribute("keyword");
+        }
     }
 }

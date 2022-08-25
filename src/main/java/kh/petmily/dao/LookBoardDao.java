@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class LookBoardDao implements BasicDao {
+
     private final LookBoardMapper mapper;
     private final FindBoardMapper findBoardMapper;
 
@@ -94,24 +95,30 @@ public class LookBoardDao implements BasicDao {
         mapper.delete(pk);
     }
 
-    public int selectCount() {
-        return mapper.selectCount();
+    public int selectCount(String species, String animalState, String keyword) {
+        return mapper.selectCountWithCondition(species, animalState, keyword);
     }
 
-    public List<LookBoardListForm> selectIndex(int start, int end) {
-        List<LookBoard> list = mapper.selectIndex(start, end);
-        List<LookBoardListForm> liList = new ArrayList<>();
+    public List<LookBoardListForm> selectIndex(int start, int end, String species, String animalState, String keyword) {
+        List<LookBoardListForm> result = new ArrayList<>();
 
-        for (LookBoard l : list) {
-            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle());
-            liList.add(li);
+        List<LookBoard> lookBoards = mapper.selectIndexWithCondition(start, end, species, animalState, keyword);
+
+        for (LookBoard board : lookBoards) {
+            // ====== 조회수 추가된 부분 ======
+            LookBoardListForm li = new LookBoardListForm(board.getLaNumber(), selectName(board.getLaNumber()), board.getSpecies(), board.getKind(), board.getLocation(), board.getAnimalState(), board.getImgPath(), board.getWrTime(), board.getTitle(), board.getViewCount());
+            result.add(li);
         }
 
-        return liList;
+        return result;
     }
 
     public String selectName(int pk) {
         return mapper.selectName(pk);
+    }
+
+    public int updateViewCount(int pk) {
+        return mapper.updateViewCount(pk);
     }
 
     public int selectMatchedCount(FindBoard findBoard) {

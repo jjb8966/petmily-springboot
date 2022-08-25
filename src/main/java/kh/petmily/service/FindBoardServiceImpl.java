@@ -50,14 +50,11 @@ public class FindBoardServiceImpl implements FindBoardService {
         return detailForm;
     }
 
-    private FindBoardDetailForm toDetailForm(FindBoard findBoard) {
-        return new FindBoardDetailForm(findBoard.getFaNumber(), findBoard.getMNumber(), findName(findBoard.getFaNumber()), findBoard.getSpecies(), findBoard.getKind(), findBoard.getLocation(), findBoard.getAnimalState(), findBoard.getImgPath(), findBoard.getWrTime(), findBoard.getTitle(), findBoard.getContent());
-    }
 
     @Override
-    public FindBoardPageForm getFindPage(int pageNo) {
-        int total = findBoardDao.selectCount();
-        List<FindBoardListForm> content = findBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
+    public FindBoardPageForm getFindPage(int pageNo, String species, String animalState, String keyword) {
+        int total = findBoardDao.selectCount(species, animalState, keyword);
+        List<FindBoardListForm> content = findBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, species, animalState, keyword);
 
         return new FindBoardPageForm(total, pageNo, size, content);
     }
@@ -70,13 +67,14 @@ public class FindBoardServiceImpl implements FindBoardService {
         return modifyForm;
     }
 
-    private FindBoardModifyForm toModifyForm(FindBoard findBoard) {
-        return new FindBoardModifyForm(findBoard.getSpecies(), findBoard.getKind(), findBoard.getLocation(), findBoard.getTitle(), findBoard.getContent());
-    }
-
     @Override
     public String findName(int faNumber) {
         return findBoardDao.selectName(faNumber);
+    }
+
+    @Override
+    public int updateViewCount(int faNumber) {
+        return findBoardDao.updateViewCount(faNumber);
     }
 
     @Override
@@ -90,5 +88,13 @@ public class FindBoardServiceImpl implements FindBoardService {
     @Override
     public FindBoard getFindBoard(int faNumber) {
         return findBoardDao.findByPk(faNumber);
+    }
+
+    private FindBoardDetailForm toDetailForm(FindBoard findBoard) {
+        return new FindBoardDetailForm(findBoard.getFaNumber(), findBoard.getMNumber(), findName(findBoard.getFaNumber()), findBoard.getSpecies(), findBoard.getKind(), findBoard.getLocation(), findBoard.getAnimalState(), findBoard.getImgPath(), findBoard.getWrTime(), findBoard.getTitle(), findBoard.getContent(), findBoard.getViewCount());
+    }
+
+    private FindBoardModifyForm toModifyForm(FindBoard findBoard) {
+        return new FindBoardModifyForm(findBoard.getSpecies(), findBoard.getKind(), findBoard.getLocation(), findBoard.getTitle(), findBoard.getContent());
     }
 }

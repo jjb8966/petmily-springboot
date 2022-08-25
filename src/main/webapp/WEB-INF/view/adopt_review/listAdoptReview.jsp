@@ -46,6 +46,35 @@ pageEncoding="UTF-8" %>
 
 <section class="ftco-section bg-light">
   <div class="container">
+
+    <!-- 검색 바 -->
+    <span class="modal-header">
+        <form action="/adopt_review/list" method="get">
+            <div class="form-group row">
+
+                <input type="hidden" name="kindOfBoard" value="입양후기">
+
+                <div class="col">
+                    <select name="searchType" class="form-control">
+                        <option value="allSearch" selected>게시글</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="name">작성자</option>
+                    </select>
+                </div>
+
+                <div class="col">
+                    <input type="text" name="keyword" class="form-control" placeholder="검색어">
+                </div>
+
+                <div class="col">
+                    <input type="submit" class="btn btn-primary" value="검색">
+                </div>
+
+            </div>
+        </form>
+    </span>
+
     <div class="row d-flex">
         <c:forEach var="board" items="${boardList.content}">
             <div class="col-md-4">

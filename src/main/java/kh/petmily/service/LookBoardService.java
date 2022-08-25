@@ -7,19 +7,23 @@ import kh.petmily.domain.look_board.form.LookBoardPageForm;
 import kh.petmily.domain.look_board.form.LookBoardWriteForm;
 
 public interface LookBoardService {
+
     public void write(LookBoardWriteForm lwForm);
 
     public void modify(LookBoardModifyForm lmForm);
 
     public void delete(int laNumber);
 
-    public LookBoardPageForm getLookPage(int pageNo);
+    public LookBoardPageForm getLookPage(int pageNo, String animalType, String stateType, String keyword);
 
     public LookBoardDetailForm getDetailForm(int laNumber);
 
     public LookBoardModifyForm getModifyForm(int laNumber);
 
     String findName(int laNumber);
+
+    //====== 조회수 추가 ======
+    public int updateViewCount(int laNumber);
 
     LookBoardPageForm getMatchedLookPage(int pageNo, FindBoard findBoard);
 }
