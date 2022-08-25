@@ -8,6 +8,10 @@ import kh.petmily.domain.member.Member;
 import kh.petmily.service.FindBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +21,35 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 @Controller
 @RequestMapping("/findBoard")
 @RequiredArgsConstructor
 @Slf4j
 public class FindBoardController {
     private final FindBoardService findBoardService;
+
+    @ResponseBody
+    @GetMapping("/upload")
+    public ResponseEntity<Resource> list(String filename, HttpServletRequest request) {
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
+        fullPath = fullPath + filename;
+
+        log.info("fullPath = {}", fullPath);
+
+        try {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(new UrlResource("file:" + fullPath));
+        } catch (MalformedURLException e) {
+            log.info("fullPath = {}", fullPath);
+
+            throw new RuntimeException(e);
+        }
+    }
 
     @GetMapping("/list")
     public String list(@RequestParam(required = false) Integer pageNo,
@@ -72,10 +99,27 @@ public class FindBoardController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute FindBoardWriteForm findBoardWriteForm, HttpServletRequest request) {
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
+
         Member member = getAuthMember(request);
 
         int mNumber = member.getMNumber();
         findBoardWriteForm.setMNumber(mNumber);
+
+        String filename = "";
+
+        if (!findBoardWriteForm.getImgPath().isEmpty()) {
+            try {
+                filename = findBoardService.storeFile(findBoardWriteForm.getImgPath(), fullPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            findBoardWriteForm.setFullPath(filename);
+        } else {
+            findBoardWriteForm.setFullPath("");
+        }
 
         log.info("FindWriteForm = {}", findBoardWriteForm);
 
@@ -106,11 +150,23 @@ public class FindBoardController {
                          HttpServletRequest request,
                          Model model,
                          RedirectAttributes redirectAttributes) {
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
+
         Member member = getAuthMember(request);
 
         int mNumber = member.getMNumber();
         findBoardModifyForm.setMNumber(mNumber);
         findBoardModifyForm.setFaNumber(faNumber);
+
+        String filename = null;
+
+        try {
+            filename = findBoardService.storeFile(findBoardModifyForm.getImgPath(), fullPath);
+            findBoardModifyForm.setFullPath(filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         log.info("FinModifyForm = {}", findBoardModifyForm);
 

@@ -5,11 +5,14 @@ import kh.petmily.domain.find_board.form.FindBoardModifyForm;
 import kh.petmily.domain.find_board.form.FindBoardPageForm;
 import kh.petmily.domain.find_board.form.FindBoardDetailForm;
 import kh.petmily.domain.find_board.form.FindBoardWriteForm;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface FindBoardService {
     public void write(FindBoardWriteForm fwForm);
 
-    public void modify(FindBoardModifyForm fwForm);
+    public void modify(FindBoardModifyForm fmForm);
 
     public void delete(int faNumber);
 
@@ -26,4 +29,6 @@ public interface FindBoardService {
     public int updateViewCount(int faNumber);
 
     FindBoard getFindBoard(int faNumber);
+
+    public String storeFile(MultipartFile file, String filePath) throws IOException;
 }

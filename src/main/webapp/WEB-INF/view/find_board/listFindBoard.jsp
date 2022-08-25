@@ -40,8 +40,7 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
-<div class="modal-header">
-
+        <div class="modal-header">
             <!-- 검색 바 -->
             <form action="/findBoard/list" method="get">
                 <div class="form-group row">
@@ -76,24 +75,23 @@
         <br>
         <div class="row d-flex">
             <c:forEach var="findBoard" items="${Finds.content}">
-                <div class="col-md-4 d-flex ftco-animate" id="d-flex-out">
+                <div class="col-md-4 ftco-animate" id="d-flex-out">
                     <div class="blog-entry align-self-stretch" id="d-flex-in">
                         <a href="${pageContext.request.contextPath}/findBoard/detail?faNumber=${findBoard.faNumber}"
                            class="block-20 rounded"
-                           style="background-image: url('/upload/${findBoard.imgPath}');">
+                           style="background-image: url('/findBoard/upload?filename=${findBoard.imgPath}');">
                         </a>
                         <div class="text p-4">
                             <div class="meta mb-2">
                                 <div><a href="#">${findBoard.species}</a></div>
-                                <div><a href="#">${findBoard.location}</a></div>
-                                <br/>
-                                <div><a href="#">작성자: ${findBoard.name}</a></div>
-                                <br/>
-                                <div><a href="#">${findBoard.wrTime}</a></div>
                                 <br/>
                                 <div><a href="#">상태: ${findBoard.animalState}</a></div>
                                 <br/>
-                                <div><a href="#">조회수: ${findBoard.viewCount}</a></div>
+                                <div><a href="#">장소: ${findBoard.location}</a></div>
+                                <br/>
+                                <div><a href="#">작성일: ${findBoard.wrTime}</a></div>
+                                <br/>
+                                <div><a href="#">작성자: ${findBoard.name}</a></div>
                             </div>
                             <h3 class="heading"><a href="#">${findBoard.title}</a></h3>
                         </div>
@@ -103,9 +101,10 @@
         </div>
 
         <span class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="location.href='/findBoard/auth/write'">글쓰기</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="location.href='/findBoard/auth/write'">글쓰기</button>
         </span>
-        </div>
+
 
         <div class="row mt-5">
             <div class="col text-center">

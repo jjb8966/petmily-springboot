@@ -33,6 +33,15 @@ public class FindBoard implements DomainObj {
         this.content = content;
     }
 
+    public FindBoard(int mNumber, String species, String kind, String location, String title, String content) {
+        this.mNumber = mNumber;
+        this.species = species;
+        this.kind = kind;
+        this.location = location;
+        this.title = title;
+        this.content = content;
+    }
+
     public FindBoard(int faNumber, int mNumber, String species, String kind, String location, String animalState, String imgPath, Date wrTime, String title, String content) {
         this.faNumber = faNumber;
         this.mNumber = mNumber;
@@ -59,6 +68,17 @@ public class FindBoard implements DomainObj {
         this.title = title;
         this.content = content;
         this.viewCount = viewCount;
+    }
+
+    public FindBoard(int faNumber, String species, String kind, String location, String animalState, String imgPath, String title, String content) {
+        this.faNumber = faNumber;
+        this.species = species;
+        this.kind = kind;
+        this.location = location;
+        this.animalState = animalState;
+        this.imgPath = imgPath;
+        this.title = title;
+        this.content = content;
     }
 
     public void setFaNumber(int faNumber) {
