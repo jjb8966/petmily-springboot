@@ -95,7 +95,7 @@ public class FindBoardController {
 
         String filename = "";
 
-        if(!findBoardWriteForm.getImgPath().isEmpty()) {
+        if (!findBoardWriteForm.getImgPath().isEmpty()) {
             try {
                 filename = findBoardService.storeFile(findBoardWriteForm.getImgPath(), fullPath);
             } catch (IOException e) {

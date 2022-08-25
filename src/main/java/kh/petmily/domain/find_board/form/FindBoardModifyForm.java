@@ -1,9 +1,11 @@
 package kh.petmily.domain.find_board.form;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
+@NoArgsConstructor
 public class FindBoardModifyForm {
     private int faNumber;
     private int mNumber;

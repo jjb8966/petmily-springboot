@@ -103,7 +103,6 @@
                                         </div>
 
                                         <hr color="#6c757d" width="100%">
-
                                         <textarea rows="20" class="form-control" name="content" id="content"
                                                   placeholder=" 내용을 입력해주세요"
                                                   required="required">${findMod.content}</textarea>

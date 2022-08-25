@@ -126,6 +126,4 @@ public class FindBoardServiceImpl implements FindBoardService {
     public FindBoard getFindBoard(int faNumber) {
         return findBoardDao.findByPk(faNumber);
     }
-
-
 }

@@ -16,10 +16,12 @@ public class FindBoardWriteForm {
     private String title;
     private String content;
 
-    public FindBoardWriteForm(String species, String kind, String location, String title, String content) {
+    public FindBoardWriteForm(String species, String kind, String location, String fullPath, MultipartFile imgPath, String title, String content) {
         this.species = species;
         this.kind = kind;
         this.location = location;
+        this.fullPath = fullPath;
+        this.imgPath = imgPath;
         this.title = title;
         this.content = content;
     }
