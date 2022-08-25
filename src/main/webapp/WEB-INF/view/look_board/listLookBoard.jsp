@@ -42,22 +42,23 @@
     <div class="container">
         <div class="row d-flex">
             <c:forEach var="lookBoard" items="${Looks.content}">
-                <div class="col-md-4 d-flex ftco-animate" id="d-flex-out">
+                <div class="col-md-4 ftco-animate" id="d-flex-out">
                     <div class="blog-entry align-self-stretch" id="d-flex-in">
                         <a href="${pageContext.request.contextPath}/lookBoard/detail?laNumber=${lookBoard.laNumber}"
                            class="block-20 rounded"
-                           style="background-image: url('/upload/${lookBoard.imgPath}');">
+                           style="background-image: url('/lookBoard/upload/?filename=${lookBoard.imgPath}');">
                         </a>
                         <div class="text p-4">
                             <div class="meta mb-2">
-                                <div><a href="#">${lookBoard.species}</a></div>
-                                <div><a href="#">${lookBoard.location}</a></div>
-                                <br/>
-                                <div><a href="#">작성자: ${lookBoard.name}</a></div>
-                                <br/>
-                                <div><a href="#">${lookBoard.wrTime}</a></div>
-                                <br/>
-                                <div><a href="#">상태: ${lookBoard.animalState}</a></div>
+                                 <div><a href="#">${lookBoard.species}</a></div>
+                                 <br/>
+                                 <div><a href="#">상태: ${lookBoard.animalState}</a></div>
+                                 <br/>
+                                 <div><a href="#">장소: ${lookBoard.location}</a></div>
+                                 <br/>
+                                 <div><a href="#">작성일: ${lookBoard.wrTime}</a></div>
+                                 <br/>
+                                 <div><a href="#">작성자: ${lookBoard.name}</a></div>
                             </div>
                             <h3 class="heading"><a href="#">${lookBoard.title}</a></h3>
                         </div>

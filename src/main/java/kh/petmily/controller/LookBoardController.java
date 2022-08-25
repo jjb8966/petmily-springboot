@@ -8,6 +8,10 @@ import kh.petmily.domain.member.Member;
 import kh.petmily.service.LookBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 @Controller
 @RequestMapping("/lookBoard")
@@ -22,6 +28,26 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class LookBoardController {
     private final LookBoardService lookBoardService;
+
+    @ResponseBody
+    @GetMapping("/upload")
+    public ResponseEntity<Resource> list(String filename, HttpServletRequest request) {
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
+        fullPath = fullPath + filename;
+
+        log.info("fullPath = {}", fullPath);
+
+        try {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(new UrlResource("file:" + fullPath));
+        } catch (MalformedURLException e) {
+            log.info("fullPath = {}", fullPath);
+
+            throw new RuntimeException(e);
+        }
+    }
 
     @GetMapping("/list")
     public String list(HttpServletRequest request, Model model) {
@@ -57,10 +83,27 @@ public class LookBoardController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute LookBoardWriteForm lookBoardWriteForm, HttpServletRequest request) {
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
+
         Member member = getAuthMember(request);
 
         int mNumber = member.getMNumber();
         lookBoardWriteForm.setMNumber(mNumber);
+        String filename = "";
+
+        if (!lookBoardWriteForm.getImgPath().isEmpty()) {
+            try {
+                filename = lookBoardService.storeFile(lookBoardWriteForm.getImgPath(), fullPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            lookBoardWriteForm.setFullPath(filename);
+        } else {
+            lookBoardWriteForm.setFullPath("");
+        }
+
 
         log.info("LookWriteForm = {}", lookBoardWriteForm);
 
@@ -91,6 +134,9 @@ public class LookBoardController {
                          HttpServletRequest request,
                          Model model,
                          RedirectAttributes redirectAttributes) {
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
+
         Member member = getAuthMember(request);
 
         int mNumber = member.getMNumber();
@@ -98,6 +144,14 @@ public class LookBoardController {
         lookBoardModifyForm.setLaNumber(laNumber);
 
         log.info("LookModifyForm = {}", lookBoardModifyForm);
+        String filename = null;
+
+        try {
+            filename = lookBoardService.storeFile(lookBoardModifyForm.getImgPath(), fullPath);
+            lookBoardModifyForm.setFullPath(filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         lookBoardService.modify(lookBoardModifyForm);
 

@@ -5,6 +5,9 @@ import kh.petmily.domain.look_board.form.LookBoardDetailForm;
 import kh.petmily.domain.look_board.form.LookBoardModifyForm;
 import kh.petmily.domain.look_board.form.LookBoardPageForm;
 import kh.petmily.domain.look_board.form.LookBoardWriteForm;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface LookBoardService {
     public void write(LookBoardWriteForm lwForm);
@@ -22,4 +25,5 @@ public interface LookBoardService {
     String findName(int laNumber);
 
     LookBoardPageForm getMatchedLookPage(int pageNo, FindBoard findBoard);
+    public String storeFile(MultipartFile file, String filePath) throws IOException;
 }

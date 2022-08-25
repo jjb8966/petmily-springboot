@@ -75,7 +75,7 @@
                                                                                          name="kind" id="kindInput"
                                                                                          placeholder="모르는 경우 '모름' 작성"
                                                                                          required="required"/>
-                                                <label for="locationInput">실종 장소:</label><input type="text"
+                                                <label for="locationInput">목격 장소:</label><input type="text"
                                                                                                 class="form-control"
                                                                                                 name="location"
                                                                                                 id="locationInput"
@@ -89,9 +89,9 @@
                                         <textarea rows="20" class="form-control" name="content" id="content"
                                                   placeholder=" 내용을 입력해주세요" required="required"></textarea>
 
-<%--                                        <div class="custom-file form-control-sm mt-3" style="max-width: 300px;">
+                                        <div class="custom-file form-control-sm mt-3" style="max-width: 300px;">
                                             <input type="file" name="imgPath" id="file" accept="image/*">
-                                        </div>--%>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
