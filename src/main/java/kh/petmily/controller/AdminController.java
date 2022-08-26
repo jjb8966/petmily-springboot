@@ -21,9 +21,7 @@ public class AdminController {
     }
 
     @GetMapping("/animal")
-    public void animalPage() {
-
-    }
+    public String animalPage() { return "/admin/animal/animalPage"; }
 
     @GetMapping("/board")
     public void boardPage() {
