@@ -57,10 +57,12 @@ public class LookBoardController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute LookBoardWriteForm lookBoardWriteForm, HttpServletRequest request) {
-        Member member = getAuthMember(request);
+        if(lookBoardWriteForm.getMNumber() == 0) {
+            Member member = getAuthMember(request);
 
-        int mNumber = member.getMNumber();
-        lookBoardWriteForm.setMNumber(mNumber);
+            int mNumber = member.getMNumber();
+            lookBoardWriteForm.setMNumber(mNumber);
+        }
 
         log.info("LookWriteForm = {}", lookBoardWriteForm);
 

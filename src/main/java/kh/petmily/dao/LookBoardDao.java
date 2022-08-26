@@ -3,7 +3,6 @@ package kh.petmily.dao;
 import kh.petmily.domain.DomainObj;
 import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.look_board.LookBoard;
-import kh.petmily.domain.look_board.form.LookBoardListForm;
 import kh.petmily.mapper.FindBoardMapper;
 import kh.petmily.mapper.LookBoardMapper;
 import lombok.RequiredArgsConstructor;
@@ -98,20 +97,8 @@ public class LookBoardDao implements BasicDao {
         return mapper.selectCount();
     }
 
-    public List<LookBoardListForm> selectIndex(int start, int end) {
-        List<LookBoard> list = mapper.selectIndex(start, end);
-        List<LookBoardListForm> liList = new ArrayList<>();
-
-        for (LookBoard l : list) {
-            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle());
-            liList.add(li);
-        }
-
-        return liList;
-    }
-
-    public String selectName(int pk) {
-        return mapper.selectName(pk);
+    public List<LookBoard> selectIndex(int start, int end) {
+        return mapper.selectIndex(start, end);
     }
 
     public int selectMatchedCount(FindBoard findBoard) {
@@ -119,20 +106,18 @@ public class LookBoardDao implements BasicDao {
         return list.size();
     }
 
-    public List<LookBoardListForm> selectMatchedIndex(int start, int end, FindBoard findBoard) {
+    public List<LookBoard> selectMatchedIndex(int start, int end, FindBoard findBoard) {
         List<Integer> list = findBoardMapper.selectMatchedLa(findBoard);
         List<LookBoard> lookBoardList = new ArrayList<>();
         for(Integer i : list) {
             lookBoardList.add(mapper.selectByPk(i));
 
         }
-        List<LookBoardListForm> liList = new ArrayList<>();
 
-        for (LookBoard l : lookBoardList) {
-            LookBoardListForm li = new LookBoardListForm(l.getLaNumber(), selectName(l.getLaNumber()), l.getSpecies(), l.getKind(), l.getLocation(), l.getAnimalState(), l.getImgPath(), l.getWrTime(), l.getTitle());
-            liList.add(li);
-        }
+        return lookBoardList;
+    }
 
-        return liList;
+    public List<LookBoard> selectAll() {
+        return mapper.selectAll();
     }
 }

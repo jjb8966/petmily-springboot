@@ -61,7 +61,6 @@
             from BOARD B inner join MEMBER M
             on B.MNUMBER = M.MNUMBER
             where B.BNUMBER = #{pk}
-
     </select>
 
     <select id="selectByContent" resultType="kh.petmily.domain.board.Board">
@@ -75,4 +74,11 @@
         set VIEWCOUNT = VIEWCOUNT + 1
         where BNUMBER = #{pk}
     </update>
+
+    <select id="selectAll" resultType="kh.petmily.domain.board.Board">
+        select *
+        from BOARD
+        where KINDOFBOARD = #{kindOfBoard}
+        order by BNUMBER desc
+    </select>
 </mapper>

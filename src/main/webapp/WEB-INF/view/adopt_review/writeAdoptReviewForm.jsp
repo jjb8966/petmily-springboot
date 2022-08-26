@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -55,6 +54,19 @@ pageEncoding="UTF-8" %>
                     <form class="form" name="enq" method="post" action="/adopt_review/auth/write"  enctype='multipart/form-data'>
                         <div class="modal-body">
                             <div class="row">
+                                <c:if test="${authUser.grade == '관리자'}">
+                                    <div>
+                                        <label for="mNumber">
+                                            작성자 :
+                                        </label>
+                                        <select name="mNumber" id="mNumber">
+                                            <c:forEach var="mem" items="${Mems}">
+                                                <option value="${mem.getMNumber()}">${mem.getMNumber()} - ${mem.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <hr color="#6c757d" width="100%">
+                                </c:if>
                                 <div class="form-group">
 
                                     <!-- 글 title, content, kindOfBoard, wrTime -->

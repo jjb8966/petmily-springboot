@@ -1,10 +1,13 @@
 package kh.petmily.service;
 
+import kh.petmily.domain.admin.form.AdminBoardListForm;
 import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.find_board.form.FindBoardModifyForm;
 import kh.petmily.domain.find_board.form.FindBoardPageForm;
 import kh.petmily.domain.find_board.form.FindBoardDetailForm;
 import kh.petmily.domain.find_board.form.FindBoardWriteForm;
+
+import java.util.List;
 
 public interface FindBoardService {
     public void write(FindBoardWriteForm fwForm);
@@ -21,7 +24,9 @@ public interface FindBoardService {
 
     public FindBoardPageForm getMembersFindPage(int pageNo, int mNumber, String matched);
 
-    String findName(int faNumber);
+    public String findName(int mNumber);
 
-    FindBoard getFindBoard(int faNumber);
+    public FindBoard getFindBoard(int faNumber);
+
+    public List<AdminBoardListForm> selectAll();
 }

@@ -9,12 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements MemberService{
-
     private final MemberDao memberDao;
 
     @Override
@@ -108,5 +108,10 @@ public class MemberServiceImpl implements MemberService{
         String phone = joinReq.getPhone();
 
         return new Member(id, pw, name, birth, gender, email, phone);
+    }
+
+    @Override
+    public List<Member> selectAll() {
+        return memberDao.selectAll();
     }
 }

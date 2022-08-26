@@ -1,10 +1,14 @@
 package kh.petmily.service;
 
+import kh.petmily.domain.admin.form.AdminBoardListForm;
 import kh.petmily.domain.find_board.FindBoard;
+import kh.petmily.domain.look_board.LookBoard;
 import kh.petmily.domain.look_board.form.LookBoardDetailForm;
 import kh.petmily.domain.look_board.form.LookBoardModifyForm;
 import kh.petmily.domain.look_board.form.LookBoardPageForm;
 import kh.petmily.domain.look_board.form.LookBoardWriteForm;
+
+import java.util.List;
 
 public interface LookBoardService {
     public void write(LookBoardWriteForm lwForm);
@@ -19,7 +23,11 @@ public interface LookBoardService {
 
     public LookBoardModifyForm getModifyForm(int laNumber);
 
-    String findName(int laNumber);
+    public String findName(int laNumber);
 
-    LookBoardPageForm getMatchedLookPage(int pageNo, FindBoard findBoard);
+    public LookBoardPageForm getMatchedLookPage(int pageNo, FindBoard findBoard);
+
+    public List<AdminBoardListForm> selectAll();
+
+    public LookBoard getLookBoard(int laNumber);
 }

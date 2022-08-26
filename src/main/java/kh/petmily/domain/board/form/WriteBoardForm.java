@@ -20,8 +20,4 @@ public class WriteBoardForm implements DomainObj {
         this.content = content;
         this.checkPublic = checkPublic;
     }
-
-    public int getmNumber() {
-        return mNumber;
-    }
 }

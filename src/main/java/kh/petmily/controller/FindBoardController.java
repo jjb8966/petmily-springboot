@@ -58,10 +58,14 @@ public class FindBoardController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute FindBoardWriteForm findBoardWriteForm, HttpServletRequest request) {
-        Member member = getAuthMember(request);
+        log.info("findBoardWriteForm = {}", findBoardWriteForm);
 
-        int mNumber = member.getMNumber();
-        findBoardWriteForm.setMNumber(mNumber);
+        if(findBoardWriteForm.getMNumber() == 0) {
+            Member member = getAuthMember(request);
+
+            int mNumber = member.getMNumber();
+            findBoardWriteForm.setMNumber(mNumber);
+        }
 
         log.info("FindWriteForm = {}", findBoardWriteForm);
 

@@ -2,13 +2,11 @@ package kh.petmily.dao;
 
 import kh.petmily.domain.DomainObj;
 import kh.petmily.domain.find_board.FindBoard;
-import kh.petmily.domain.find_board.form.FindBoardListForm;
 import kh.petmily.mapper.FindBoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -95,35 +93,19 @@ public class FindBoardDao implements BasicDao {
         return mapper.selectCount();
     }
 
-    public List<FindBoardListForm> selectIndex(int start, int end) {
-        List<FindBoard> list = mapper.selectIndex(start, end);
-        List<FindBoardListForm> fiList = new ArrayList<>();
-
-        for (FindBoard f : list) {
-            FindBoardListForm fi = new FindBoardListForm(f.getFaNumber(), selectName(f.getFaNumber()), f.getSpecies(), f.getKind(), f.getLocation(), f.getAnimalState(), f.getImgPath(), f.getWrTime(), f.getTitle());
-            fiList.add(fi);
-        }
-
-        return fiList;
-    }
-
-    public String selectName(int pk) {
-        return mapper.selectName(pk);
+    public List<FindBoard> selectIndex(int start, int end) {
+        return mapper.selectIndex(start, end);
     }
 
     public int selectMemberCount(int mNumber, String matched) {
         return mapper.selectMemberCount(mNumber, matched);
     }
 
-    public List<FindBoardListForm> selectMemberIndex(int start, int end, int mNumber, String matched) {
-        List<FindBoard> list = mapper.selectMemberIndex(start, end, mNumber, matched);
-        List<FindBoardListForm> fiList = new ArrayList<>();
+    public List<FindBoard> selectMemberIndex(int start, int end, int mNumber, String matched) {
+        return mapper.selectMemberIndex(start, end, mNumber, matched);
+    }
 
-        for (FindBoard f : list) {
-            FindBoardListForm fi = new FindBoardListForm(f.getFaNumber(), selectName(f.getFaNumber()), f.getSpecies(), f.getKind(), f.getLocation(), f.getAnimalState(), f.getImgPath(), f.getWrTime(), f.getTitle());
-            fiList.add(fi);
-        }
-
-        return fiList;
+    public List<FindBoard> selectAll() {
+        return mapper.selectAll();
     }
 }

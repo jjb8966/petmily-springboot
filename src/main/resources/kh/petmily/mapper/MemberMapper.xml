@@ -63,4 +63,10 @@
         from MEMBER
         where MNUMBER = #{pk}
     </select>
+
+    <select id="selectAll" resultType="kh.petmily.domain.member.Member">
+        select *
+        from MEMBER
+        order by MNUMBER
+    </select>
 </mapper>

@@ -1,6 +1,8 @@
 package kh.petmily.service;
 
 import kh.petmily.dao.AdoptReviewDao;
+import kh.petmily.dao.MemberDao;
+import kh.petmily.domain.admin.form.AdminBoardListForm;
 import kh.petmily.domain.adopt_review.AdoptReview;
 import kh.petmily.domain.adopt_review.form.AdoptReviewForm;
 import kh.petmily.domain.adopt_review.form.AdoptReviewModifyForm;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,8 +23,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class AdoptReviewServiceImpl implements AdoptReviewService {
-
     private final AdoptReviewDao adoptReviewDao;
+    private final MemberDao memberDao;
     private int size = 6;
 
     private String getFullPath(String filename, String filePath) {
@@ -113,7 +116,7 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
 
     private AdoptReview toAdoptReview(AdoptReviewWriteForm req){
         return new AdoptReview(
-                req.getmNumber(),
+                req.getMNumber(),
                 req.getKindOfBoard(),
                 req.getTitle(),
                 req.getContent(),
@@ -128,5 +131,23 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
 
     private AdoptReview toAdoptReviewModifyForm(AdoptReviewModifyForm modReq) {
         return new AdoptReview(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), "Y", modReq.getFullPath());
+    }
+
+    @Override
+    public List<AdminBoardListForm> selectAll(String kindOfBoard) {
+        List<AdminBoardListForm> list = new ArrayList<>();
+        List<AdoptReview> adoptReviewList = adoptReviewDao.selectAll(kindOfBoard);
+
+        for(AdoptReview b : adoptReviewList) {
+            AdminBoardListForm ad = new AdminBoardListForm(b.getBNumber(), findName(b.getMNumber()), b.getWrTime(), b.getTitle());
+            list.add(ad);
+        }
+
+        return list;
+    }
+
+    @Override
+    public String findName(int mNumber) {
+        return memberDao.selectName(mNumber);
     }
 }

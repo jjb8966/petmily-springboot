@@ -8,7 +8,6 @@ import kh.petmily.domain.member.Member;
 import kh.petmily.service.AdoptReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
@@ -16,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -92,10 +92,13 @@ public class AdoptReviewController {
         String fullPath =request.getSession().getServletContext().getRealPath("/");
         fullPath = fullPath+"resources/upload/";
 
-        Member member = getAuthMember(request);
-        int mNumber = member.getMNumber();
+        if(adoptReviewWriteForm.getMNumber() == 0) {
+            Member member = getAuthMember(request);
+            int mNumber = member.getMNumber();
 
-        adoptReviewWriteForm.setMNumber(mNumber);
+            adoptReviewWriteForm.setMNumber(mNumber);
+        }
+
         String filename = "";
 
         if (!adoptReviewWriteForm.getImgPath().isEmpty()) {
@@ -110,6 +113,7 @@ public class AdoptReviewController {
         } else {
             adoptReviewWriteForm.setFullPath("");
         }
+
         adoptReviewService.write(adoptReviewWriteForm);
 
         return "/adopt_review/writeAdoptReviewSuccess";
@@ -131,15 +135,15 @@ public class AdoptReviewController {
     }
 
     @PostMapping("/auth/modify")
-    public String modify(@ModelAttribute AdoptReviewModifyForm modReq, HttpServletRequest request, Model model) {
-
-        String fullPath =request.getSession().getServletContext().getRealPath("/");
+    public String modify(@RequestParam("bNumber") int bNumber, @RequestParam("kindOfBoard") String kindOfBoard, @ModelAttribute AdoptReviewModifyForm modReq, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
         fullPath = fullPath+"resources/upload/";
 
         Member authUser = getAuthMember(request);
 
         int mNumber = authUser.getMNumber();
         modReq.setMNumber(mNumber);
+        modReq.setBNumber(bNumber);
 
         log.info("BoardModifyForm = {}", modReq);
         String filename = null;
@@ -153,8 +157,10 @@ public class AdoptReviewController {
 
         adoptReviewService.modify(modReq);
         model.addAttribute("modReq", modReq);
+        redirectAttributes.addAttribute("bNumber", bNumber);
+        redirectAttributes.addAttribute("kindOfBoard", kindOfBoard);
 
-        return "/adopt_review/modifySuccess";
+        return "redirect:/adopt_review/detail?kindOfBoard={kindOfBoard}&bNumber={bNumber}";
     }
 
     @GetMapping("/auth/delete")

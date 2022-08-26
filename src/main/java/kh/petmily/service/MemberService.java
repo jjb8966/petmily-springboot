@@ -4,6 +4,8 @@ import kh.petmily.domain.member.form.JoinRequest;
 import kh.petmily.domain.member.form.MemberChangeForm;
 import kh.petmily.domain.member.Member;
 
+import java.util.List;
+
 public interface MemberService {
 
     public void join(JoinRequest joinReq);
@@ -21,4 +23,6 @@ public interface MemberService {
     String findName(int mNumber);
 
     public boolean isPwEqualToConfirm(String pw, String confirmPw);
+
+    List<Member> selectAll();
 }

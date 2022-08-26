@@ -24,4 +24,6 @@ public interface AdoptReviewMapper {
     List<AdoptReview> selectIndex(@Param("start") int start, @Param("end") int end, @Param("kindOfBoard") String kindOfBoard);
 
     String selectName(int pk);
+
+    List<AdoptReview> selectAll(String kindOfBoard);
 }
