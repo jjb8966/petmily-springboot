@@ -1,19 +1,20 @@
 package kh.petmily.service;
 
-import kh.petmily.domain.member.form.JoinRequest;
-import kh.petmily.domain.member.form.MemberChangeForm;
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
+import kh.petmily.domain.member.form.JoinRequest;
+import kh.petmily.domain.member.form.MemberChangeForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberDao memberDao;
 
@@ -96,6 +97,11 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public String findName(int mNumber) {
         return memberDao.selectName(mNumber);
+    }
+
+    @Override
+    public List<Member> selectAll() {
+        return memberDao.selectAll();
     }
 
     private Member toMember(JoinRequest joinReq) {

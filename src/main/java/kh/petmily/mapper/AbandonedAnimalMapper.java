@@ -1,7 +1,6 @@
 package kh.petmily.mapper;
 
 import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
-import kh.petmily.domain.member.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,6 +24,8 @@ public interface AbandonedAnimalMapper {
     List<AbandonedAnimal> selectIndex(@Param("start") int start, @Param("end") int end);
 
     String selectName(int pk);
+
+    List<AbandonedAnimal> selectAll();
 
     int selectsNumber(int pk);
 }

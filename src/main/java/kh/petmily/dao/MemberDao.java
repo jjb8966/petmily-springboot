@@ -1,11 +1,12 @@
 package kh.petmily.dao;
 
 import kh.petmily.domain.DomainObj;
-import kh.petmily.mapper.MemberMapper;
 import kh.petmily.domain.member.Member;
+import kh.petmily.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -57,5 +58,9 @@ public class MemberDao implements BasicDao {
 
     public String selectEmail(int pk) {
         return mapper.selectEmail(pk);
+    }
+
+    public List<Member> selectAll() {
+        return mapper.selectAll();
     }
 }

@@ -5,14 +5,13 @@ import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AbandonedAnimalServiceImpl implements AbandonedAnimalService{
+public class AbandonedAnimalServiceImpl implements AbandonedAnimalService {
 
     private final AbandonedAnimalDao abandonedAnimalDao;
     private int size = 12;
@@ -28,6 +27,11 @@ public class AbandonedAnimalServiceImpl implements AbandonedAnimalService{
     @Override
     public String findName(int abNumber) {
         return abandonedAnimalDao.selectName(abNumber);
+    }
+
+    @Override
+    public List<AbandonedAnimal> selectAll() {
+        return abandonedAnimalDao.selectAll();
     }
 
     @Override
