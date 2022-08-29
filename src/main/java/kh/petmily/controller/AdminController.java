@@ -1,6 +1,5 @@
 package kh.petmily.controller;
 
-import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalModifyForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
@@ -64,7 +63,7 @@ public class AdminController {
     public String animalPage() { return "/admin/animal/animalPage"; }
 
     @GetMapping("/animal/abandoned")
-    public String adminAbandonedList(@RequestParam(defaultValue = "1") int pageNo, HttpServletRequest request, Model model) {
+    public String adminAbandonedList(@RequestParam(defaultValue = "1") int pageNo, Model model) {
         AbandonedAnimalPageForm abandonedAnimals = abandonedAnimalService.getAbandonedAnimalPage(pageNo);
         model.addAttribute("abandonedAnimals", abandonedAnimals);
 
@@ -83,7 +82,7 @@ public class AdminController {
 
 
     @GetMapping("/animal/abandoned/write")
-    public String adminAbandonedWriteForm(Model model) {
+    public String adminAbandonedWriteForm() {
         return "/admin/animal/AbandonedAnimalWriteForm";
     }
 
@@ -103,7 +102,7 @@ public class AdminController {
 
             abandonedAnimalWriteForm.setFullPath(filename);
         } else {
-            abandonedAnimalService.write(abandonedAnimalWriteForm);
+            abandonedAnimalWriteForm.setFullPath("");
         }
 
         log.info("AbandonedAnimalWriteForm = {}", abandonedAnimalWriteForm);
