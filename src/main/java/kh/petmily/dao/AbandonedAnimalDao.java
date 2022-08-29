@@ -2,10 +2,12 @@ package kh.petmily.dao;
 
 import kh.petmily.domain.DomainObj;
 import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
+import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
 import kh.petmily.mapper.AbandonedAnimalMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -26,9 +28,7 @@ public class AbandonedAnimalDao implements BasicDao {
     }
 
     @Override
-    public void update(DomainObj obj) {
-        mapper.update((AbandonedAnimal) obj);
-    }
+    public void update(DomainObj obj) { mapper.update((AbandonedAnimal) obj); }
 
     @Override
     public void delete(int pk) {
@@ -40,8 +40,16 @@ public class AbandonedAnimalDao implements BasicDao {
         return mapper.selectCount();
     }
 
-    public List<AbandonedAnimal> selectIndex(int start, int end) {
-        return mapper.selectIndex(start, end);
+    public List<AbandonedAnimalDetailForm> selectIndex(int start, int end) {
+        List<AbandonedAnimal> list = mapper.selectIndex(start, end);
+        List<AbandonedAnimalDetailForm> abandonedAnimalDetailForm = new ArrayList<>();
+
+        for (AbandonedAnimal a : list) {
+            AbandonedAnimalDetailForm ab = new AbandonedAnimalDetailForm(a.getAbNumber(), a.getSNumber(), a.getAge(), a.getWeight(), a.getGender(), a.getName(), a.getSpecies(), a.getKind(), a.getLocation(), a.getUniqueness(), a.getDescription(), a.getAnimalState(), a.getImgPath(), a.getAdmissionDate());
+            abandonedAnimalDetailForm.add(ab);
+        }
+
+        return abandonedAnimalDetailForm;
     }
 
     public String selectName(int pk) {
