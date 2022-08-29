@@ -69,4 +69,17 @@
         from MEMBER
         order by MNUMBER
     </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from MEMBER
+    </select>
+
+    <select id="selectIndex" resultType="kh.petmily.domain.member.Member">
+        select * from
+        (select ROWNUM as NUM, M.* FROM
+        (select * from MEMBER order by MNUMBER DESC) M)
+        where NUM between #{start} and #{end}
+    </select>
+
 </mapper>

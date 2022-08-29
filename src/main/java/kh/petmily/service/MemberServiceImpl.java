@@ -4,6 +4,9 @@ import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import kh.petmily.domain.member.form.JoinRequest;
 import kh.petmily.domain.member.form.MemberChangeForm;
+import kh.petmily.domain.member.form.*;
+import kh.petmily.dao.MemberDao;
+import kh.petmily.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberDao memberDao;
+    private int size = 5;
 
     @Override
     public void join(JoinRequest joinReq) {
@@ -114,5 +118,69 @@ public class MemberServiceImpl implements MemberService {
         String phone = joinReq.getPhone();
 
         return new Member(id, pw, name, birth, gender, email, phone);
+    }
+
+    // 관리자 페이지
+    @Override
+    public MemberPageForm getMemberPage(int pageNo) {
+        int total = memberDao.selectCount();
+        List<MemberDetailForm> content = memberDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
+
+        return new MemberPageForm(total, pageNo, size, content);
+    }
+
+    @Override
+    public void delete(int mNumber) {
+        memberDao.delete(mNumber);
+    }
+
+    @Override
+    public MemberDetailForm getMember(int mNumber) {
+        Member member = memberDao.findByPk(mNumber);
+
+        return new MemberDetailForm(member.getMNumber(), member.getId(), member.getPw(), member.getName(), member.getBirth(), member.getGender(), member.getEmail(), member.getPhone(), member.getGrade());
+    }
+
+    @Override
+    public MemberModifyForm getMemberModify(int mNumber) {
+        Member member = memberDao.findByPk(mNumber);
+        MemberModifyForm memberModifyForm = toMemberModify(member);
+
+        return memberModifyForm;
+    }
+
+    @Override
+    public void create(MemberCreateForm memberCreateForm) {
+        Member member = toMember(memberCreateForm);
+
+        memberDao.insert(member);
+    }
+
+    @Override
+    public void modify(MemberModifyForm memberModifyForm) {
+        Member member = toMember(memberModifyForm);
+
+        memberDao.update(member);
+    }
+
+    @Override
+    public List<Member> selectAll() {
+        return memberDao.selectAll();
+    }
+
+    private Member toMember(MemberCreateForm memberCreateForm) {
+        Member member = new Member(memberCreateForm.getMNumber(), memberCreateForm.getId(), memberCreateForm.getPw(), memberCreateForm.getName(), (Date) memberCreateForm.getBirth(), memberCreateForm.getGender(), memberCreateForm.getEmail(), memberCreateForm.getPhone(), memberCreateForm.getGrade());
+
+        return member;
+    }
+
+    private Member toMember(MemberModifyForm memberModifyForm) {
+        Member member = new Member(memberModifyForm.getMNumber(), memberModifyForm.getId(), memberModifyForm.getPw(), memberModifyForm.getName(), (Date) memberModifyForm.getBirth(), memberModifyForm.getGender(), memberModifyForm.getEmail(), memberModifyForm.getPhone(), memberModifyForm.getGrade());
+
+        return member;
+    }
+
+    private MemberModifyForm toMemberModify(Member member) {
+        return new MemberModifyForm(member.getMNumber(), member.getId(), member.getPw(), member.getName(), member.getBirth(), member.getGender(), member.getEmail(), member.getPhone(), member.getGrade());
     }
 }

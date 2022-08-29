@@ -1,11 +1,15 @@
 package kh.petmily.dao;
 
 import kh.petmily.domain.DomainObj;
+import kh.petmily.domain.member.form.MemberDetailForm;
 import kh.petmily.mapper.MemberMapper;
 import kh.petmily.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -58,6 +62,27 @@ public class MemberDao implements BasicDao {
 
     public String selectEmail(int pk) {
         return mapper.selectEmail(pk);
+    }
+
+    public List<Member> selectAll() {
+        return mapper.selectAll();
+    }
+}
+
+    public int selectCount() {
+        return mapper.selectCount();
+    }
+
+    public List<MemberDetailForm> selectIndex(int start, int end) {
+        List<Member> memberListForms = mapper.selectIndex(start, end);
+        List<MemberDetailForm> result = new ArrayList<>();
+
+        for (Member m : memberListForms) {
+            MemberDetailForm mf = new MemberDetailForm(m.getMNumber(), m.getId(), m.getPw(), m.getName(), m.getBirth(), m.getGender(), m.getEmail(), m.getPhone(), m.getGrade());
+            result.add(mf);
+        }
+
+        return result;
     }
 
     public List<Member> selectAll() {

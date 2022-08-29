@@ -1,14 +1,11 @@
 package kh.petmily.domain.member;
 
 import kh.petmily.domain.DomainObj;
-import kh.petmily.domain.member.form.MemberChangeForm;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Date;
 
-@Getter
+@Data
 @NoArgsConstructor
 @ToString
 public class Member implements DomainObj {
