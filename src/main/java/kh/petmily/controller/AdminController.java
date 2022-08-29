@@ -6,6 +6,8 @@ import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalModifyForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalWriteForm;
 import kh.petmily.domain.admin.form.AdminBoardListForm;
+import kh.petmily.domain.adopt.form.AdoptPageForm;
+import kh.petmily.domain.adopt.form.TempPageForm;
 import kh.petmily.domain.adopt_review.form.AdoptReviewModifyForm;
 import kh.petmily.domain.board.form.BoardModifyForm;
 import kh.petmily.domain.donation.form.DonationCreateForm;
@@ -22,9 +24,6 @@ import kh.petmily.domain.pet.Pet;
 import kh.petmily.domain.pet.form.PetForm;
 import kh.petmily.domain.pet.form.PetPageForm;
 import kh.petmily.service.*;
-import kh.petmily.domain.adopt.form.AdoptPageForm;
-import kh.petmily.domain.adopt.form.TempPageForm;
-import kh.petmily.service.AdoptTempService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -33,7 +32,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.UncategorizedSQLException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +42,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -444,7 +440,7 @@ public class AdminController {
     @GetMapping("/adopt_temp/wait/temp_pet")
     public String waitTempDetail(@RequestParam(defaultValue = "1") int pageNo,
                                  @RequestParam(defaultValue = "처리중") String status,
-                                    Model model) {
+                                 Model model) {
 
         TempPageForm temp = adoptTempService.getTempWaitPage(pageNo, status);
         model.addAttribute("temp", temp);
@@ -519,13 +515,13 @@ public class AdminController {
     }
 
     // 임보 거절된 리스트
-   @GetMapping("/adopt_temp/refuse/temp_pet")
+    @GetMapping("/adopt_temp/refuse/temp_pet")
     public String refuseTempPetDetail(@RequestParam(defaultValue = "1") int pageNo,
                                       @RequestParam(defaultValue = "거절") String status,
                                       Model model) {
 
-       TempPageForm temp = adoptTempService.getTempWaitPage(pageNo, status);
-       model.addAttribute("temp", temp);
+        TempPageForm temp = adoptTempService.getTempWaitPage(pageNo, status);
+        model.addAttribute("temp", temp);
 
         return "/admin/adoptTemp/refuseTempPetDetail";
     }

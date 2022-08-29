@@ -27,8 +27,6 @@ public class AdoptTempServiceImpl implements AdoptTempService{
     private final TempDao tempDao;
     private int size = 10;
 
-    private int size = 10;
-
     @Override
     public void adopt(AdoptTempSubmitForm adoptTempSubmitForm) {
         Adopt adopt = toAdopt(adoptTempSubmitForm);
@@ -41,10 +39,10 @@ public class AdoptTempServiceImpl implements AdoptTempService{
         tempDao.insert(tempPet);
     }
 
-    @Override
-    public String findAnimalName(int abNumber) {
-        return adoptDao.selectAnimalName(abNumber);
-    }
+//    @Override
+//    public String findAnimalName(int abNumber) {
+//        return adoptDao.selectAnimalName(abNumber);
+//    }
 
     @Override
     public String findMemberName(int mNumber) {
@@ -117,7 +115,6 @@ public class AdoptTempServiceImpl implements AdoptTempService{
     public List<TempDetailForm> tempRefuse(int tNumber) {
         return tempDao.tempRefuse(tNumber);
     }
-}
 
     @Override
     public TempApplyPageForm getTempApplyPage(int pageNo, int mNumber, String type) {

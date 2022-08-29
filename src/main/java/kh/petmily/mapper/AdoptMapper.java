@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 
 @Mapper
 public interface AdoptMapper {
@@ -16,16 +14,16 @@ public interface AdoptMapper {
     void insert(Adopt obj);
 
     void update(Adopt obj);
-    
+
     void delete(int pk);
-
-    int selectCount(int mNumber);
-
-    List<Adopt> selectIndex(@Param("start") int start, @Param("end") int end, @Param("mNumber") int mNumber);
 
     int selectCount();
 
-    List<AdoptTempListForm> selectIndex(@Param("start") int start, @Param("end") int end, @Param("status") String status);
+    int selectCountBymNumber(int mNumber);
+
+    List<Adopt> selectIndexBymNumber(@Param("start") int start, @Param("end") int end, @Param("mNumber") int mNumber);
+
+    List<AdoptTempListForm> selectIndexByStatus(@Param("start") int start, @Param("end") int end, @Param("status") String status);
 
     List<AdoptTempListForm> adoptApprove(int pk);
 

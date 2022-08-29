@@ -18,6 +18,7 @@ public interface AdoptTempService {
     AdoptApplyPageForm getAdoptApplyPage(int pageNo, int mNumber, String type);
 
     TempApplyPageForm getTempApplyPage(int pageNo, int mNumber, String type);
+
     public String findMemberName(int mNumber);
 
     public String findMemberId(int mNumber);

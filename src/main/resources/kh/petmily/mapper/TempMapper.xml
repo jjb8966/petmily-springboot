@@ -34,7 +34,20 @@
         from TEMPPET
     </select>
 
-    <select id="selectIndex" resultType="kh.petmily.domain.adopt.form.AdoptTempListForm">
+    <select id="selectCountBymNumber" resultType="java.lang.Integer">
+        select count(*)
+        from TEMPPET
+        where MNUMBER = #{mNumber}
+    </select>
+
+    <select id="selectIndexBymNumber" resultType="kh.petmily.domain.temp.TempPet">
+        select *
+        from (select ROWNUM as NUM, T.*
+              from (select * from TEMPPET where MNUMBER = #{mNumber} order by TNUMBER DESC) T)
+        where NUM between #{start} and #{end}
+    </select>
+
+    <select id="selectIndexByStatus" resultType="kh.petmily.domain.adopt.form.AdoptTempListForm">
         select *
         from (select ROWNUM as NUM, A.*
               from (select * from TEMPPET order by TNUMBER DESC) A)
@@ -45,38 +58,27 @@
         {call
             declare
             begin
-        update ABANDONEDANIMAL set ANIMALSTATE = '임보' where ANIMALSTATE = '보호'
-        and ABNUMBER = (select AB.ABNUMBER
-        from TEMPPET T join ABANDONEDANIMAL AB
-        on AB.ABNUMBER = T.ABNUMBER
-        where T.TNUMBER = #{pk});
+            update ABANDONEDANIMAL set ANIMALSTATE = '임보' where ANIMALSTATE = '보호'
+            and ABNUMBER = (select AB.ABNUMBER
+            from TEMPPET T join ABANDONEDANIMAL AB
+            on AB.ABNUMBER = T.ABNUMBER
+                where T.TNUMBER = #{pk});
 
-    <select id="selectCount" resultType="java.lang.Integer">
-        select count(*)
-        from TEMPPET
-        where MNUMBER = #{mNumber}
-    </select>
-
-    <select id="selectIndex" resultType="kh.petmily.domain.temp.TempPet">
-        select *
-        from (select ROWNUM as NUM, T.*
-              from (select * from TEMPPET where MNUMBER = #{mNumber} order by TNUMBER DESC) T)
-        where NUM between #{start} and #{end}
-    </select>
-        update TEMPPET set STATUS = '완료' where STATUS = '처리중'
-        and ABNUMBER = (select T.ABNUMBER
-        from TEMPPET T join ABANDONEDANIMAL AB
-        on AB.ABNUMBER = T.ABNUMBER
-        where T.TNUMBER = #{pk});
+            update TEMPPET set STATUS = '완료' where STATUS = '처리중'
+            and ABNUMBER = (select T.ABNUMBER
+            from TEMPPET T join ABANDONEDANIMAL AB
+            on AB.ABNUMBER = T.ABNUMBER
+                where T.TNUMBER = #{pk});
             end
-        }
+            }
     </select>
 
     <select id="tempRefuse" resultType="kh.petmily.domain.adopt.form.AdoptTempListForm">
         update TEMPPET set STATUS = '거절' where STATUS = '처리중'
-        and ABNUMBER = (select T.ABNUMBER
-        from TEMPPET T join ABANDONEDANIMAL AB
-        on AB.ABNUMBER = T.ABNUMBER
-        where T.TNUMBER = #{pk})
+                                           and ABNUMBER = (select T.ABNUMBER
+                                                           from TEMPPET T join ABANDONEDANIMAL AB
+                                                                               on AB.ABNUMBER = T.ABNUMBER
+                                                           where T.TNUMBER = #{pk})
     </select>
+
 </mapper>

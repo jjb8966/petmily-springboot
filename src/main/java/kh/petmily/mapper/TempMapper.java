@@ -18,13 +18,13 @@ public interface TempMapper {
 
     void delete(int pk);
 
-    int selectCount(int mNumber);
-
-    List<TempPet> selectIndex(@Param("start") int start,@Param("end") int end,@Param("mNumber") int mNumber);
-
     int selectCount();
 
-    List<AdoptTempListForm> selectIndex(@Param("start") int start, @Param("end") int end, @Param("status") String status);
+    int selectCountBymNumber(int mNumber);
+
+    List<TempPet> selectIndexBymNumber(@Param("start") int start,@Param("end") int end,@Param("mNumber") int mNumber);
+
+    List<AdoptTempListForm> selectIndexByStatus(@Param("start") int start, @Param("end") int end, @Param("status") String status);
 
     List<AdoptTempListForm> tempApprove(int pk);
 

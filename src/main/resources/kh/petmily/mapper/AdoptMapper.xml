@@ -33,13 +33,6 @@
         from ADOPT
     </select>
 
-    <select id="selectIndex" resultType="kh.petmily.domain.adopt.form.AdoptTempListForm">
-        select *
-            from (select ROWNUM as NUM, A.*
-            from (select * from ADOPT order by ADNUMBER DESC) A)
-        where (NUM between #{start} and #{end}) and status = #{status}
-    </select>
-
     <select id="adoptApprove" resultType="kh.petmily.domain.adopt.form.AdoptTempListForm">
         {call
             declare
@@ -93,16 +86,23 @@
               where AD.ADNUMBER = #{pk})
     </select>
 
-    <select id="selectCount" resultType="java.lang.Integer">
+    <select id="selectCountBymNumber" resultType="java.lang.Integer">
         select count(*)
         from ADOPT
         where MNUMBER = #{mNumber}
     </select>
 
-    <select id="selectIndex" resultType="kh.petmily.domain.adopt.Adopt">
+    <select id="selectIndexBymNumber" resultType="kh.petmily.domain.adopt.Adopt">
         select *
         from (select ROWNUM as NUM, A.*
               from (select * from ADOPT where MNUMBER = #{mNumber} order by ADNUMBER DESC) A)
         where NUM between #{start} and #{end}
+    </select>
+
+    <select id="selectIndexByStatus" resultType="kh.petmily.domain.adopt.form.AdoptTempListForm">
+        select *
+        from (select ROWNUM as NUM, A.*
+              from (select * from ADOPT order by ADNUMBER DESC) A)
+        where (NUM between #{start} and #{end}) and status = #{status}
     </select>
 </mapper>

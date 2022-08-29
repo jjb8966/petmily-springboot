@@ -2,9 +2,8 @@ package kh.petmily.dao;
 
 import kh.petmily.domain.DomainObj;
 import kh.petmily.domain.adopt.Adopt;
-import kh.petmily.domain.adopt.form.AdoptMemberApplyListForm;
-import kh.petmily.mapper.AbandonedAnimalMapper;
 import kh.petmily.domain.adopt.form.AdoptDetailForm;
+import kh.petmily.domain.adopt.form.AdoptMemberApplyListForm;
 import kh.petmily.domain.adopt.form.AdoptTempListForm;
 import kh.petmily.mapper.AbandonedAnimalMapper;
 import kh.petmily.mapper.AdoptMapper;
@@ -44,14 +43,14 @@ public class AdoptDao implements BasicDao {
     }
 
     public int selectCount(int mNumber) {
-        return mapper.selectCount(mNumber);
+        return mapper.selectCountBymNumber(mNumber);
     }
 
     public List<AdoptMemberApplyListForm> selectIndex(int start, int end, int mNumber) {
-        List<Adopt> list = mapper.selectIndex(start, end, mNumber);
+        List<Adopt> list = mapper.selectIndexBymNumber(start, end, mNumber);
         List<AdoptMemberApplyListForm> maList = new ArrayList<>();
 
-        for(Adopt a : list) {
+        for (Adopt a : list) {
             AdoptMemberApplyListForm ma = new AdoptMemberApplyListForm(a.getAdNumber(), getAbNameByAbNumber(a.getAbNumber()), a.getStatus());
             maList.add(ma);
         }
@@ -70,7 +69,7 @@ public class AdoptDao implements BasicDao {
     public List<AdoptDetailForm> selectIndex(int start, int end, String status) {
 
         List<AdoptDetailForm> adopts = new ArrayList<>();
-        List<AdoptTempListForm> adoptList = mapper.selectIndex(start, end, status);
+        List<AdoptTempListForm> adoptList = mapper.selectIndexByStatus(start, end, status);
 
         for (AdoptTempListForm l : adoptList) {
             AdoptDetailForm li = new AdoptDetailForm(
