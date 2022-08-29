@@ -16,16 +16,4 @@ public class MemberCreateForm {
     private String email;
     private String phone;
     private String grade;
-
-    public MemberCreateForm(int mNumber, String id, String pw, String name, Date birth, String gender, String email, String phone, String grade) {
-        this.mNumber = mNumber;
-        this.id = id;
-        this.pw = pw;
-        this.name = name;
-        this.birth = birth;
-        this.gender = gender;
-        this.email = email;
-        this.phone = phone;
-        this.grade = grade;
-    }
 }

@@ -45,13 +45,4 @@ public class MemberPageForm {
     public int getTotal() {
         return total;
     }
-
-    public int getCurrentPage() {return currentPage;}
-
-    public int getTotalPages() {return totalPages;}
-
-    public int getStartPage() {return startPage;}
-
-    public int getEndPage() {return endPage;}
-
 }
