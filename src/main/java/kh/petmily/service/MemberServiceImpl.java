@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements MemberService {
-
     private final MemberDao memberDao;
     private int size = 5;
 
@@ -37,7 +36,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void logout() {
-
     }
 
     @Override
@@ -107,16 +105,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberDetailForm getMember(int mNumber) {
         Member member = memberDao.findByPk(mNumber);
 
-        return new MemberDetailForm(
-                member.getMNumber(),
-                member.getId(),
-                member.getPw(),
-                member.getName(),
-                member.getBirth(),
-                member.getGender(),
-                member.getEmail(),
-                member.getPhone(),
-                member.getGrade());
+        return new MemberDetailForm(member.getMNumber(), member.getId(), member.getPw(), member.getName(), member.getBirth(), member.getGender(), member.getEmail(), member.getPhone(), member.getGrade());
     }
 
     @Override
@@ -147,45 +136,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private Member toMember(MemberCreateForm memberCreateForm) {
-        Member member = new Member(
-                memberCreateForm.getMNumber(),
-                memberCreateForm.getId(),
-                memberCreateForm.getPw(),
-                memberCreateForm.getName(),
-                (Date) memberCreateForm.getBirth(),
-                memberCreateForm.getGender(),
-                memberCreateForm.getEmail(),
-                memberCreateForm.getPhone(),
-                memberCreateForm.getGrade());
+        Member member = new Member(memberCreateForm.getMNumber(), memberCreateForm.getId(), memberCreateForm.getPw(), memberCreateForm.getName(), (Date) memberCreateForm.getBirth(), memberCreateForm.getGender(), memberCreateForm.getEmail(), memberCreateForm.getPhone(), memberCreateForm.getGrade());
 
         return member;
     }
 
     private Member toMember(MemberModifyForm memberModifyForm) {
-        Member member = new Member(
-                memberModifyForm.getMNumber(),
-                memberModifyForm.getId(),
-                memberModifyForm.getPw(),
-                memberModifyForm.getName(),
-                (Date) memberModifyForm.getBirth(),
-                memberModifyForm.getGender(),
-                memberModifyForm.getEmail(),
-                memberModifyForm.getPhone(),
-                memberModifyForm.getGrade());
+        Member member = new Member(memberModifyForm.getMNumber(), memberModifyForm.getId(), memberModifyForm.getPw(), memberModifyForm.getName(), (Date) memberModifyForm.getBirth(), memberModifyForm.getGender(), memberModifyForm.getEmail(), memberModifyForm.getPhone(), memberModifyForm.getGrade());
 
         return member;
     }
 
     private MemberModifyForm toMemberModify(Member member) {
-        return new MemberModifyForm(
-                member.getMNumber(),
-                member.getId(),
-                member.getPw(),
-                member.getName(),
-                member.getBirth(),
-                member.getGender(),
-                member.getEmail(),
-                member.getPhone(),
-                member.getGrade());
+        return new MemberModifyForm(member.getMNumber(), member.getId(), member.getPw(), member.getName(), member.getBirth(), member.getGender(), member.getEmail(), member.getPhone(), member.getGrade());
     }
 }

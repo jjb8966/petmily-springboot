@@ -64,6 +64,4 @@ public class Member implements DomainObj {
     public void toInfoInsertMNumber(int mNumber) {
         this.mNumber =mNumber;
     }
-
-
 }
