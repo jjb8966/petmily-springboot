@@ -260,7 +260,7 @@ public class AdminController {
 
         model.addAttribute("boardForm", boardForm);
 
-        return "/admin/adminBoardList";
+        return "/admin/board/adminBoardList";
     }
 
     @GetMapping("/board/write")
@@ -352,7 +352,7 @@ public class AdminController {
     public String petBoard(@RequestParam(defaultValue = "1") int pageNum, Model model) {
         PetPageForm petPage = abandonedAnimalService.getPetPage(pageNum);
         model.addAttribute("petPage", petPage);
-        return "/admin/petBoard";
+        return "/admin/animal/petBoard";
     }
 
     @ResponseBody
