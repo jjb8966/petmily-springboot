@@ -15,15 +15,13 @@ import kh.petmily.domain.donation.form.DonationPageForm;
 import kh.petmily.domain.find_board.form.FindBoardModifyForm;
 import kh.petmily.domain.look_board.form.LookBoardModifyForm;
 import kh.petmily.domain.member.Member;
+import kh.petmily.domain.member.form.JoinRequest;
+import kh.petmily.domain.member.form.MemberModifyForm;
+import kh.petmily.domain.member.form.MemberPageForm;
 import kh.petmily.domain.pet.Pet;
 import kh.petmily.domain.pet.form.PetForm;
 import kh.petmily.domain.pet.form.PetPageForm;
 import kh.petmily.service.*;
-import kh.petmily.domain.member.form.JoinRequest;
-import kh.petmily.domain.member.form.MemberModifyForm;
-import kh.petmily.domain.member.form.MemberPageForm;
-import kh.petmily.service.BoardService;
-import kh.petmily.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -32,8 +30,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.UncategorizedSQLException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +40,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor

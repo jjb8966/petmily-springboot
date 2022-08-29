@@ -2,11 +2,7 @@ package kh.petmily.service;
 
 import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
-import kh.petmily.domain.member.form.JoinRequest;
-import kh.petmily.domain.member.form.MemberChangeForm;
 import kh.petmily.domain.member.form.*;
-import kh.petmily.dao.MemberDao;
-import kh.petmily.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -43,28 +39,6 @@ public class MemberServiceImpl implements MemberService {
     public void logout() {
 
     }
-
-//    @Override
-//    public MemberInfo findById(String userId) {
-//        Member member = memberDao.selectById(userId);
-//
-//        if (member == null) {
-//            throw new MemberNotFoundException();
-//        }
-//
-//        String id = member.getId();
-//        String pw = member.getPw();
-//        String name = member.getName();
-//        Date birth = member.getBirth();
-//        String gender = member.getGender();
-//        String email = member.getEmail();
-//        String phone = member.getPhone();
-//        String grade = member.getGrade();
-//
-//        MemberInfo memberInfo = new MemberInfo(id, pw, name, birth, gender, email, phone, grade);
-//
-//        return memberInfo;
-//    }
 
     @Override
     public void withdraw(int mNumber) {
@@ -161,11 +135,6 @@ public class MemberServiceImpl implements MemberService {
         Member member = toMember(memberModifyForm);
 
         memberDao.update(member);
-    }
-
-    @Override
-    public List<Member> selectAll() {
-        return memberDao.selectAll();
     }
 
     private Member toMember(MemberCreateForm memberCreateForm) {

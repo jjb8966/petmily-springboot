@@ -140,8 +140,6 @@ pageEncoding="UTF-8" %>
 </section>
 <!-- 게시판 List 끝 -->
 
- 풋터
-
 <%@ include file="/WEB-INF/view/include/footer.jspf" %>
 
 <!-- loader -->

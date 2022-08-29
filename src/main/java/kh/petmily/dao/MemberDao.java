@@ -67,7 +67,7 @@ public class MemberDao implements BasicDao {
     public List<Member> selectAll() {
         return mapper.selectAll();
     }
-}
+
 
     public int selectCount() {
         return mapper.selectCount();
@@ -83,9 +83,5 @@ public class MemberDao implements BasicDao {
         }
 
         return result;
-    }
-
-    public List<Member> selectAll() {
-        return mapper.selectAll();
     }
 }
