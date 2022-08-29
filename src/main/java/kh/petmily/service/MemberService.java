@@ -27,6 +27,4 @@ public interface MemberService {
     List<Member> selectAll();
 
     public boolean isPwEqualToConfirm(String pw, String confirmPw);
-
-    List<Member> selectAll();
 }

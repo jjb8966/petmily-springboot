@@ -1,38 +1,31 @@
 package kh.petmily.controller;
 
-import kh.petmily.domain.admin.form.AdminBoardListForm;
-import kh.petmily.domain.adopt_review.form.AdoptReviewModifyForm;
-import kh.petmily.domain.board.form.BoardModifyForm;
-import kh.petmily.domain.find_board.form.FindBoardModifyForm;
-import kh.petmily.domain.look_board.form.LookBoardModifyForm;
-import kh.petmily.domain.member.Member;
-import kh.petmily.service.*;
 import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
-import kh.petmily.domain.donation.form.DonationCreateForm;
-import kh.petmily.domain.donation.form.DonationDetailForm;
-import kh.petmily.domain.donation.form.DonationModifyForm;
-import kh.petmily.domain.donation.form.DonationPageForm;
-import kh.petmily.domain.member.Member;
-import kh.petmily.service.AbandonedAnimalService;
-import kh.petmily.service.DonateService;
-import kh.petmily.service.MemberService;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalModifyForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalWriteForm;
-import kh.petmily.service.AbandonedAnimalService;
+import kh.petmily.domain.admin.form.AdminBoardListForm;
+import kh.petmily.domain.adopt_review.form.AdoptReviewModifyForm;
+import kh.petmily.domain.board.form.BoardModifyForm;
+import kh.petmily.domain.donation.form.DonationCreateForm;
+import kh.petmily.domain.donation.form.DonationDetailForm;
+import kh.petmily.domain.donation.form.DonationModifyForm;
+import kh.petmily.domain.donation.form.DonationPageForm;
+import kh.petmily.domain.find_board.form.FindBoardModifyForm;
+import kh.petmily.domain.look_board.form.LookBoardModifyForm;
+import kh.petmily.domain.member.Member;
 import kh.petmily.domain.pet.Pet;
 import kh.petmily.domain.pet.form.PetForm;
 import kh.petmily.domain.pet.form.PetPageForm;
-import kh.petmily.service.AbandonedAnimalService;
+import kh.petmily.service.*;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,23 +33,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -72,15 +52,13 @@ public class AdminController {
     private final DonateService donateService;
     private final AbandonedAnimalService abandonedAnimalService;
 
-    private final AbandonedAnimalService abandonedAnimalService;
-
     @ResponseBody
     @GetMapping("/upload")
     public ResponseEntity<Resource> list(String filename, HttpServletRequest request) {
 
-        String fullPath =request.getSession().getServletContext().getRealPath("/");
-        fullPath = fullPath+"resources/upload/";
-        fullPath = fullPath+filename;
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
+        fullPath = fullPath + filename;
 
         log.info("fullPath = {} ", fullPath);
 
@@ -135,13 +113,13 @@ public class AdminController {
     }
 
     @PostMapping("/animal/abandoned/write")
-    public String adminAbandonedWrite(@ModelAttribute AbandonedAnimalWriteForm abandonedAnimalWriteForm, HttpServletRequest request){
+    public String adminAbandonedWrite(@ModelAttribute AbandonedAnimalWriteForm abandonedAnimalWriteForm, HttpServletRequest request) {
         String fullPath = request.getSession().getServletContext().getRealPath("/");
         fullPath = fullPath + "resources/upload/";
 
         String filename = "";
 
-        if(!abandonedAnimalWriteForm.getImgPath().isEmpty()) {
+        if (!abandonedAnimalWriteForm.getImgPath().isEmpty()) {
             try {
                 filename = abandonedAnimalService.storeFile(abandonedAnimalWriteForm.getImgPath(), fullPath);
             } catch (IOException e) {
@@ -176,7 +154,7 @@ public class AdminController {
                                        Model model,
                                        RedirectAttributes redirectAttributes) {
         String fullPath = request.getSession().getServletContext().getRealPath("/");
-        fullPath = fullPath+"resources/upload/";
+        fullPath = fullPath + "resources/upload/";
 
         modReq.setAbNumber(abNumber);
         String filename = null;
@@ -210,15 +188,15 @@ public class AdminController {
     public String boardPage(@RequestParam("kindOfBoard") String kind, Model model) {
         List<AdminBoardListForm> boardForm = new ArrayList<>();
 
-        if(kind.equals("자유")) {
+        if (kind.equals("자유")) {
             boardForm = boardService.selectAll("자유");
-        } else if(kind.equals("문의")) {
+        } else if (kind.equals("문의")) {
             boardForm = boardService.selectAll("문의");
-        } else if(kind.equals("입양후기")) {
+        } else if (kind.equals("입양후기")) {
             boardForm = adoptReviewService.selectAll("입양후기");
-        } else if(kind.equals("find")) {
+        } else if (kind.equals("find")) {
             boardForm = findBoardService.selectAll();
-        } else if(kind.equals("look")) {
+        } else if (kind.equals("look")) {
             boardForm = lookBoardService.selectAll();
         }
 
@@ -232,16 +210,16 @@ public class AdminController {
         List<Member> list = memberService.selectAll();
         model.addAttribute("Mems", list);
 
-        if(kind.equals("자유") || kind.equals("문의")) {
+        if (kind.equals("자유") || kind.equals("문의")) {
 
             return "/board/writeBoardForm";
         } else if (kind.equals("입양후기")) {
 
             return "/adopt_review/writeAdoptReviewForm";
-        } else if(kind.equals("find")) {
+        } else if (kind.equals("find")) {
 
             return "/find_board/writeFindBoardForm";
-        } else if(kind.equals("look")) {
+        } else if (kind.equals("look")) {
 
             return "/look_board/writeLookBoardForm";
         }
@@ -250,7 +228,7 @@ public class AdminController {
 
     @GetMapping("/board/modify")
     public String boardModify(@RequestParam("kindOfBoard") String kind, @RequestParam("pk") int pk, Model model) {
-        if(kind.equals("자유") || kind.equals("문의")) {
+        if (kind.equals("자유") || kind.equals("문의")) {
             BoardModifyForm bmForm = boardService.getBoardModify(pk);
 
             int mNumber = boardService.getBoard(pk).getMNumber();
@@ -270,7 +248,7 @@ public class AdminController {
             model.addAttribute("modReq", armForm);
 
             return "/adopt_review/modifyAdoptReviewForm";
-        } else if(kind.equals("find")) {
+        } else if (kind.equals("find")) {
             FindBoardModifyForm fmForm = findBoardService.getModifyForm(pk);
 
             int mNumber = findBoardService.getFindBoard(pk).getMNumber();
@@ -280,7 +258,7 @@ public class AdminController {
             model.addAttribute("findMod", fmForm);
 
             return "/find_board/modifyFindBoardForm";
-        } else if(kind.equals("look")) {
+        } else if (kind.equals("look")) {
             LookBoardModifyForm lmForm = lookBoardService.getModifyForm(pk);
 
             int mNumber = lookBoardService.getLookBoard(pk).getMNumber();
@@ -297,13 +275,13 @@ public class AdminController {
 
     @GetMapping("/board/delete")
     public String boardDelete(@RequestParam("kindOfBoard") String kind, @RequestParam("pk") int pk, RedirectAttributes redirectAttributes) {
-        if(kind.equals("자유") || kind.equals("문의")) {
+        if (kind.equals("자유") || kind.equals("문의")) {
             boardService.delete(pk);
         } else if (kind.equals("입양후기")) {
             adoptReviewService.delete(pk);
-        } else if(kind.equals("find")) {
+        } else if (kind.equals("find")) {
             findBoardService.delete(pk);
-        } else if(kind.equals("look")) {
+        } else if (kind.equals("look")) {
             lookBoardService.delete(pk);
         }
 
