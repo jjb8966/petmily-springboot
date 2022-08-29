@@ -37,6 +37,8 @@
         select count(*)
         from ABANDONEDANIMAL
         <where>
+            ANIMALSTATE in('보호', '임보')
+
             <if test="species != null and species != 'allSpecies'">
                 and SPECIES = #{species}
             </if>

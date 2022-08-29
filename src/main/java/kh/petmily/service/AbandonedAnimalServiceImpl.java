@@ -5,6 +5,7 @@ import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AbandonedAnimalServiceImpl implements AbandonedAnimalService{
 
     private final AbandonedAnimalDao abandonedAnimalDao;
@@ -20,7 +22,12 @@ public class AbandonedAnimalServiceImpl implements AbandonedAnimalService{
     @Override
     public AbandonedAnimalPageForm getAbandonedAnimalPage(int pageNo, String species, String gender, String animalState, String keyword) {
         int total = abandonedAnimalDao.selectCount(species, gender, animalState, keyword);
+        log.info("total = {}", total);
+
         List<AbandonedAnimal> content = abandonedAnimalDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, species, gender, animalState, keyword);
+
+        AbandonedAnimalPageForm result = new AbandonedAnimalPageForm(total, pageNo, size, content);
+        log.info("start = {}, end = {}", result.getStartPage(), result.getEndPage());
 
         return new AbandonedAnimalPageForm(total, pageNo, size, content);
     }
