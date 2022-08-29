@@ -13,9 +13,9 @@ public interface AbandonedAnimalMapper {
     // =======BasicMapper 메소드=======
     AbandonedAnimal selectByPk(int pk);
 
-    void insert(AbandonedAnimal abandonedAnimal);
+    void insert(AbandonedAnimal obj);
 
-    void update(AbandonedAnimal abandonedAnimal);
+    void update(AbandonedAnimal obj);
 
     void delete(int pk);
     // =======BasicMapper 메소드=======
