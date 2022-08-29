@@ -102,7 +102,12 @@
                         </button>
                     </c:if>
                     <button type="button" class="btn btn-primary"
-                            onclick="location.href='/lookBoard/list'">목록으로
+                        <c:if test="${authUser.grade == '일반'}">
+                            onclick="location.href='/lookBoard/list'"
+                        </c:if>
+                        <c:if test="${authUser.grade == '관리자'}">
+                            onclick="location.href='/admin/board?kindOfBoard=look'"
+                        </c:if>>목록으로
                     </button>
                 </div>
             </div>

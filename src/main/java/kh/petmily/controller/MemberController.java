@@ -1,13 +1,19 @@
 package kh.petmily.controller;
 
+import kh.petmily.domain.adopt.form.AdoptApplyPageForm;
+import kh.petmily.domain.find_board.FindBoard;
+import kh.petmily.domain.find_board.form.FindBoardPageForm;
+import kh.petmily.domain.look_board.form.LookBoardPageForm;
 import kh.petmily.domain.member.form.JoinRequest;
 import kh.petmily.domain.member.form.MemberChangeForm;
+import kh.petmily.domain.temp.form.TempApplyPageForm;
+import kh.petmily.service.AdoptTempService;
+import kh.petmily.service.FindBoardService;
+import kh.petmily.service.LookBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.member.Member;
 import kh.petmily.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +27,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {
-
     private final MemberService memberService;
-    private final MemberDao memberDao;
+    private final FindBoardService findBoardService;
+    private final LookBoardService lookBoardService;
+    private final AdoptTempService adoptTempService;
 
     // 회원 가입
     @GetMapping("/join")
@@ -81,7 +88,7 @@ public class MemberController {
     }
 
     // mypage
-    @GetMapping("/member/mypage")
+    @GetMapping("/member/auth/mypage")
     public String mypage(HttpServletRequest request, Model model) {
         Member member = getAuthMember(request);
 
@@ -91,7 +98,7 @@ public class MemberController {
     }
 
     //change member Info
-    @GetMapping(value = "/member/change_info")
+    @GetMapping(value = "/member/auth/change_info")
     private String changeInfo(HttpServletRequest request, Model model) {
         Member member = getAuthMember(request);
 
@@ -100,7 +107,7 @@ public class MemberController {
         return "/member/changeMemberInfo";
     }
 
-    @PostMapping(value = "/member/change_info")
+    @PostMapping(value = "/member/auth/change_info")
     private String changeInfoPost(HttpServletRequest request, Model model, MemberChangeForm memberChangeForm) {
         Member member = getAuthMember(request);
 
@@ -120,12 +127,12 @@ public class MemberController {
     }
 
     // 회원탈퇴
-    @GetMapping("/member/withdraw")
+    @GetMapping("/member/auth/withdraw")
     public String withdrawForm() {
         return "/member/withdrawForm";
     }
 
-    @PostMapping("/member/withdraw")
+    @PostMapping("/member/auth/withdraw")
     public String withdraw(HttpServletRequest request, @RequestParam String pw, @RequestParam String confirmPw) {
 
         log.info("pw = {}", pw);
@@ -149,5 +156,72 @@ public class MemberController {
         request.getSession().invalidate();
 
         return "/member/withdrawSuccess";
+    }
+
+    //찾아요 게시판 매칭 결과
+    @GetMapping("/member/auth/checkMatching")
+    public String checkMatching(@RequestParam(required = false) String matched, HttpServletRequest request, Model model) {
+        String pageNoVal = request.getParameter("pageNo");
+
+        int pageNo = 1;
+
+        if (pageNoVal != null) {
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
+
+        FindBoardPageForm Finds = findBoardService.getMembersFindPage(pageNo, mNumber, matched);
+        model.addAttribute("Finds", Finds);
+
+        request.getSession().setAttribute("matched", matched);
+
+        return "/member/listFindBoard";
+    }
+
+    @GetMapping("/member/auth/checkMatching/lookList")
+    public String checkMatchingDetail(@RequestParam("faNumber") int faNumber, HttpServletRequest request, Model model) {
+        FindBoard findBoard = findBoardService.getFindBoard(faNumber);
+        String pageNoVal = request.getParameter("pageNo");
+
+        int pageNo = 1;
+
+        if (pageNoVal != null) {
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        LookBoardPageForm boardPage = lookBoardService.getMatchedLookPage(pageNo, findBoard);
+        model.addAttribute("matchedLookBoardForm", boardPage);
+
+        return "/member/listLookBoard";
+    }
+
+    @GetMapping("/member/auth/myApply/{type}")
+    public String getMyApply(@PathVariable("type") String type, HttpServletRequest request, Model model) {
+        String pageNoVal = request.getParameter("pageNo");
+
+        int pageNo = 1;
+
+        if (pageNoVal != null) {
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        Member member = getAuthMember(request);
+        int mNumber = member.getMNumber();
+
+        log.info("type : {}", type);
+
+        if(type.equals("adopt")) {
+            AdoptApplyPageForm applyPage = adoptTempService.getAdoptApplyPage(pageNo, mNumber, type);
+            model.addAttribute("applyListForm", applyPage);
+        } else {
+            TempApplyPageForm applyPage = adoptTempService.getTempApplyPage(pageNo, mNumber, type);
+            model.addAttribute("applyListForm", applyPage);
+        }
+
+        request.getSession().setAttribute("type", type);
+
+        return "/member/applyList";
     }
 }

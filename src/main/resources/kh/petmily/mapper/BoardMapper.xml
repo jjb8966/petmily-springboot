@@ -12,8 +12,8 @@
     </select>
 
     <insert id="insert">
-        insert into BOARD(BNUMBER, KINDOFBOARD, TITLE, CONTENT, IMGPATH, VIDEO, WRTIME, CHECKPUBLIC)
-        values (#{bNumber}, #{kindOfBoard}, #{title}, #{content}, #{imgPath}, #{video}, #{wrTime}, #{checkPublic})
+        insert into BOARD(MNUMBER, KINDOFBOARD, TITLE, CONTENT, CHECKPUBLIC)
+        values (#{mNumber}, #{kindOfBoard}, #{title}, #{content}, #{checkPublic})
     </insert>
 
     <update id="update">
@@ -39,21 +39,46 @@
         (select ROWNUM as NUM, A.* from
         (select * from BOARD
         where KINDOFBOARD = #{kindOfBoard}
-        order by BNUMBER desc) A)
+        <include refid="sort" />
+            ) A)
         where NUM between #{start} and #{end}
     </select>
+
+    <sql id="sort">
+        <if test="sort == 'bno'">
+            order by BNUMBER desc
+        </if>
+        <if test="sort == 'bnoAsc'">
+            order by BNUMBER asc
+        </if>
+        <if test="sort == 'viewCount'">
+            order by VIEWCOUNT desc
+        </if>
+    </sql>
 
     <select id="selectName" resultType="java.lang.String">
             select M.NAME
             from BOARD B inner join MEMBER M
             on B.MNUMBER = M.MNUMBER
             where B.BNUMBER = #{pk}
-
     </select>
 
     <select id="selectByContent" resultType="kh.petmily.domain.board.Board">
         select B.*, M.ID, M.NAME
         from BOARD B, MEMBER M
         where B.MNUMBER = M.MNUMBER and BNUMBER = #{bNumber}
+    </select>
+
+    <update id="updateViewCount">
+        update BOARD
+        set VIEWCOUNT = VIEWCOUNT + 1
+        where BNUMBER = #{pk}
+    </update>
+
+    <select id="selectAll" resultType="kh.petmily.domain.board.Board">
+        select *
+        from BOARD
+        where KINDOFBOARD = #{kindOfBoard}
+        order by BNUMBER desc
     </select>
 </mapper>

@@ -93,7 +93,7 @@
                                                                                          name="kind" id="kindInput"
                                                                                          value="${lookMod.kind}"
                                                                                          required="required"/>
-                                                <label for="locationInput">실종 장소:</label><input type="text"
+                                                <label for="locationInput">발견 장소:</label><input type="text"
                                                                                                 class="form-control"
                                                                                                 name="location"
                                                                                                 id="locationInput"
@@ -107,11 +107,6 @@
                                         <textarea rows="20" class="form-control" name="content" id="content"
                                                   placeholder=" 내용을 입력해주세요"
                                                   required="required">${lookMod.content}</textarea>
-
-<%--                                        <div class="custom-file form-control-sm mt-3"
-                                             style="max-width: 300px;">
-                                            <input type="file" name="imgPath" id="file" accept="image/*">
-                                        </div>--%>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

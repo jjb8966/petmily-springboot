@@ -13,8 +13,10 @@ public class ReadBoardForm {
     private String content;
     private Date wrTime;
     private String checkPublic;
+    private int viewCount;
+    private String sort;
 
-    public ReadBoardForm(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic){
+    public ReadBoardForm(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic, int viewCount, String sort){
         this.bNumber = bNumber;
         this.mNumber = mNumber;
         this.name = name;
@@ -23,5 +25,7 @@ public class ReadBoardForm {
         this.content = content;
         this.wrTime = wrTime;
         this.checkPublic = checkPublic;
+        this.viewCount = viewCount;
+        this.sort = sort;
     }
 }

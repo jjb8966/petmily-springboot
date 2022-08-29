@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -55,7 +54,7 @@
 
                     <!-- form 시작 -->
 
-                    <form class="form" name="enq" method="post" action="/board/auth/modify">
+                    <form class="form" name="enq" method="post" action="/board/auth/modify?bNumber=${modReq.getBNumber()}">
                         <div class="modal-body">
                             <div class="row">
 
@@ -92,7 +91,7 @@
                                 </c:choose>
                             </c:if>
                             <button type="button" class="btn btn-light" data-dismiss="modal"
-                                    onclick="location.href='/board/list?kindOfBoard=${param.kindOfBoard}'">취소
+                                    onclick="location.href='/board/list?kindOfBoard=${param.kindOfBoard}&sort=bno'">취소
                             </button>
                             <input type="submit" class="btn btn-primary" value="글 수정 등록">
                         </div>

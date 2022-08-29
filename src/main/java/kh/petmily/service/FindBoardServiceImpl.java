@@ -1,12 +1,15 @@
 package kh.petmily.service;
 
 import kh.petmily.dao.FindBoardDao;
+import kh.petmily.dao.MemberDao;
+import kh.petmily.domain.admin.form.AdminBoardListForm;
 import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.find_board.form.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +17,7 @@ import java.util.List;
 @Slf4j
 public class FindBoardServiceImpl implements FindBoardService {
     private final FindBoardDao findBoardDao;
+    private final MemberDao memberDao;
     private int size = 6;
 
     @Override
@@ -51,15 +55,23 @@ public class FindBoardServiceImpl implements FindBoardService {
     }
 
     private FindBoardDetailForm toDetailForm(FindBoard findBoard) {
-        return new FindBoardDetailForm(findBoard.getFaNumber(), findBoard.getMNumber(), findName(findBoard.getFaNumber()), findBoard.getSpecies(), findBoard.getKind(), findBoard.getLocation(), findBoard.getAnimalState(), findBoard.getImgPath(), findBoard.getWrTime(), findBoard.getTitle(), findBoard.getContent());
+        return new FindBoardDetailForm(findBoard.getFaNumber(), findBoard.getMNumber(), findName(findBoard.getMNumber()), findBoard.getSpecies(), findBoard.getKind(), findBoard.getLocation(), findBoard.getAnimalState(), findBoard.getImgPath(), findBoard.getWrTime(), findBoard.getTitle(), findBoard.getContent());
     }
 
     @Override
     public FindBoardPageForm getFindPage(int pageNo) {
         int total = findBoardDao.selectCount();
-        List<FindBoardListForm> content = findBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
 
-        return new FindBoardPageForm(total, pageNo, size, content);
+        List<FindBoard> content = findBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
+
+        List<FindBoardListForm> fiList = new ArrayList<>();
+
+        for (FindBoard f : content) {
+            FindBoardListForm fi = new FindBoardListForm(f.getFaNumber(), findName(f.getMNumber()), f.getSpecies(), f.getKind(), f.getLocation(), f.getAnimalState(), f.getImgPath(), f.getWrTime(), f.getTitle());
+            fiList.add(fi);
+        }
+
+        return new FindBoardPageForm(total, pageNo, size, fiList);
     }
 
     @Override
@@ -75,7 +87,42 @@ public class FindBoardServiceImpl implements FindBoardService {
     }
 
     @Override
-    public String findName(int faNumber) {
-        return findBoardDao.selectName(faNumber);
+    public String findName(int mNumber) {
+        return memberDao.selectName(mNumber);
+    }
+
+    @Override
+    public FindBoardPageForm getMembersFindPage(int pageNo, int mNumber, String matched) {
+        int total = findBoardDao.selectMemberCount(mNumber, matched);
+
+        List<FindBoard> content = findBoardDao.selectMemberIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, mNumber, matched);
+
+        List<FindBoardListForm> fiList = new ArrayList<>();
+
+        for (FindBoard f : content) {
+            FindBoardListForm fi = new FindBoardListForm(f.getFaNumber(), findName(f.getMNumber()), f.getSpecies(), f.getKind(), f.getLocation(), f.getAnimalState(), f.getImgPath(), f.getWrTime(), f.getTitle());
+            fiList.add(fi);
+        }
+
+        return new FindBoardPageForm(total, pageNo, size, fiList);
+    }
+
+    @Override
+    public FindBoard getFindBoard(int faNumber) {
+        return findBoardDao.findByPk(faNumber);
+    }
+
+    @Override
+    public List<AdminBoardListForm> selectAll() {
+        List<AdminBoardListForm> list = new ArrayList<>();
+
+        List<FindBoard> findList = findBoardDao.selectAll();
+
+        for(FindBoard f : findList) {
+            AdminBoardListForm ad = new AdminBoardListForm(f.getFaNumber(), findName(f.getMNumber()), f.getWrTime(), f.getTitle());
+            list.add(ad);
+        }
+
+        return list;
     }
 }

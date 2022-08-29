@@ -15,6 +15,8 @@ spring:
     url: jdbc:oracle:thin:@petmily_medium?TNS_ADMIN=/Users/joojongbum/oracle_db/Wallet_petmily/
     username: jjb1
     password: Petmilymember1
+    hikari:
+      maximum-pool-size: 1
   mvc:
     view:
       prefix: /WEB-INF/view/

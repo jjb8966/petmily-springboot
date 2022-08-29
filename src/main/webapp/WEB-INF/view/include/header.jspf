@@ -29,7 +29,7 @@
 					    </div>
 						&emsp;
 						<div>
-							<a class="text-white" href="/member/mypage">마이페이지</a>
+							<a class="text-white" href="/member/auth/mypage">마이페이지</a>
 						</div>
 						&emsp;
 						<div>
@@ -47,7 +47,7 @@
 		</div>
 	</div>
 </div>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark ftco-navbar-light" id="ftco-navbar">
 	<div class="container">
 		<a class="navbar-brand" href="/">
 		    <span class="flaticon-pawprint-1 mr-2"></span>Petmily</a>
@@ -71,8 +71,8 @@
 						게시판
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="/board/list?kindOfBoard=자유">자유 게시판</a></li>
-						<li><a class="dropdown-item" href="/board/list?kindOfBoard=문의">문의 게시판</a></li>
+						<li><a class="dropdown-item" href="/board/list?kindOfBoard=자유&sort=bno">자유 게시판</a></li>
+						<li><a class="dropdown-item" href="/board/list?kindOfBoard=문의&sort=bno">문의 게시판</a></li>
 						<li><a class="dropdown-item" href="/adopt_review/list?kindOfBoard=입양후기">입양 후기 게시판</a></li>
 					</ul>
 				</li>

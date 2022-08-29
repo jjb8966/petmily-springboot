@@ -34,7 +34,7 @@
                         <div class="col-md-7">
                             <div class="contact-wrap w-100 p-md-5 p-4">
                                 <h3 class="mb-4">정말 탈퇴하시겠습니까?</h3>
-                                <form action="/member/withdraw" method="POST" id="contactForm" name="contactForm"
+                                <form action="/member/auth/withdraw" method="POST" id="contactForm" name="contactForm"
                                       class="contactForm">
                                     <div class="row">
                                         <div class="col-md-12">

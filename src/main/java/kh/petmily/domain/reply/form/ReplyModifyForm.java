@@ -2,8 +2,10 @@ package kh.petmily.domain.reply.form;
 
 import kh.petmily.domain.DomainObj;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class ReplyModifyForm {
     private int brNumber;
     private String reply;

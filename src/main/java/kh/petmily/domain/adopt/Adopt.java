@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class Adopt implements DomainObj {
-
     private int adNumber; // 입양 번호
     private int mNumber;
     private int abNumber;

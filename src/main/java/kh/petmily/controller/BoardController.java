@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,19 +25,18 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public String list(HttpServletRequest request, Model model) {
-        String pbNumberVal = request.getParameter("pbNumber");
-        String kindOfBoard = request.getParameter("kindOfBoard");
+    public String list(@RequestParam String kindOfBoard,
+                       @RequestParam(defaultValue = "1") int pbNumber,
+                       @RequestParam String sort,
+                       Model model) {
 
-        int pbNumber = 1;
+        log.info("kindOfBoard = {}", kindOfBoard);
+        log.info("pbNumber = {}", pbNumber);
+        log.info("sort = {}", sort);
 
-        if (pbNumberVal != null) {
-            pbNumber = Integer.parseInt(pbNumberVal);
-        }
+        BoardPage boardPage = boardService.getBoardPage(pbNumber, kindOfBoard, sort);
 
-        BoardPage boardPage = boardService.getBoardPage(pbNumber, kindOfBoard);
         model.addAttribute("readBoardForm", boardPage);
-        model.addAttribute("kindOfBoard", kindOfBoard);
 
         return "/board/boardList";
     }
@@ -44,6 +44,7 @@ public class BoardController {
     @GetMapping("/detail")
     public String detail(@RequestParam("bNumber") int bNumber, Model model) {
         ReadBoardForm detailForm = boardService.getBoard(bNumber);
+        boardService.updateViewCount(bNumber);
 
         model.addAttribute("detailForm", detailForm);
 
@@ -57,10 +58,12 @@ public class BoardController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute WriteBoardForm writeBoardForm, HttpServletRequest request) {
-        Member member = getAuthMember(request);
+        if(writeBoardForm.getMNumber() == 0) {
+            Member member = getAuthMember(request);
 
-        int mNumber = member.getMNumber();
-        writeBoardForm.setMNumber(mNumber);
+            int mNumber = member.getMNumber();
+            writeBoardForm.setMNumber(mNumber);
+        }
 
         log.info("WriteBoardForm = {}", writeBoardForm);
 
@@ -70,12 +73,13 @@ public class BoardController {
     }
 
     @GetMapping("/auth/modify")
-    private String modifyForm(@RequestParam("bNumber") int bNumber, HttpServletRequest request, Model model) {
+    private String modifyForm(@RequestParam("bNumber") int bNumber, @RequestParam("kindOfBoard") String kindOfBoard, HttpServletRequest request, Model model) {
         BoardModifyForm modReq = boardService.getBoardModify(bNumber);
         Member authUser = getAuthMember(request);
 
         int mNumber = authUser.getMNumber();
         modReq.setMNumber(mNumber);
+        modReq.setBNumber(bNumber);
 
         log.info("bNumber = {}", bNumber);
 
@@ -85,18 +89,21 @@ public class BoardController {
     }
 
     @PostMapping("/auth/modify")
-    public String modify(@ModelAttribute BoardModifyForm modReq, HttpServletRequest request, Model model){
+    public String modify(@RequestParam("bNumber") int bNumber, @RequestParam("kindOfBoard") String kindOfBoard, @ModelAttribute BoardModifyForm modReq, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes){
         Member authUser = getAuthMember(request);
 
         int mNumber = authUser.getMNumber();
         modReq.setMNumber(mNumber);
+        modReq.setBNumber(bNumber);
 
         log.info("BoardModifyForm = {}", modReq);
 
         boardService.modify(modReq);
         model.addAttribute("modReq", modReq);
+        redirectAttributes.addAttribute("bNumber", bNumber);
+        redirectAttributes.addAttribute("kindOfBoard", kindOfBoard);
 
-        return "/board/modifySuccess";
+        return "redirect:/board/detail?kindOfBoard={kindOfBoard}&bNumber={bNumber}";
     }
 
     @GetMapping("/auth/delete")

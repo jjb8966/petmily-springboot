@@ -22,5 +22,21 @@ public interface FindBoardMapper {
 
     FindBoard selectFindWriteForm(int pk);
 
-    String selectName(int pk);
+    List<Integer> selectMatchedLa(FindBoard obj);
+
+    void changeState(int faNumber);
+
+    void backState(int faNumber);
+
+    void changeStateLook(int laNumber);
+
+    void backStateLook(int laNumber);
+
+    int selectByPkMax();
+
+    int selectMemberCount(@Param("mNumber") int mNumber, @Param("matched")String matched);
+
+    List<FindBoard> selectMemberIndex(@Param("start") int start, @Param("end") int end, @Param("mNumber") int mNumber, @Param("matched") String matched);
+
+    List<FindBoard> selectAll();
 }

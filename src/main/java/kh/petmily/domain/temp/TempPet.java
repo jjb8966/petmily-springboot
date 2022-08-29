@@ -1,6 +1,5 @@
 package kh.petmily.domain.temp;
 
-
 import kh.petmily.domain.DomainObj;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,6 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 public class TempPet implements DomainObj {
-
     private int tNumber; // 임보 번호
     private int abNumber;
     private int mNumber;
@@ -20,8 +18,6 @@ public class TempPet implements DomainObj {
     private String maritalStatus;
     private String job;
     private String status;
-//    private String status = "처리중";
-
 
     public TempPet(int abNumber, int mNumber, String residence, String maritalStatus, String job) {
         this.abNumber = abNumber;
