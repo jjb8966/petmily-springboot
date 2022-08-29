@@ -28,7 +28,7 @@ public interface AbandonedAnimalMapper {
 
     int selectsNumber(int pk);
 
-    List<Pet> selectPetIndex(int start, int end);
+    List<Pet> selectPetIndex(@Param("start") int start, @Param("end") int end);
 
     int selectPetCount();
 
