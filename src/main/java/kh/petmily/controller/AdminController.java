@@ -107,7 +107,7 @@ public class AdminController {
 
         adoptTempService.tempRefuse(tNumber);
 
-        return "/admin/adoptTemp/adoptTemp/tempRefuse";
+        return "/admin/adoptTemp/tempRefuse";
     }
 
     // 입양/임보 완료 선택 페이지
