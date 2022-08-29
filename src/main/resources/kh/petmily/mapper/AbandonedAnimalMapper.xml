@@ -12,18 +12,28 @@
     </select>
 
     <insert id="insert">
-        insert into ABANDONEDANIMAL(SNUMBER, NAME, SPECIES, KIND, GENDER, AGE, WEIGHT, IMGPATH, LOCATION, ADMISSIONDATE,
-        UNIQUENESS, DESCRIPTION, VIDEO, ANIMALSTATE)
-        values (#{sNumber}, #{name}, #{species}, #{kind}, #{gender}, #{age}, #{weight}, #{weight}, #{imgPath},
-        #{location}, #{admissionDate}, #{uniqueness}, #{description}, #{video}, #{animalState})
+        insert into ABANDONEDANIMAL(SNUMBER, NAME, SPECIES, KIND, GENDER, AGE, WEIGHT, LOCATION, ADMISSIONDATE,
+        UNIQUENESS, DESCRIPTION, VIDEO, ANIMALSTATE
+        <if test='imgPath != null and imgPath !=""'>
+        ,IMGPATH
+        </if>
+        )
+        values (#{sNumber}, #{name}, #{species}, #{kind}, #{gender}, #{age}, #{weight},
+        #{location}, #{admissionDate}, #{uniqueness}, #{description}, null, #{animalState}
+        <if test='imgPath != null and imgPath !=""'>
+            ,#{imgPath}
+        </if>
+        )
     </insert>
 
     <update id="update">
         update ABANDONEDANIMAL
         set SNUMBER = #{sNumber}, NAME = #{name}, SPECIES = #{species}, KIND = #{kind}, GENDER = #{gender},
-        AGE = #{age}, WEIGHT = #{weight}, IMGPATH = #{imgPath}, LOCATION = #{location}, ADMISSIONDATE =
-        #{admissionDate},
-        UNIQUENESS = #{uniqueness}, DESCRIPTION = #{description}, VIDEO = #{video}, ANIMALSTATE = #{animalState}
+        AGE = #{age}, WEIGHT = #{weight}, LOCATION = #{location}, ADMISSIONDATE = #{admissionDate},
+        UNIQUENESS = #{uniqueness}, DESCRIPTION = #{description}, ANIMALSTATE = #{animalState}
+        <if test='imgPath != null '>
+            ,IMGPATH = #{imgPath}
+        </if>
         where ABNUMBER = #{abNumber}
     </update>
 
@@ -40,7 +50,7 @@
 
     <select id="selectIndex" resultType="kh.petmily.domain.abandoned_animal.AbandonedAnimal">
         select * from
-        (select ROWNUM as NUM, A.ABNUMBER, A.NAME, A.LOCATION, A.ADMISSIONDATE, A.IMGPATH FROM
+        (select ROWNUM as NUM, A.* FROM
         (select * from ABANDONEDANIMAL order by ABNUMBER DESC) A)
         where NUM between #{start} and #{end}
     </select>
@@ -62,4 +72,37 @@
         from ABANDONEDANIMAL
         where ABNUMBER = #{pk}
     </select>
+
+
+    <select id="selectPetCount" resultType="int">
+        select count(*)
+        from Pet
+    </select>
+    <select id="selectPetIndex" resultType="kh.petmily.domain.pet.Pet">
+        select *
+        from (select ROWNUM as NUM, a.*
+              FROM (select p.*,m.Id as userId from Pet p left join MEMBER m on p.MNUMBER=m.MNUMBER  order by CPNUMBER DESC) a)
+        where NUM between #{start} and #{end}
+    </select>
+
+    <insert id="insertPet">
+        insert into Pet(MNUMBER, NAME, SPECIES, KIND, GENDER)
+        values ((select  m.MNUMBER from MEMBER m where m.ID=#{userId}), #{name}, #{species}, #{kind}, #{gender})
+    </insert>
+
+    <update id="updatePet">
+        update Pet
+        set MNUMBER =(select  m.MNUMBER from MEMBER m where m.ID=#{userId}),
+            NAME=#{name},
+            SPECIES=#{species},
+            KIND=#{kind},
+            GENDER=#{gender}
+        where CPNUMBER = #{cpNumber}
+    </update>
+
+    <delete id="deletePet">
+        delete
+        from pet
+        where CPNUMBER = #{cpNumber}
+    </delete>
 </mapper>

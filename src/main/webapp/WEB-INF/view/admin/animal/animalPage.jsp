@@ -5,37 +5,37 @@
     <title>Petmily-Don't buy, Do Adopt</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
           rel="stylesheet">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="/resources/petsitting-master/css/animate.css">
-
     <link rel="stylesheet" href="/resources/petsitting-master/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/petsitting-master/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/resources/petsitting-master/css/magnific-popup.css">
-
-
     <link rel="stylesheet" href="/resources/petsitting-master/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/petsitting-master/css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="/resources/petsitting-master/css/flaticon.css">
     <link rel="stylesheet" href="/resources/petsitting-master/css/style.css">
 </head>
 
 <%@ include file="/WEB-INF/view/include/header.jspf" %>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url(/resources/petsitting-master/images/bg_2.jpg);"
+<body>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/resources/petsitting-master/images/bg_2.jpg');"
          data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <%--                <p class="breadcrumbs mb-2"><span class="mr-2">--%>
-                <%--                    <a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Veterinarian <i class="ion-ios-arrow-forward"></i></span></p>--%>
-                <h1 class="mb-0 bread">유기동물 조회</h1>
+                <p class="breadcrumbs mb-2">
+                    <span class="mr-2">
+                        <a href="/">Home<i class="ion-ios-arrow-forward"></i></a>
+                    </span>
+                    <span>
+                        <a href="/admin">Admin<i class="ion-ios-arrow-forward"></i></a>
+                    </span>
+                </p>
+                <h1 class="mb-0 bread">관리자 페이지 - animal</h1>
             </div>
         </div>
     </div>
@@ -43,54 +43,35 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
-        <div class="row">
-            <c:forEach var="abandonedAnimal" items="${abandonedAnimals.content}">
-                <div class="col-md-6 col-lg-3 ftco-animate"
-                     onclick="location.href='/abandoned_animal/detail?abNumber=${abandonedAnimal.abNumber}'">
-                    <div class="staff">
-                        <div class="img-wrap d-flex align-items-stretch">
-                            <div class="img align-self-stretch"
-                                 style="background-image: url(/admin/upload?filename=${abandonedAnimal.imgPath});"></div>
-                        </div>
-
-                        <div class="text pt-3 px-3 pb-4 text-center">
-                            <h3>${abandonedAnimal.name}</h3>
-                            <span class="position mb-2">${abandonedAnimal.location}</span>
-                            <div class="faded">
-                                <p>${abandonedAnimal.admissionDate}</p>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="container">
+                        <div class="row mb-5 pb-5 justify-content-center">
+                            <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
+                                <div class="d-block services text-center ">
+                                    <div class="media-body p-4">
+                                        <h3 class="heading">유기동물 관리</h3>
+                                        <a href="/admin/animal/abandoned"
+                                           class="btn-custom d-flex align-items-center justify-content-center">
+                                            <span class="fa fa-chevron-right"></span>
+                                            <i class="sr-only">Read more</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
+                                <div class="d-block services text-center">
+                                    <div class="media-body p-4">
+                                        <h3 class="heading">반려동물 관리</h3>
+                                        <a href="/admin/animal/pet"
+                                           class="btn-custom d-flex align-items-center justify-content-center">
+                                            <span class="fa fa-chevron-right"></span>
+                                            <i class="sr-only">Read more</i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </c:forEach>
-        </div>
-        <div class="row mt-5">
-            <div class="col text-center">
-                <div class="block-27">
-                    <ul>
-                        <li>
-                            <c:if test="${abandonedAnimals.startPage > 5}">
-                                <a href="${pageContext.request.contextPath}/abandoned_animal/list?pageNo=${abandonedAnimals.startPage - 5}">&lt;</a>
-                            </c:if>
-                        </li>
-                        <c:forEach var="pNo" begin="${abandonedAnimals.startPage}" end="${abandonedAnimals.endPage}">
-                            <c:if test="${abandonedAnimals.currentPage == pNo}">
-                                <li class="active">
-                                    <a href="${pageContext.request.contextPath}/abandoned_animal/list?pageNo=${pNo}">${pNo}</a>
-                                </li>
-                            </c:if>
-                            <c:if test="${abandonedAnimals.currentPage != pNo}">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/abandoned_animal/list?pageNo=${pNo}">${pNo}</a>
-                                </li>
-                            </c:if>
-                        </c:forEach>
-                        <li>
-                            <c:if test="${abandonedAnimals.endPage < abandonedAnimals.totalPages}">
-                                <a href="${pageContext.request.contextPath}/find/list?pageNo=${abandonedAnimals.startPage + 5}">&gt;</a>
-                            </c:if>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -127,3 +108,4 @@
 
 </body>
 </html>
+

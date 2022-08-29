@@ -1,20 +1,21 @@
-package kh.petmily.domain.abandoned_animal.form;
+package kh.petmily.domain.pet.form;
 
-import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
+import kh.petmily.domain.find_board.form.FindBoardListForm;
+import kh.petmily.domain.pet.Pet;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class AbandonedAnimalPageForm {
+public class PetPageForm {
     private int total;
     private int currentPage;
-    private List<AbandonedAnimalDetailForm> content;
+    private List<Pet> content;
     private int totalPages;
     private int startPage;
     private int endPage;
 
-    public AbandonedAnimalPageForm(int total, int currentPage, int size, List<AbandonedAnimalDetailForm> content) {
+    public PetPageForm(int total, int currentPage, int size, List<Pet> content) {
         this.total = total;
         this.currentPage = currentPage;
         this.content = content;
