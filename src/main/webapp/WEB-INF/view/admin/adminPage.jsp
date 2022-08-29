@@ -105,17 +105,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
-                                <div class="d-block services text-center">
-                                    <div class="media-body p-4">
-                                        <h3 class="heading">봉사 관리</h3>
-                                        <a href="/admin/volunteer"
-                                           class="btn-custom d-flex align-items-center justify-content-center">
-                                            <span class="fa fa-chevron-right"></span>
-                                            <i class="sr-only">Read more</i></a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
