@@ -6,7 +6,6 @@ import kh.petmily.domain.member.Member;
 
 import java.util.List;
 
-import java.util.List;
 @Mapper
 public interface MemberMapper {
 
@@ -35,6 +34,8 @@ public interface MemberMapper {
     int selectCount();
 
     List<Member> selectIndex(@Param("start") int start, @Param("end") int end);
+
+    String selectMemberId(int pk);
 
     List<Member> selectAll();
 }
