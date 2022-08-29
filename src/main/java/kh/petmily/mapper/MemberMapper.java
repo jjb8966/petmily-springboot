@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import kh.petmily.domain.member.Member;
 
+import java.util.List;
 @Mapper
 public interface MemberMapper {
 
@@ -28,4 +29,10 @@ public interface MemberMapper {
     String selectPhone(int pk);
 
     String selectEmail(int pk);
+
+    int selectCount();
+
+    List<Member> selectIndex(@Param("start") int start, @Param("end") int end);
+
+    List<Member> selectAll();
 }

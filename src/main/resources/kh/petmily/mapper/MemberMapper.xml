@@ -28,7 +28,7 @@
     </delete>
     <!--=======BasicMapper 메소드=======-->
 
-    <select id="selectmNumber" resultType="int">
+    <select id="selectmNumber" resultType="java.lang.Integer">
         SELECT MNUMBER
         from MEMBER
         where ID = #{id} and PW = #{pw}
@@ -63,4 +63,23 @@
         from MEMBER
         where MNUMBER = #{pk}
     </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from MEMBER
+    </select>
+
+    <select id="selectIndex" resultType="kh.petmily.domain.member.Member">
+        select * from
+        (select ROWNUM as NUM, M.* FROM
+        (select * from MEMBER order by MNUMBER DESC) M)
+        where NUM between #{start} and #{end}
+    </select>
+
+    <select id="selectAll" resultType="kh.petmily.domain.member.Member">
+        select *
+        from MEMBER
+        order by MNUMBER
+    </select>
+
 </mapper>

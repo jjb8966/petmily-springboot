@@ -1,8 +1,12 @@
 package kh.petmily.service;
 
-import kh.petmily.domain.member.form.JoinRequest;
-import kh.petmily.domain.member.form.MemberChangeForm;
+import kh.petmily.domain.member.form.*;
 import kh.petmily.domain.member.Member;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+
 
 public interface MemberService {
 
@@ -21,4 +25,18 @@ public interface MemberService {
     String findName(int mNumber);
 
     public boolean isPwEqualToConfirm(String pw, String confirmPw);
+
+    public MemberPageForm getMemberPage(int pageNo);
+
+    public MemberDetailForm getMember(int mNumber);
+
+    public MemberModifyForm getMemberModify(int mNumber);
+
+    public void delete(int mNumber);
+
+    public void create(MemberCreateForm memberCreateForm);
+
+    public void modify(MemberModifyForm memberModifyForm);
+
+    List<Member> selectAll();
 }
