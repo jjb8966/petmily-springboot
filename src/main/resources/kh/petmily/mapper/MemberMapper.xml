@@ -63,4 +63,10 @@
         from MEMBER
         where MNUMBER = #{pk}
     </select>
+
+    <select id="selectMemberId" resultType="java.lang.String">
+        select ID
+        from MEMBER
+        where MNUMBER = #{pk}
+    </select>
 </mapper>

@@ -28,4 +28,6 @@ public interface MemberMapper {
     String selectPhone(int pk);
 
     String selectEmail(int pk);
+
+    String selectMemberId(int pk);
 }
