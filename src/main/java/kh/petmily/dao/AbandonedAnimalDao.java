@@ -48,6 +48,10 @@ public class AbandonedAnimalDao implements BasicDao {
         return mapper.selectName(pk);
     }
 
+    public List<AbandonedAnimal> selectAll() {
+        return mapper.selectAll();
+    }
+
     public int selectsNumber(int pk) {
         return mapper.selectsNumber(pk);
     }

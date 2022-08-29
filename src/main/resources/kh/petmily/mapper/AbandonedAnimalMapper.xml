@@ -51,6 +51,12 @@
         where ABNUMBER = #{pk}
     </select>
 
+    <select id="selectAll" resultType="kh.petmily.domain.abandoned_animal.AbandonedAnimal">
+        select *
+        from ABANDONEDANIMAL
+        order by ABNUMBER
+    </select>
+
     <select id="selectsNumber" resultType="int">
         select SNUMBER
         from ABANDONEDANIMAL

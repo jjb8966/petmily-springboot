@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class MemberDao implements BasicDao {
+
     private final MemberMapper mapper;
 
     // =======BasicDao 메소드=======
