@@ -34,6 +34,9 @@ pageEncoding="UTF-8" %>
     <div class="row no-gutters slider-text align-items-end">
       <div class="col-md-9 ftco-animate pb-5">
         <c:if test="${param.kindOfBoard eq '입양후기'}">
+			<p class="breadcrumbs mb-2">
+				<span class="mr-2"><span>Adopt Review Board - Detail<i class="ion-ios-arrow-forward"></i></span></span>
+			</p>
           <h1 class="mb-0 bread">입양후기 게시판 - 상세보기</h1>
         </c:if>
       </div>
