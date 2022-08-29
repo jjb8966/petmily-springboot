@@ -5,12 +5,18 @@ import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalModifyForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalWriteForm;
 import kh.petmily.service.AbandonedAnimalService;
+import kh.petmily.domain.pet.Pet;
+import kh.petmily.domain.pet.form.PetForm;
+import kh.petmily.domain.pet.form.PetPageForm;
+import kh.petmily.service.AbandonedAnimalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -60,7 +68,9 @@ public class AdminController {
     }
 
     @GetMapping("/animal")
-    public String animalPage() { return "/admin/animal/animalPage"; }
+    public String animalPage() {
+        return "/admin/animal/animalPage";
+    }
 
     @GetMapping("/animal/abandoned")
     public String adminAbandonedList(@RequestParam(defaultValue = "1") int pageNo, Model model) {
@@ -161,6 +171,52 @@ public class AdminController {
     @GetMapping("/board")
     public void boardPage() {
 
+    }
+
+    @GetMapping("/animal/pet")
+    public String petBoard(@RequestParam(defaultValue = "1") int pageNum, Model model) {
+        PetPageForm petPage = abandonedAnimalService.getPetPage(pageNum);
+        model.addAttribute("petPage", petPage);
+        return "/admin/petBoard";
+    }
+
+    @ResponseBody
+    @PostMapping("/animal/pet")
+    public String petBoard(PetForm pet) {
+        try {
+            abandonedAnimalService.savePet(new Pet(pet));
+        } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
+            return "없는 회원 아이디거나 등록할수없는 종입니다.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return "성공";
+    }
+
+    @ResponseBody
+    @PostMapping("/animal/pet/update")
+    public String petUpdate(PetForm pet) {
+        try {
+            abandonedAnimalService.modifyPet(new Pet(pet));
+        } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
+            return "등록할수없는 종입니다.";
+        } catch (UncategorizedSQLException e) {
+            e.printStackTrace();
+            return "없는 회원아이디입니다.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return "성공";
+    }
+
+    @GetMapping("/animal/pet/delete/{cpNumber}")
+    public String animalDelete(@PathVariable int cpNumber) {
+        abandonedAnimalService.deletePet(cpNumber);
+        return "redirect:/admin/animal/pet";
     }
 
     @GetMapping("/adopt_temp")
