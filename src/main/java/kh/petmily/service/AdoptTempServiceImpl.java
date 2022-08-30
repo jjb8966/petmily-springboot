@@ -11,13 +11,16 @@ import kh.petmily.domain.temp.form.TempMemberApplyListForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class AdoptTempServiceImpl implements AdoptTempService {
+
     private final AdoptDao adoptDao;
     private final TempDao tempDao;
     private int size = 10;
@@ -32,21 +35,6 @@ public class AdoptTempServiceImpl implements AdoptTempService {
     public void tempProtect(AdoptTempSubmitForm adoptTempSubmitForm) {
         TempPet tempPet = toTempPet(adoptTempSubmitForm);
         tempDao.insert(tempPet);
-    }
-
-//    @Override
-//    public String findAnimalName(int abNumber) {
-//        return adoptDao.selectAnimalName(abNumber);
-//    }
-
-    @Override
-    public String findMemberName(int mNumber) {
-        return adoptDao.selectMemberName(mNumber);
-    }
-
-    @Override
-    public String findMemberId(int mNumber) {
-        return adoptDao.selectMemberId(mNumber);
     }
 
     public Adopt findByPk(int adNumber) {
@@ -73,8 +61,7 @@ public class AdoptTempServiceImpl implements AdoptTempService {
         return new AdoptApplyPageForm(total, pageNo, size, content);
     }
 
-//    ======== 관리자 페이지 ========
-
+    //    ======== 관리자 페이지 ========
     @Override
     public AdoptPageForm getAdoptWaitPage(int pageNo, String status) {
         int total = adoptDao.selectCount();

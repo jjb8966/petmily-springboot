@@ -1,13 +1,13 @@
 package kh.petmily.service;
 
 import kh.petmily.dao.FindBoardDao;
-import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.admin.form.AdminBoardListForm;
 import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.find_board.form.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -19,20 +19,11 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class FindBoardServiceImpl implements FindBoardService {
+
     private final FindBoardDao findBoardDao;
-    private final MemberDao memberDao;
     private int size = 6;
-
-    private String getFullPath(String filename, String filePath) {
-        return filePath + filename;
-    }
-
-    private String extractExt(String originalFilename) {
-        int position = originalFilename.lastIndexOf(".");
-
-        return originalFilename.substring(position + 1);
-    }
 
     @Override
     public String storeFile(MultipartFile file, String filePath) throws IOException {
@@ -61,19 +52,11 @@ public class FindBoardServiceImpl implements FindBoardService {
         findBoardDao.insert(findBoard);
     }
 
-    private FindBoard toFindFromFW(FindBoardWriteForm req) {
-        return new FindBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), req.getFullPath(), req.getTitle(), req.getContent());
-    }
-
     @Override
     public void modify(FindBoardModifyForm fmForm) {
         FindBoard findBoard = toFindFromFM(fmForm);
         findBoard.setFaNumber(fmForm.getFaNumber());
         findBoardDao.update(findBoard);
-    }
-
-    private FindBoard toFindFromFM(FindBoardModifyForm req) {
-        return new FindBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), req.getFullPath(), req.getTitle(), req.getContent());
     }
 
     @Override
@@ -149,5 +132,23 @@ public class FindBoardServiceImpl implements FindBoardService {
 
     private FindBoardModifyForm toModifyForm(FindBoard findBoard) {
         return new FindBoardModifyForm(findBoard.getSpecies(), findBoard.getKind(), findBoard.getLocation(), findBoard.getTitle(), findBoard.getContent());
+    }
+
+    private FindBoard toFindFromFW(FindBoardWriteForm req) {
+        return new FindBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), req.getFullPath(), req.getTitle(), req.getContent());
+    }
+
+    private FindBoard toFindFromFM(FindBoardModifyForm req) {
+        return new FindBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), req.getFullPath(), req.getTitle(), req.getContent());
+    }
+
+    private String getFullPath(String filename, String filePath) {
+        return filePath + filename;
+    }
+
+    private String extractExt(String originalFilename) {
+        int position = originalFilename.lastIndexOf(".");
+
+        return originalFilename.substring(position + 1);
     }
 }

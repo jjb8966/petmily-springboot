@@ -11,6 +11,7 @@ import kh.petmily.domain.adopt_review.form.BoardPage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class AdoptReviewServiceImpl implements AdoptReviewService {
 
     private final AdoptReviewDao adoptReviewDao;

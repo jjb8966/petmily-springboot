@@ -10,13 +10,16 @@ import kh.petmily.domain.board.form.ReadBoardForm;
 import kh.petmily.domain.board.form.WriteBoardForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BoardServiceImpl implements BoardService {
+
     private final BoardDao boardDao;
     private final MemberDao memberDao;
     private int size = 5;
@@ -78,23 +81,6 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.updateViewCount(bNumber);
     }
 
-    private Board toBoard(WriteBoardForm req) {
-        return new Board(
-                req.getMNumber(),
-                req.getKindOfBoard(),
-                req.getTitle(),
-                req.getContent(),
-                req.getCheckPublic());
-    }
-
-    private Board toBoardModifyForm(BoardModifyForm modReq) {
-        return new Board(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), modReq.getCheckPublic());
-    }
-
-    private BoardModifyForm toBoardModify(Board board) {
-        return new BoardModifyForm(board.getBNumber(), board.getTitle(), board.getContent(), board.getCheckPublic());
-    }
-
     @Override
     public List<AdminBoardListForm> selectAll(String kindOfBoard) {
         List<AdminBoardListForm> list = new ArrayList<>();
@@ -112,5 +98,22 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public String findName(int mNumber) {
         return memberDao.selectName(mNumber);
+    }
+
+    private Board toBoard(WriteBoardForm req) {
+        return new Board(
+                req.getMNumber(),
+                req.getKindOfBoard(),
+                req.getTitle(),
+                req.getContent(),
+                req.getCheckPublic());
+    }
+
+    private Board toBoardModifyForm(BoardModifyForm modReq) {
+        return new Board(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), modReq.getCheckPublic());
+    }
+
+    private BoardModifyForm toBoardModify(Board board) {
+        return new BoardModifyForm(board.getBNumber(), board.getTitle(), board.getContent(), board.getCheckPublic());
     }
 }

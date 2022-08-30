@@ -9,6 +9,7 @@ import kh.petmily.domain.look_board.form.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,20 +21,12 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class LookBoardServiceImpl implements LookBoardService {
+
     private final LookBoardDao lookBoardDao;
     private final MemberDao memberDao;
     private int size = 6;
-
-    private String getFullPath(String filename, String filePath) {
-        return filePath + filename;
-    }
-
-    private String extractExt(String originalFilename) {
-        int position = originalFilename.lastIndexOf(".");
-
-        return originalFilename.substring(position + 1);
-    }
 
     @Override
     public String storeFile(MultipartFile file, String filePath) throws IOException {
@@ -62,19 +55,11 @@ public class LookBoardServiceImpl implements LookBoardService {
         lookBoardDao.insert(lookBoard);
     }
 
-    private LookBoard toLookFromLW(LookBoardWriteForm req) {
-        return new LookBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), req.getFullPath(), req.getTitle(), req.getContent());
-    }
-
     @Override
     public void modify(LookBoardModifyForm lmForm) {
         LookBoard lookBoard = toLookFromLM(lmForm);
         lookBoard.setLaNumber(lmForm.getLaNumber());
         lookBoardDao.update(lookBoard);
-    }
-
-    private LookBoard toLookFromLM(LookBoardModifyForm req) {
-        return new LookBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), req.getFullPath(), req.getTitle(), req.getContent());
     }
 
     @Override
@@ -96,10 +81,6 @@ public class LookBoardServiceImpl implements LookBoardService {
         LookBoardDetailForm detailForm = toDetailForm(lookBoard);
 
         return detailForm;
-    }
-
-    private LookBoardDetailForm toDetailForm(LookBoard lookBoard) {
-        return new LookBoardDetailForm(lookBoard.getLaNumber(), lookBoard.getMNumber(), findLookBoardName(lookBoard.getLaNumber()), lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getAnimalState(), lookBoard.getImgPath(), lookBoard.getWrTime(), lookBoard.getTitle(), lookBoard.getContent());
     }
 
     @Override
@@ -124,10 +105,6 @@ public class LookBoardServiceImpl implements LookBoardService {
     @Override
     public int updateViewCount(int laNumber) {
         return lookBoardDao.updateViewCount(laNumber);
-    }
-
-    private LookBoardModifyForm toModifyForm(LookBoard lookBoard) {
-        return new LookBoardModifyForm(lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getTitle(), lookBoard.getContent());
     }
 
     @Override
@@ -156,5 +133,31 @@ public class LookBoardServiceImpl implements LookBoardService {
     @Override
     public LookBoard getLookBoard(int laNumber) {
         return lookBoardDao.findByPk(laNumber);
+    }
+
+    private String getFullPath(String filename, String filePath) {
+        return filePath + filename;
+    }
+
+    private String extractExt(String originalFilename) {
+        int position = originalFilename.lastIndexOf(".");
+
+        return originalFilename.substring(position + 1);
+    }
+
+    private LookBoard toLookFromLW(LookBoardWriteForm req) {
+        return new LookBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), req.getFullPath(), req.getTitle(), req.getContent());
+    }
+
+    private LookBoard toLookFromLM(LookBoardModifyForm req) {
+        return new LookBoard(req.getMNumber(), req.getSpecies(), req.getKind(), req.getLocation(), req.getFullPath(), req.getTitle(), req.getContent());
+    }
+
+    private LookBoardDetailForm toDetailForm(LookBoard lookBoard) {
+        return new LookBoardDetailForm(lookBoard.getLaNumber(), lookBoard.getMNumber(), findLookBoardName(lookBoard.getLaNumber()), lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getAnimalState(), lookBoard.getImgPath(), lookBoard.getWrTime(), lookBoard.getTitle(), lookBoard.getContent());
+    }
+
+    private LookBoardModifyForm toModifyForm(LookBoard lookBoard) {
+        return new LookBoardModifyForm(lookBoard.getSpecies(), lookBoard.getKind(), lookBoard.getLocation(), lookBoard.getTitle(), lookBoard.getContent());
     }
 }

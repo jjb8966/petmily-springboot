@@ -11,6 +11,7 @@ import kh.petmily.domain.pet.form.PetPageForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class AbandonedAnimalServiceImpl implements AbandonedAnimalService {
 
     private final AbandonedAnimalDao abandonedAnimalDao;

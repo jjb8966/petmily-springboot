@@ -7,6 +7,7 @@ import kh.petmily.domain.reply.form.ReplyWriteForm;
 import java.util.List;
 
 public interface ReplyService {
+
     public void write(ReplyWriteForm replyWriteForm);
 
     public void modify(ReplyModifyForm replyModifyForm);

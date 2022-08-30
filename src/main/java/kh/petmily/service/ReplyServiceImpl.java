@@ -8,13 +8,16 @@ import kh.petmily.domain.reply.form.ReplyModifyForm;
 import kh.petmily.domain.reply.form.ReplyWriteForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ReplyServiceImpl implements ReplyService {
+
     private final ReplyDao replyDao;
     private final MemberDao memberDao;
 

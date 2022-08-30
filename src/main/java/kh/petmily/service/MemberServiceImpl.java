@@ -6,6 +6,7 @@ import kh.petmily.domain.member.form.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class MemberServiceImpl implements MemberService {
 
     private final MemberDao memberDao;
@@ -33,11 +35,6 @@ public class MemberServiceImpl implements MemberService {
         }
 
         return member;
-    }
-
-    @Override
-    public void logout() {
-
     }
 
     @Override
@@ -68,10 +65,6 @@ public class MemberServiceImpl implements MemberService {
         return mem;
     }
 
-    private Member toMemberFromChange(Member member, MemberChangeForm memberChangeForm) {
-        return new Member(member.getMNumber(), member.getId(), memberChangeForm.getPw(), memberChangeForm.getName(), member.getBirth(), member.getGender(), memberChangeForm.getEmail(), memberChangeForm.getPhone(), member.getGrade());
-    }
-
     @Override
     public String findName(int mNumber) {
         return memberDao.selectName(mNumber);
@@ -80,18 +73,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<Member> selectAll() {
         return memberDao.selectAll();
-    }
-
-    private Member toMember(JoinRequest joinReq) {
-        String id = joinReq.getId();
-        String pw = joinReq.getPw();
-        String name = joinReq.getName();
-        Date birth = joinReq.getBirth();
-        String gender = joinReq.getGender();
-        String email = joinReq.getEmail();
-        String phone = joinReq.getPhone();
-
-        return new Member(id, pw, name, birth, gender, email, phone);
     }
 
     // 관리자 페이지
@@ -106,13 +87,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void delete(int mNumber) {
         memberDao.delete(mNumber);
-    }
-
-    @Override
-    public MemberDetailForm getMember(int mNumber) {
-        Member member = memberDao.findByPk(mNumber);
-
-        return new MemberDetailForm(member.getMNumber(), member.getId(), member.getPw(), member.getName(), member.getBirth(), member.getGender(), member.getEmail(), member.getPhone(), member.getGrade());
     }
 
     @Override
@@ -151,5 +125,21 @@ public class MemberServiceImpl implements MemberService {
 
     private MemberModifyForm toMemberModify(Member member) {
         return new MemberModifyForm(member.getMNumber(), member.getId(), member.getPw(), member.getName(), member.getBirth(), member.getGender(), member.getEmail(), member.getPhone(), member.getGrade());
+    }
+
+    private Member toMemberFromChange(Member member, MemberChangeForm memberChangeForm) {
+        return new Member(member.getMNumber(), member.getId(), memberChangeForm.getPw(), memberChangeForm.getName(), member.getBirth(), member.getGender(), memberChangeForm.getEmail(), memberChangeForm.getPhone(), member.getGrade());
+    }
+
+    private Member toMember(JoinRequest joinReq) {
+        String id = joinReq.getId();
+        String pw = joinReq.getPw();
+        String name = joinReq.getName();
+        Date birth = joinReq.getBirth();
+        String gender = joinReq.getGender();
+        String email = joinReq.getEmail();
+        String phone = joinReq.getPhone();
+
+        return new Member(id, pw, name, birth, gender, email, phone);
     }
 }

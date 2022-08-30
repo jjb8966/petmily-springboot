@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface FindBoardService {
+
     public void write(FindBoardWriteForm fwForm);
 
     public void modify(FindBoardModifyForm fmForm);

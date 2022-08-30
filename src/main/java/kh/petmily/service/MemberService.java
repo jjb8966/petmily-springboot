@@ -11,8 +11,6 @@ public interface MemberService {
 
     public Member login(String id, String pw);
 
-    public void logout();
-
     public void withdraw(int mNumber);
 
     public boolean checkPwCorrect(int mNumber, String pw);
@@ -26,8 +24,6 @@ public interface MemberService {
     public boolean isPwEqualToConfirm(String pw, String confirmPw);
 
     public MemberPageForm getMemberPage(int pageNo);
-
-    public MemberDetailForm getMember(int mNumber);
 
     public MemberModifyForm getMemberModify(int mNumber);
 

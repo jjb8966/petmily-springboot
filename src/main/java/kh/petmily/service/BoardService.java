@@ -9,6 +9,7 @@ import kh.petmily.domain.board.form.WriteBoardForm;
 import java.util.List;
 
 public interface BoardService {
+
     public BoardPage getBoardPage(int pbNumber, String kindOfBoard, String sort);
 
     public void write(WriteBoardForm writeBoardForm);

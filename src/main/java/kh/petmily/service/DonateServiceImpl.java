@@ -1,8 +1,6 @@
 package kh.petmily.service;
 
-import kh.petmily.dao.AbandonedAnimalDao;
 import kh.petmily.dao.DonationDao;
-import kh.petmily.dao.MemberDao;
 import kh.petmily.domain.abandoned_animal.form.DonateSubmitForm;
 import kh.petmily.domain.donation.Donation;
 import kh.petmily.domain.donation.form.DonationCreateForm;
@@ -12,17 +10,17 @@ import kh.petmily.domain.donation.form.DonationPageForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class DonateServiceImpl implements DonateService {
 
     private final DonationDao donationDao;
-    private final AbandonedAnimalDao abandonedAnimalDao;
-    private final MemberDao memberDao;
 
     private int size = 10;
 
@@ -83,17 +81,6 @@ public class DonateServiceImpl implements DonateService {
         donationDao.insert(donation);
     }
 
-    private static Donation toDonation(DonateSubmitForm donateSubmitForm) {
-        Donation donation = new Donation(
-                donateSubmitForm.getAbNumber(),
-                donateSubmitForm.getMNumber(),
-                donateSubmitForm.getDonaSum(),
-                donateSubmitForm.getBank(),
-                donateSubmitForm.getAccountHolder(),
-                donateSubmitForm.getAccountNumber());
-        return donation;
-    }
-
     private Donation toDonation(DonationCreateForm donationCreateForm) {
         Donation donation = new Donation(
                 donationCreateForm.getAbNumber(),
@@ -121,5 +108,16 @@ public class DonateServiceImpl implements DonateService {
 
     private DonationModifyForm toDonationModify(Donation donation) {
         return new DonationModifyForm(donation.getDNumber(), donation.getAbNumber(), donation.getMNumber(), donation.getDonaSum(), donation.getBank(), donation.getAccountHolder(), donation.getAccountNumber());
+    }
+
+    private Donation toDonation(DonateSubmitForm donateSubmitForm) {
+        Donation donation = new Donation(
+                donateSubmitForm.getAbNumber(),
+                donateSubmitForm.getMNumber(),
+                donateSubmitForm.getDonaSum(),
+                donateSubmitForm.getBank(),
+                donateSubmitForm.getAccountHolder(),
+                donateSubmitForm.getAccountNumber());
+        return donation;
     }
 }
