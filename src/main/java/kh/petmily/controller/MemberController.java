@@ -64,7 +64,13 @@ public class MemberController {
             @RequestParam("pw") String pw,
             HttpServletRequest request) {
 
-        Member authUser = memberService.login(id, pw);
+        Member authUser;
+
+        try {
+            authUser = memberService.login(id, pw);
+        } catch (Exception e) {
+            return "/login/loginForm";
+        }
 
         if (authUser == null) {
             return "/login/loginForm";
