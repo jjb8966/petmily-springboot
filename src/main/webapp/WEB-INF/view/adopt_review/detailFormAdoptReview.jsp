@@ -62,8 +62,8 @@
 
 				<div class="modal-footer"></div>
                 <c:choose>
-                    <c:when test="${not empty detailForm.imgPath}">
-				        <img width="50%" src="/adopt_review/upload?filename=${detailForm.imgPath}" >
+                    <c:when test="${not empty detailForm.imgPath and detailForm.imgPath ne 'no_image.png'}">
+				        <img width="50%" src="/adopt_review/upload?filename=${detailForm.imgPath}"><br><br>
                     </c:when>
                     <c:otherwise>
 				        <img width="100%" src=" " >
@@ -101,12 +101,6 @@
 							onclick="location.href='/admin/board?kindOfBoard=${param.kindOfBoard}'"
 						</c:if>>목록으로</button>
             	    </span>
-
-					<!-- 댓글 작성하기 버튼 -->
-
-					<div class="media forum-item">
-						<button type="button" class="btn btn-primary" onclick="location.href='#message'">댓글 작성</button>
-					</div>
 				</div>
 
 				<!-- 댓글 내용 -->
