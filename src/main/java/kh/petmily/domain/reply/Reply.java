@@ -1,7 +1,8 @@
 package kh.petmily.domain.reply;
 
 import kh.petmily.domain.DomainObj;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 

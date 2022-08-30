@@ -152,7 +152,7 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
         List<AdminBoardListForm> list = new ArrayList<>();
         List<AdoptReview> adoptReviewList = adoptReviewDao.selectAll(kindOfBoard);
 
-        for(AdoptReview b : adoptReviewList) {
+        for (AdoptReview b : adoptReviewList) {
             AdminBoardListForm ad = new AdminBoardListForm(b.getBNumber(), findName(b.getMNumber()), b.getWrTime(), b.getTitle());
             list.add(ad);
         }

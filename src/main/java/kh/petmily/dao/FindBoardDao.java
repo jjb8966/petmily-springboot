@@ -55,8 +55,8 @@ public class FindBoardDao implements BasicDao {
         List<Integer> old_list = mapper.selectMatchedLa(old_findBoard);
         log.info("update : old_list = {}", old_list);
 
-        if(old_list.size() != 0) {
-            for(Integer i : old_list) {
+        if (old_list.size() != 0) {
+            for (Integer i : old_list) {
                 mapper.backStateLook(i);
             }
         }
@@ -82,8 +82,8 @@ public class FindBoardDao implements BasicDao {
         List<Integer> list = mapper.selectMatchedLa(findBoard);
         log.info("delete : list = {}", list);
 
-        if(list.size() != 0) {
-            for(Integer i : list) {
+        if (list.size() != 0) {
+            for (Integer i : list) {
                 mapper.backStateLook(i);
             }
         }

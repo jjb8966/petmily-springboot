@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ReplyDao implements BasicDao{
+public class ReplyDao implements BasicDao {
     private final ReplyMapper mapper;
 
     @Override
@@ -34,7 +34,7 @@ public class ReplyDao implements BasicDao{
         mapper.delete(pk);
     }
 
-    public List<Reply> list (int bNumber) {
+    public List<Reply> list(int bNumber) {
         List<Reply> list = mapper.getList(bNumber);
 
         return list;

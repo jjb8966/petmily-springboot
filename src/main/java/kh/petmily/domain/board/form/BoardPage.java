@@ -1,79 +1,80 @@
 package kh.petmily.domain.board.form;
 
 import lombok.Data;
+
 import java.util.List;
 
 @Data
 public class BoardPage {
 
-	private int total;
-	private int currentPage;
-	private List<ReadBoardForm> title;
-	private int totalPages;
-	private int startPage;
-	private int endPage;
+    private int total;
+    private int currentPage;
+    private List<ReadBoardForm> title;
+    private int totalPages;
+    private int startPage;
+    private int endPage;
 
-	public BoardPage(int total, int currentPage, int size, List<ReadBoardForm> title) {
-		this.total = total;  
-		this.currentPage = currentPage;
-		this.title = title;
-		
-		if (total == 0) {
-			totalPages = 0;
-			startPage = 0;
-			endPage = 0;
-		} else {
-			totalPages = total / size;
+    public BoardPage(int total, int currentPage, int size, List<ReadBoardForm> title) {
+        this.total = total;
+        this.currentPage = currentPage;
+        this.title = title;
 
-			if (total % size > 0) {
-				totalPages++;
-			}
+        if (total == 0) {
+            totalPages = 0;
+            startPage = 0;
+            endPage = 0;
+        } else {
+            totalPages = total / size;
 
-			int modVal = currentPage % 5;
+            if (total % size > 0) {
+                totalPages++;
+            }
 
-			startPage = currentPage / 5 * 5 + 1;
+            int modVal = currentPage % 5;
 
-			if (modVal == 0) {
-				startPage -= 5;
-			}
+            startPage = currentPage / 5 * 5 + 1;
 
-			endPage = startPage + 4;
+            if (modVal == 0) {
+                startPage -= 5;
+            }
 
-			if (endPage > totalPages) {
-				endPage = totalPages;
-			}
-		}
-	}
+            endPage = startPage + 4;
 
-	public int getTotal() {
-		return total;
-	}
+            if (endPage > totalPages) {
+                endPage = totalPages;
+            }
+        }
+    }
 
-	public boolean hasNoBoard() {
-		return total == 0;
-	}
+    public int getTotal() {
+        return total;
+    }
 
-	public boolean hasBoard() {
-		return total > 0;
-	}
-	
-	public int getCurrentPage() {
-		return currentPage;
-	}
+    public boolean hasNoBoard() {
+        return total == 0;
+    }
 
-	public int getTotalPages() {
-		return totalPages;
-	}
+    public boolean hasBoard() {
+        return total > 0;
+    }
 
-	public List<ReadBoardForm> getTitle() {
-		return title;
-	}
+    public int getCurrentPage() {
+        return currentPage;
+    }
 
-	public int getStartPage() {
-		return startPage;
-	}
-	
-	public int getEndPage() {
-		return endPage;
-	}
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public List<ReadBoardForm> getTitle() {
+        return title;
+    }
+
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
+    }
 }

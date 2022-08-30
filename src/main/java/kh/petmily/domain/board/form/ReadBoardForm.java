@@ -3,6 +3,7 @@ package kh.petmily.domain.board.form;
 import lombok.Data;
 
 import java.util.Date;
+
 @Data
 public class ReadBoardForm {
     private int bNumber;
@@ -16,7 +17,7 @@ public class ReadBoardForm {
     private int viewCount;
     private String sort;
 
-    public ReadBoardForm(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic, int viewCount, String sort){
+    public ReadBoardForm(int bNumber, int mNumber, String name, String kindOfBoard, String title, String content, Date wrTime, String checkPublic, int viewCount, String sort) {
         this.bNumber = bNumber;
         this.mNumber = mNumber;
         this.name = name;

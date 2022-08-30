@@ -22,7 +22,7 @@ public interface TempMapper {
 
     int selectCountBymNumber(int mNumber);
 
-    List<TempPet> selectIndexBymNumber(@Param("start") int start,@Param("end") int end,@Param("mNumber") int mNumber);
+    List<TempPet> selectIndexBymNumber(@Param("start") int start, @Param("end") int end, @Param("mNumber") int mNumber);
 
     List<AdoptTempListForm> selectIndexByStatus(@Param("start") int start, @Param("end") int end, @Param("status") String status);
 

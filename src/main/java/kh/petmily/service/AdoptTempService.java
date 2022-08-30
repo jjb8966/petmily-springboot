@@ -1,13 +1,10 @@
 package kh.petmily.service;
 
 import kh.petmily.domain.abandoned_animal.form.AdoptTempSubmitForm;
-import kh.petmily.domain.adopt.form.AdoptApplyPageForm;
-import kh.petmily.domain.temp.form.TempApplyPageForm;
 import kh.petmily.domain.adopt.Adopt;
-import kh.petmily.domain.adopt.form.AdoptDetailForm;
-import kh.petmily.domain.adopt.form.AdoptPageForm;
-import kh.petmily.domain.adopt.form.TempDetailForm;
-import kh.petmily.domain.adopt.form.TempPageForm;
+import kh.petmily.domain.adopt.form.*;
+import kh.petmily.domain.temp.form.TempApplyPageForm;
+
 import java.util.List;
 
 public interface AdoptTempService {

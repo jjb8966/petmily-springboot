@@ -2,14 +2,13 @@ package kh.petmily.service;
 
 import kh.petmily.dao.AbandonedAnimalDao;
 import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
-import kh.petmily.domain.abandoned_animal.form.*;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
+import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalModifyForm;
 import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
+import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalWriteForm;
 import kh.petmily.domain.pet.Pet;
 import kh.petmily.domain.pet.form.PetPageForm;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +21,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AbandonedAnimalServiceImpl implements AbandonedAnimalService{
+public class AbandonedAnimalServiceImpl implements AbandonedAnimalService {
 
     private final AbandonedAnimalDao abandonedAnimalDao;
     private int size = 12;
@@ -78,6 +77,7 @@ public class AbandonedAnimalServiceImpl implements AbandonedAnimalService{
 
         return new AbandonedAnimalPageForm(total, pageNo, size, content);
     }
+
     @Override
     public PetPageForm getPetPage(int pageNum) {
         int total = abandonedAnimalDao.selectPetCount();

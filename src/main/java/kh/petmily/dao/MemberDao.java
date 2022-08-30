@@ -1,13 +1,11 @@
 package kh.petmily.dao;
 
 import kh.petmily.domain.DomainObj;
+import kh.petmily.domain.member.Member;
 import kh.petmily.domain.member.form.MemberDetailForm;
 import kh.petmily.mapper.MemberMapper;
-import kh.petmily.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;

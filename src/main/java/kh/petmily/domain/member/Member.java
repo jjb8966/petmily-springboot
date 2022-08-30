@@ -1,7 +1,9 @@
 package kh.petmily.domain.member;
 
 import kh.petmily.domain.DomainObj;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.sql.Date;
 
@@ -49,7 +51,7 @@ public class Member implements DomainObj {
         this.email = email;
     }
 
-    public Member(String pw, String name, String email, String phone,String id) {
+    public Member(String pw, String name, String email, String phone, String id) {
         this.pw = pw;
         this.name = name;
         this.email = email;
@@ -62,6 +64,6 @@ public class Member implements DomainObj {
     }
 
     public void toInfoInsertMNumber(int mNumber) {
-        this.mNumber =mNumber;
+        this.mNumber = mNumber;
     }
 }

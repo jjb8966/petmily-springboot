@@ -34,9 +34,9 @@ public class AdoptReviewController {
     @GetMapping("/upload")
     public ResponseEntity<Resource> list(String filename, HttpServletRequest request) {
 
-        String fullPath =request.getSession().getServletContext().getRealPath("/");
-        fullPath = fullPath+"resources/upload/";
-        fullPath = fullPath+filename;
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
+        fullPath = fullPath + filename;
 
         log.info("fullPath = {} ", fullPath);
 
@@ -103,10 +103,10 @@ public class AdoptReviewController {
     @PostMapping("/auth/write")
     public String write(@ModelAttribute AdoptReviewWriteForm adoptReviewWriteForm, HttpServletRequest request) {
 
-        String fullPath =request.getSession().getServletContext().getRealPath("/");
-        fullPath = fullPath+"resources/upload/";
+        String fullPath = request.getSession().getServletContext().getRealPath("/");
+        fullPath = fullPath + "resources/upload/";
 
-        if(adoptReviewWriteForm.getMNumber() == 0) {
+        if (adoptReviewWriteForm.getMNumber() == 0) {
             Member member = getAuthMember(request);
             int mNumber = member.getMNumber();
 
@@ -151,7 +151,7 @@ public class AdoptReviewController {
     @PostMapping("/auth/modify")
     public String modify(@RequestParam("bNumber") int bNumber, @RequestParam("kindOfBoard") String kindOfBoard, @ModelAttribute AdoptReviewModifyForm modReq, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         String fullPath = request.getSession().getServletContext().getRealPath("/");
-        fullPath = fullPath+"resources/upload/";
+        fullPath = fullPath + "resources/upload/";
 
         Member authUser = getAuthMember(request);
 
@@ -178,7 +178,7 @@ public class AdoptReviewController {
     }
 
     @GetMapping("/auth/delete")
-    public String delete(@RequestParam("bNumber") int bNumber){
+    public String delete(@RequestParam("bNumber") int bNumber) {
         adoptReviewService.delete(bNumber);
 
         return "/adopt_review/deleteSuccess";

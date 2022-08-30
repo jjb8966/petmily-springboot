@@ -145,7 +145,7 @@ public class LookBoardServiceImpl implements LookBoardService {
 
         List<LookBoard> lookList = lookBoardDao.selectAll();
 
-        for(LookBoard l : lookList) {
+        for (LookBoard l : lookList) {
             AdminBoardListForm ad = new AdminBoardListForm(l.getLaNumber(), findMemberName(l.getMNumber()), l.getWrTime(), l.getTitle());
             list.add(ad);
         }

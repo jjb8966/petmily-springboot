@@ -4,16 +4,16 @@ import kh.petmily.domain.adopt.form.AdoptApplyPageForm;
 import kh.petmily.domain.find_board.FindBoard;
 import kh.petmily.domain.find_board.form.FindBoardPageForm;
 import kh.petmily.domain.look_board.form.LookBoardPageForm;
+import kh.petmily.domain.member.Member;
 import kh.petmily.domain.member.form.JoinRequest;
 import kh.petmily.domain.member.form.MemberChangeForm;
 import kh.petmily.domain.temp.form.TempApplyPageForm;
 import kh.petmily.service.AdoptTempService;
 import kh.petmily.service.FindBoardService;
 import kh.petmily.service.LookBoardService;
+import kh.petmily.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import kh.petmily.domain.member.Member;
-import kh.petmily.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -212,7 +212,7 @@ public class MemberController {
 
         log.info("type : {}", type);
 
-        if(type.equals("adopt")) {
+        if (type.equals("adopt")) {
             AdoptApplyPageForm applyPage = adoptTempService.getAdoptApplyPage(pageNo, mNumber, type);
             model.addAttribute("applyListForm", applyPage);
         } else {

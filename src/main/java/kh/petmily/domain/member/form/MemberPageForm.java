@@ -1,6 +1,5 @@
 package kh.petmily.domain.member.form;
 
-import kh.petmily.domain.member.Member;
 import lombok.Data;
 
 import java.util.List;
@@ -46,12 +45,20 @@ public class MemberPageForm {
         return total;
     }
 
-    public int getCurrentPage() {return currentPage;}
+    public int getCurrentPage() {
+        return currentPage;
+    }
 
-    public int getTotalPages() {return totalPages;}
+    public int getTotalPages() {
+        return totalPages;
+    }
 
-    public int getStartPage() {return startPage;}
+    public int getStartPage() {
+        return startPage;
+    }
 
-    public int getEndPage() {return endPage;}
+    public int getEndPage() {
+        return endPage;
+    }
 
 }

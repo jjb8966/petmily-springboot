@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class BoardDao implements BasicDao{
+public class BoardDao implements BasicDao {
 
     private final BoardMapper mapper;
 
@@ -28,7 +28,9 @@ public class BoardDao implements BasicDao{
     }
 
     @Override
-    public void update(DomainObj obj) { mapper.update((Board) obj); }
+    public void update(DomainObj obj) {
+        mapper.update((Board) obj);
+    }
 
     @Override
     public void delete(int pk) {
@@ -44,7 +46,7 @@ public class BoardDao implements BasicDao{
         List<Board> list = mapper.selectIndex(start, end, kindOfBoard, sort);
         List<ReadBoardForm> readBoardFormList = new ArrayList<>();
 
-        for(Board b : list) {
+        for (Board b : list) {
             ReadBoardForm bd = new ReadBoardForm(b.getBNumber(), b.getMNumber(), selectName(b.getBNumber()), b.getKindOfBoard(), b.getTitle(), b.getContent(), b.getWrTime(), b.getCheckPublic(), b.getViewCount(), b.getSort());
             readBoardFormList.add(bd);
         }
@@ -52,9 +54,13 @@ public class BoardDao implements BasicDao{
         return readBoardFormList;
     }
 
-    public String selectName(int pk) { return mapper.selectName(pk); }
+    public String selectName(int pk) {
+        return mapper.selectName(pk);
+    }
 
-    public int updateViewCount(int pk) { return mapper.updateViewCount(pk); }
+    public int updateViewCount(int pk) {
+        return mapper.updateViewCount(pk);
+    }
 
     public List<Board> selectAll(String kindOfBoard) {
         return mapper.selectAll(kindOfBoard);

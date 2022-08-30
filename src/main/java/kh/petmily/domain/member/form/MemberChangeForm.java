@@ -1,6 +1,5 @@
 package kh.petmily.domain.member.form;
 
-import kh.petmily.domain.member.Member;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

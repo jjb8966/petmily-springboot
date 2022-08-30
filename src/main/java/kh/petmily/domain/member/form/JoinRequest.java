@@ -3,7 +3,6 @@ package kh.petmily.domain.member.form;
 import lombok.Data;
 
 import java.sql.Date;
-import java.util.Map;
 
 @Data
 public class JoinRequest {

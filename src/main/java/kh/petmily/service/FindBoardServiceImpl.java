@@ -135,7 +135,7 @@ public class FindBoardServiceImpl implements FindBoardService {
 
         List<FindBoard> findList = findBoardDao.selectAll();
 
-        for(FindBoard f : findList) {
+        for (FindBoard f : findList) {
             AdminBoardListForm ad = new AdminBoardListForm(f.getFaNumber(), findName(f.getMNumber()), f.getWrTime(), f.getTitle());
             list.add(ad);
         }

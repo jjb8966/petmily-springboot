@@ -1,17 +1,8 @@
 package kh.petmily.service;
 
 import kh.petmily.domain.member.Member;
-import kh.petmily.domain.member.form.JoinRequest;
-import kh.petmily.domain.member.form.MemberChangeForm;
-
-import java.util.List;
-
-import java.util.List;
 import kh.petmily.domain.member.form.*;
-import kh.petmily.domain.member.Member;
-import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 public interface MemberService {

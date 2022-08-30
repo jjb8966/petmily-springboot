@@ -2,14 +2,13 @@ package kh.petmily.service;
 
 import kh.petmily.domain.admin.form.AdminBoardListForm;
 import kh.petmily.domain.find_board.FindBoard;
+import kh.petmily.domain.find_board.form.FindBoardDetailForm;
 import kh.petmily.domain.find_board.form.FindBoardModifyForm;
 import kh.petmily.domain.find_board.form.FindBoardPageForm;
-import kh.petmily.domain.find_board.form.FindBoardDetailForm;
 import kh.petmily.domain.find_board.form.FindBoardWriteForm;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-
 import java.util.List;
 
 public interface FindBoardService {

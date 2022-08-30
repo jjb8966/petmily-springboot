@@ -1,10 +1,10 @@
 package kh.petmily.controller;
 
+import kh.petmily.domain.board.form.BoardModifyForm;
 import kh.petmily.domain.board.form.BoardPage;
+import kh.petmily.domain.board.form.ReadBoardForm;
 import kh.petmily.domain.board.form.WriteBoardForm;
 import kh.petmily.domain.member.Member;
-import kh.petmily.domain.board.form.BoardModifyForm;
-import kh.petmily.domain.board.form.ReadBoardForm;
 import kh.petmily.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +58,7 @@ public class BoardController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute WriteBoardForm writeBoardForm, HttpServletRequest request) {
-        if(writeBoardForm.getMNumber() == 0) {
+        if (writeBoardForm.getMNumber() == 0) {
             Member member = getAuthMember(request);
 
             int mNumber = member.getMNumber();
@@ -89,7 +89,7 @@ public class BoardController {
     }
 
     @PostMapping("/auth/modify")
-    public String modify(@RequestParam("bNumber") int bNumber, @RequestParam("kindOfBoard") String kindOfBoard, @ModelAttribute BoardModifyForm modReq, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes){
+    public String modify(@RequestParam("bNumber") int bNumber, @RequestParam("kindOfBoard") String kindOfBoard, @ModelAttribute BoardModifyForm modReq, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         Member authUser = getAuthMember(request);
 
         int mNumber = authUser.getMNumber();
@@ -107,7 +107,7 @@ public class BoardController {
     }
 
     @GetMapping("/auth/delete")
-    public String delete(@RequestParam("bNumber") int bNumber){
+    public String delete(@RequestParam("bNumber") int bNumber) {
         boardService.delete(bNumber);
 
         return "/board/deleteSuccess";

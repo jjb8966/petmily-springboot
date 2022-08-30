@@ -3,8 +3,8 @@ package kh.petmily.dao;
 import kh.petmily.domain.DomainObj;
 import kh.petmily.domain.adopt.form.AdoptTempListForm;
 import kh.petmily.domain.adopt.form.TempDetailForm;
-import kh.petmily.domain.temp.form.TempMemberApplyListForm;
 import kh.petmily.domain.temp.TempPet;
+import kh.petmily.domain.temp.form.TempMemberApplyListForm;
 import kh.petmily.mapper.AbandonedAnimalMapper;
 import kh.petmily.mapper.MemberMapper;
 import kh.petmily.mapper.TempMapper;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class TempDao implements BasicDao{
+public class TempDao implements BasicDao {
 
     private final TempMapper mapper;
     private final AbandonedAnimalMapper abandonedAnimalMapper;
@@ -50,7 +50,7 @@ public class TempDao implements BasicDao{
         List<TempPet> list = mapper.selectIndexBymNumber(start, end, mNumber);
         List<TempMemberApplyListForm> maList = new ArrayList<>();
 
-        for(TempPet t : list) {
+        for (TempPet t : list) {
             TempMemberApplyListForm ma = new TempMemberApplyListForm(t.getTNumber(), getAbNameByAbNumber(t.getAbNumber()), t.getStatus());
             maList.add(ma);
         }

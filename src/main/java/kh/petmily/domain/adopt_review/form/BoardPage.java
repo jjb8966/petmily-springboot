@@ -7,42 +7,42 @@ import java.util.List;
 @Data
 public class BoardPage {
 
-	private int total;
-	private int currentPage;
-	private List<AdoptReviewForm> content;
-	private int totalPages;
-	private int startPage;
-	private int endPage;
+    private int total;
+    private int currentPage;
+    private List<AdoptReviewForm> content;
+    private int totalPages;
+    private int startPage;
+    private int endPage;
 
-	public BoardPage(int total, int currentPage, int size, List<AdoptReviewForm> content) {
-		this.total = total;  
-		this.currentPage = currentPage;
-		this.content = content;
-		
-		if (total == 0) {
-			totalPages = 0;
-			startPage = 0;
-			endPage = 0;
-		} else {
-			totalPages = total / size;
+    public BoardPage(int total, int currentPage, int size, List<AdoptReviewForm> content) {
+        this.total = total;
+        this.currentPage = currentPage;
+        this.content = content;
 
-			if (total % size > 0) {
-				totalPages++;
-			}
+        if (total == 0) {
+            totalPages = 0;
+            startPage = 0;
+            endPage = 0;
+        } else {
+            totalPages = total / size;
 
-			int modVal = currentPage % 5;
+            if (total % size > 0) {
+                totalPages++;
+            }
 
-			startPage = currentPage / 5 * 5 + 1;
+            int modVal = currentPage % 5;
 
-			if (modVal == 0) {
-				startPage -= 5;
-			}
+            startPage = currentPage / 5 * 5 + 1;
 
-			endPage = startPage + 4;
+            if (modVal == 0) {
+                startPage -= 5;
+            }
 
-			if (endPage > totalPages) {
-				endPage = totalPages;
-			}
-		}
-	}
+            endPage = startPage + 4;
+
+            if (endPage > totalPages) {
+                endPage = totalPages;
+            }
+        }
+    }
 }

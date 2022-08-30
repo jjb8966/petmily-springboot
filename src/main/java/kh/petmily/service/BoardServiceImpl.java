@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardModifyForm getBoardModify(int bNumber) {
         Board board = boardDao.findByPk(bNumber);
-        BoardModifyForm modReq =toBoardModify(board);
+        BoardModifyForm modReq = toBoardModify(board);
         return modReq;
     }
 
@@ -85,11 +85,11 @@ public class BoardServiceImpl implements BoardService {
                 req.getCheckPublic());
     }
 
-    private Board toBoardModifyForm(BoardModifyForm modReq){
+    private Board toBoardModifyForm(BoardModifyForm modReq) {
         return new Board(modReq.getBNumber(), modReq.getTitle(), modReq.getContent(), modReq.getCheckPublic());
     }
 
-    private BoardModifyForm toBoardModify(Board board){
+    private BoardModifyForm toBoardModify(Board board) {
         return new BoardModifyForm(board.getBNumber(), board.getTitle(), board.getContent(), board.getCheckPublic());
     }
 
@@ -99,7 +99,7 @@ public class BoardServiceImpl implements BoardService {
 
         List<Board> boardList = boardDao.selectAll(kindOfBoard);
 
-        for(Board b : boardList) {
+        for (Board b : boardList) {
             AdminBoardListForm ad = new AdminBoardListForm(b.getBNumber(), findName(b.getMNumber()), b.getWrTime(), b.getTitle());
             list.add(ad);
         }

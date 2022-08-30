@@ -1,6 +1,5 @@
 package kh.petmily.domain.abandoned_animal.form;
 
-import kh.petmily.domain.abandoned_animal.AbandonedAnimal;
 import lombok.Data;
 
 import java.util.List;

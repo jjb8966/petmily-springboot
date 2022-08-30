@@ -28,7 +28,7 @@ public class AbandonedAnimal implements DomainObj {
     private String description;
     private String animalState;
     private Blob video;
-    
+
     public AbandonedAnimal(int abNumber, String name, String imgPath, String location, Date admissionDate) {
         this.abNumber = abNumber;
         this.name = name;

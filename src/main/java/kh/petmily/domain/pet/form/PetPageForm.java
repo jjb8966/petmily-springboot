@@ -1,6 +1,5 @@
 package kh.petmily.domain.pet.form;
 
-import kh.petmily.domain.find_board.form.FindBoardListForm;
 import kh.petmily.domain.pet.Pet;
 import lombok.Data;
 

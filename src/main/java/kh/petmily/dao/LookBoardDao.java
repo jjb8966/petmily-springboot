@@ -59,8 +59,8 @@ public class LookBoardDao implements BasicDao {
         List<Integer> old_list = mapper.selectMatchedFa(old_lookBoard);
         log.info("update : old_list = {}", old_list);
 
-        if(old_list.size() != 0) {
-            for(Integer i : old_list) {
+        if (old_list.size() != 0) {
+            for (Integer i : old_list) {
                 mapper.backStateFind(i);
             }
         }
@@ -86,8 +86,8 @@ public class LookBoardDao implements BasicDao {
         List<Integer> list = mapper.selectMatchedFa(lookBoard);
         log.info("delete : list = {}", list);
 
-        if(list.size() != 0) {
-            for(Integer i : list) {
+        if (list.size() != 0) {
+            for (Integer i : list) {
                 mapper.backStateFind(i);
             }
         }
@@ -133,7 +133,7 @@ public class LookBoardDao implements BasicDao {
     public List<LookBoardListForm> selectMatchedIndex(int start, int end, FindBoard findBoard) {
         List<Integer> list = findBoardMapper.selectMatchedLa(findBoard);
         List<LookBoard> lookBoardList = new ArrayList<>();
-        for(Integer i : list) {
+        for (Integer i : list) {
             lookBoardList.add(mapper.selectByPk(i));
 
         }
