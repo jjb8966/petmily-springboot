@@ -95,12 +95,12 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
 
     private AdoptReview toAdoptReview(AdoptReviewWriteForm req) {
         return new AdoptReview(
-                req.getMNumber(),
+                req.getmNumber(),
                 req.getKindOfBoard(),
                 req.getTitle(),
                 req.getContent(),
-                req.getCheckPublic(),
-                req.getFullPath()
+                req.getFullPath(),
+                req.getCheckPublic()
         );
     }
 
@@ -135,13 +135,18 @@ public class AdoptReviewServiceImpl implements AdoptReviewService {
         }
 
         File storeFolder = new File(filePath);
+
         if (!storeFolder.exists()) {
             storeFolder.mkdir();
         }
+
         String originalFilename = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         String storeFileName = uuid + "." + extractExt(originalFilename);
         String fullPath = getFullPath(storeFileName, filePath);
+
+        log.info("fullPath = {}", fullPath);
+
         file.transferTo(new File(fullPath));
 
         return storeFileName;

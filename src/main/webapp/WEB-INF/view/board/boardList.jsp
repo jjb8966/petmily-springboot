@@ -91,7 +91,7 @@
                                     </c:if>
                                     <c:if test="${param.kindOfBoard eq '문의'}">
                                         <c:choose>
-                                            <c:when test="${authUser.getMNumber() ne board.getMNumber() and board.checkPublic eq 'N'}">
+                                            <c:when test="${authUser.grade ne '관리자' and authUser.getMNumber() ne board.getMNumber() and board.checkPublic eq 'N'}">
                                                 <a class="text-body" style="font-size: 1.3em;">${board.title}</a>
                                             </c:when>
                                             <c:otherwise>

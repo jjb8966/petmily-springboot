@@ -43,4 +43,12 @@ public class AdoptReviewWriteForm implements DomainObj {
         this.imgPath = imgPath;
         this.checkPublic = checkPublic;
     }
+
+    public int getmNumber() {
+        return mNumber;
+    }
+
+    public void setmNumber(int mNumber) {
+        this.mNumber = mNumber;
+    }
 }

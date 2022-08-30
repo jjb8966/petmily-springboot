@@ -74,4 +74,8 @@ public class Board implements DomainObj {
         this.content = content;
         this.checkPublic = checkPublic;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

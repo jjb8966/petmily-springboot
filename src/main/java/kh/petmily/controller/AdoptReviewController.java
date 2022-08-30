@@ -102,15 +102,14 @@ public class AdoptReviewController {
 
     @PostMapping("/auth/write")
     public String write(@ModelAttribute AdoptReviewWriteForm adoptReviewWriteForm, HttpServletRequest request) {
-
         String fullPath = request.getSession().getServletContext().getRealPath("/");
         fullPath = fullPath + "resources/upload/";
 
-        if (adoptReviewWriteForm.getMNumber() == 0) {
+        if (adoptReviewWriteForm.getmNumber() == 0) {
             Member member = getAuthMember(request);
             int mNumber = member.getMNumber();
 
-            adoptReviewWriteForm.setMNumber(mNumber);
+            adoptReviewWriteForm.setmNumber(mNumber);
         }
 
         String filename = "";
@@ -118,6 +117,8 @@ public class AdoptReviewController {
         if (!adoptReviewWriteForm.getImgPath().isEmpty()) {
 
             try {
+                log.info("ImgPath = {}, fullPath = {}", adoptReviewWriteForm.getImgPath(), fullPath);
+
                 filename = adoptReviewService.storeFile(adoptReviewWriteForm.getImgPath(), fullPath);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -127,6 +128,8 @@ public class AdoptReviewController {
         } else {
             adoptReviewWriteForm.setFullPath("");
         }
+
+        log.info("adoptReviewWriteForm = {}", adoptReviewWriteForm);
 
         adoptReviewService.write(adoptReviewWriteForm);
 

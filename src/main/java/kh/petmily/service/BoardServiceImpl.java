@@ -38,6 +38,8 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public ReadBoardForm getBoard(int bNumber) {
         Board readBoardForm = boardDao.findByPk(bNumber);
+        String memberName = memberDao.selectName(readBoardForm.getMNumber());
+        readBoardForm.setName(memberName);
 
         return new ReadBoardForm(
                 readBoardForm.getBNumber(),

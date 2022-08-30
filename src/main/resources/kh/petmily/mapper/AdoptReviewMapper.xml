@@ -12,8 +12,8 @@
     </select>
 
     <insert id="insert">
-        insert into BOARD(BNUMBER, MNUMBER, KINDOFBOARD, TITLE, CONTENT, IMGPATH, VIDEO, WRTIME, CHECKPUBLIC)
-        values (#{bNumber}, #{mNumber}, #{kindOfBoard}, #{title}, #{content}, #{imgPath}, null, SYSDATE, #{checkPublic})
+        insert into BOARD(MNUMBER, KINDOFBOARD, TITLE, CONTENT, IMGPATH, VIDEO, WRTIME, CHECKPUBLIC)
+        values (#{mNumber}, #{kindOfBoard}, #{title}, #{content}, #{imgPath}, null, SYSDATE, #{checkPublic})
     </insert>
 
     <update id="update">
