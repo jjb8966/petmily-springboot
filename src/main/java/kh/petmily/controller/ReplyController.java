@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class ReplyController {
+
     private final ReplyService replyService;
 
     @GetMapping("/{bNumber}")

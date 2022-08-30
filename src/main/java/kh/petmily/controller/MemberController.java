@@ -27,6 +27,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {
+
     private final MemberService memberService;
     private final FindBoardService findBoardService;
     private final LookBoardService lookBoardService;
@@ -99,7 +100,7 @@ public class MemberController {
 
     //change member Info
     @GetMapping(value = "/member/auth/change_info")
-    private String changeInfo(HttpServletRequest request, Model model) {
+    public String changeInfo(HttpServletRequest request, Model model) {
         Member member = getAuthMember(request);
 
         model.addAttribute("memberInfo", member);
@@ -108,7 +109,7 @@ public class MemberController {
     }
 
     @PostMapping(value = "/member/auth/change_info")
-    private String changeInfoPost(HttpServletRequest request, Model model, MemberChangeForm memberChangeForm) {
+    public String changeInfoPost(HttpServletRequest request, Model model, MemberChangeForm memberChangeForm) {
         Member member = getAuthMember(request);
 
         Member mem = memberService.modify(member, memberChangeForm);
@@ -119,19 +120,12 @@ public class MemberController {
         return "/member/mypage";
     }
 
-    private static Member getAuthMember(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Member member = (Member) session.getAttribute("authUser");
-
-        return member;
-    }
-
     // 회원탈퇴
+
     @GetMapping("/member/auth/withdraw")
     public String withdrawForm() {
         return "/member/withdrawForm";
     }
-
     @PostMapping("/member/auth/withdraw")
     public String withdraw(HttpServletRequest request, @RequestParam String pw, @RequestParam String confirmPw) {
 
@@ -158,7 +152,6 @@ public class MemberController {
         return "/member/withdrawSuccess";
     }
 
-    //찾아요 게시판 매칭 결과
     @GetMapping("/member/auth/checkMatching")
     public String checkMatching(@RequestParam(required = false) String matched, HttpServletRequest request, Model model) {
         String pageNoVal = request.getParameter("pageNo");
@@ -223,5 +216,12 @@ public class MemberController {
         request.getSession().setAttribute("type", type);
 
         return "/member/applyList";
+    }
+
+    private Member getAuthMember(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member member = (Member) session.getAttribute("authUser");
+
+        return member;
     }
 }

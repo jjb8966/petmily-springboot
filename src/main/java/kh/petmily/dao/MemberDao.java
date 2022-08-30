@@ -38,10 +38,6 @@ public class MemberDao implements BasicDao {
     }
     // =======BasicDao 메소드=======
 
-    public int findPk(String id, String pw) {
-        return mapper.selectmNumber(id, pw);
-    }
-
     public Member selectMemberById(String id) {
         return mapper.selectMemberById(id);
     }

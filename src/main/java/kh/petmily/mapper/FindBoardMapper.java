@@ -8,6 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface FindBoardMapper {
+
     FindBoard selectByPk(int pk);
 
     void insert(FindBoard obj);

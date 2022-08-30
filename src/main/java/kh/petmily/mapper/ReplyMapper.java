@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface ReplyMapper {
+
     Reply selectByPk(int pk);
 
     void insert(Reply obj);

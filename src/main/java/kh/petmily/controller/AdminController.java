@@ -57,6 +57,7 @@ public class AdminController {
     private final LookBoardService lookBoardService;
     private final DonateService donateService;
     private final AbandonedAnimalService abandonedAnimalService;
+    private final AdoptTempService adoptTempService;
 
     @ResponseBody
     @GetMapping("/upload")
@@ -78,8 +79,6 @@ public class AdminController {
             throw new RuntimeException(e);
         }
     }
-
-    private final AdoptTempService adoptTempService;
 
     @GetMapping
     public String adminPage() {
@@ -619,8 +618,4 @@ public class AdminController {
         return "/admin/donation/deleteDonationSuccess";
     }
 
-    @GetMapping("/volunteer")
-    public void volunteerPage() {
-
-    }
 }

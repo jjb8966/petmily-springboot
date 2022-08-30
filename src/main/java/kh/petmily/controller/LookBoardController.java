@@ -97,7 +97,6 @@ public class LookBoardController {
     //=======작성=======
     @GetMapping("/auth/write")
     public String writeForm() {
-
         return "/look_board/writeLookBoardForm";
     }
 
@@ -190,7 +189,7 @@ public class LookBoardController {
         return "/look_board/submitSuccess";
     }
 
-    private static Member getAuthMember(HttpServletRequest request) {
+    private Member getAuthMember(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Member member = (Member) session.getAttribute("authUser");
 

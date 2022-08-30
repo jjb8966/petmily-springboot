@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
+
     private final BoardService boardService;
 
     @GetMapping("/list")
@@ -73,7 +74,7 @@ public class BoardController {
     }
 
     @GetMapping("/auth/modify")
-    private String modifyForm(@RequestParam("bNumber") int bNumber, @RequestParam("kindOfBoard") String kindOfBoard, HttpServletRequest request, Model model) {
+    public String modifyForm(@RequestParam("bNumber") int bNumber, @RequestParam("kindOfBoard") String kindOfBoard, HttpServletRequest request, Model model) {
         BoardModifyForm modReq = boardService.getBoardModify(bNumber);
         Member authUser = getAuthMember(request);
 
@@ -113,7 +114,7 @@ public class BoardController {
         return "/board/deleteSuccess";
     }
 
-    private static Member getAuthMember(HttpServletRequest request) {
+    private Member getAuthMember(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Member member = (Member) session.getAttribute("authUser");
         return member;

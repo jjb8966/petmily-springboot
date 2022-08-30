@@ -137,7 +137,7 @@ public class AdoptReviewController {
     }
 
     @GetMapping("/auth/modify")
-    private String modifyForm(@RequestParam("bNumber") int bNumber, HttpServletRequest request, Model model) {
+    public String modifyForm(@RequestParam("bNumber") int bNumber, HttpServletRequest request, Model model) {
         AdoptReviewModifyForm modReq = adoptReviewService.getAdoptReviewModify(bNumber);
         Member authUser = getAuthMember(request);
 
@@ -187,13 +187,6 @@ public class AdoptReviewController {
         return "/adopt_review/deleteSuccess";
     }
 
-    private static Member getAuthMember(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Member member = (Member) session.getAttribute("authUser");
-
-        return member;
-    }
-
     private void saveCondition(String kindOfBoard, String searchType, String keyword, HttpSession session) {
         if (kindOfBoard != null) {
             if (!kindOfBoard.equals("")) {
@@ -222,5 +215,12 @@ public class AdoptReviewController {
             session.removeAttribute("searchType");
             session.removeAttribute("keyword");
         }
+    }
+
+    private Member getAuthMember(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member member = (Member) session.getAttribute("authUser");
+
+        return member;
     }
 }

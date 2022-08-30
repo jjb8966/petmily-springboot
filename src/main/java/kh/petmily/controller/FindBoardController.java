@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 @RequiredArgsConstructor
 @Slf4j
 public class FindBoardController {
+
     private final FindBoardService findBoardService;
 
     @ResponseBody
@@ -185,13 +186,6 @@ public class FindBoardController {
         return "/find_board/submitSuccess";
     }
 
-    private static Member getAuthMember(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Member member = (Member) session.getAttribute("authUser");
-
-        return member;
-    }
-
     private void saveCondition(String species, String animalState, String keyword, HttpSession session) {
         if (species != null) {
             session.setAttribute("species", species);
@@ -216,5 +210,12 @@ public class FindBoardController {
             session.removeAttribute("animalState");
             session.removeAttribute("keyword");
         }
+    }
+
+    private Member getAuthMember(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member member = (Member) session.getAttribute("authUser");
+
+        return member;
     }
 }

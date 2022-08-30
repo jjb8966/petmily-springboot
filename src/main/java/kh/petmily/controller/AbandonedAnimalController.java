@@ -188,7 +188,7 @@ public class AbandonedAnimalController {
     }
 
     @PostMapping("/auth/volunteer")
-    private String volunteer(@RequestParam("abNumber") int abNumber, @ModelAttribute VolunteerApplySubmitForm volunteerApplySubmitForm, HttpServletRequest request) {
+    public String volunteer(@RequestParam("abNumber") int abNumber, @ModelAttribute VolunteerApplySubmitForm volunteerApplySubmitForm, HttpServletRequest request) {
         log.info("volunteerApplySubmitForm = {}", volunteerApplySubmitForm);
 
         Member member = getAuthMember(request);
@@ -204,7 +204,7 @@ public class AbandonedAnimalController {
         return "/abandoned_animal/submitSuccess";
     }
 
-    private static Member getAuthMember(HttpServletRequest request) {
+    private Member getAuthMember(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Member member = (Member) session.getAttribute("authUser");
         return member;
