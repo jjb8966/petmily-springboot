@@ -35,9 +35,6 @@ pageEncoding="UTF-8" %>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2">
-                    <span>Admin Donation Management<i class="ion-ios-arrow-forward"></i></span>
-                </p>
                 <h1 class="mb-0 bread">후원 관리</h1>
             </div>
         </div>
