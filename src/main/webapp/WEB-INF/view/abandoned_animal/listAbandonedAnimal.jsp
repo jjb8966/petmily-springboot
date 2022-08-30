@@ -33,8 +33,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <%--                <p class="breadcrumbs mb-2"><span class="mr-2">--%>
-                <%--                    <a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Veterinarian <i class="ion-ios-arrow-forward"></i></span></p>--%>
+                <p class="breadcrumbs mb-2">
+                    <span class="mr-2"><span>Abandoned Animal<i class="ion-ios-arrow-forward"></i></span></span>
+                </p>
                 <h1 class="mb-0 bread">유기동물 조회</h1>
             </div>
         </div>

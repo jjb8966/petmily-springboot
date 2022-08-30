@@ -31,7 +31,7 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span>Member - FindMatching<i class="ion-ios-arrow-forward"></i></span></p>
+                <p class="breadcrumbs mb-2"><span>Member - Find Matching<i class="ion-ios-arrow-forward"></i></span></p>
                 <h1 class="mb-0 bread">찾아요 매칭 결과</h1>
             </div>
         </div>

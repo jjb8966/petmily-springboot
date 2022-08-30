@@ -34,7 +34,18 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <h1 class="mb-0 bread">상세보기</h1>
+                <c:if test="${param.kindOfBoard eq '자유'}">
+                    <p class="breadcrumbs mb-2">
+                        <span class="mr-2"><span>Free Board - Detail<i class="ion-ios-arrow-forward"></i></span></span>
+                    </p>
+                    <h1 class="mb-0 bread">자유 게시판 - 상세보기</h1>
+                </c:if>
+                <c:if test="${param.kindOfBoard eq '문의'}">
+                    <p class="breadcrumbs mb-2">
+                        <span class="mr-2"><span>Inquiry Board - Detail<i class="ion-ios-arrow-forward"></i></span></span>
+                    </p>
+                    <h1 class="mb-0 bread">문의 게시판 - 상세보기</h1>
+                </c:if>
             </div>
         </div>
     </div>

@@ -31,6 +31,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2">
+                    <span class="mr-2"><span>Member - Matched Look Board List<i class="ion-ios-arrow-forward"></i></span></span>
+                </p>
                 <h1 class="mb-0 bread">매칭된 봤어요 게시판 리스트</h1>
             </div>
         </div>
