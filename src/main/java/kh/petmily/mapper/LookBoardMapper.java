@@ -36,4 +36,6 @@ public interface LookBoardMapper {
     void backStateFind(int faNumber);
 
     int selectByPkMax();
+
+    List<LookBoard> selectAll();
 }

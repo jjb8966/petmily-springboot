@@ -99,6 +99,10 @@ public class LookBoardDao implements BasicDao {
         return mapper.selectCountWithCondition(species, animalState, keyword);
     }
 
+    public List<LookBoard> selectIndex(int start, int end) {
+        return mapper.selectIndex(start, end);
+    }
+
     public List<LookBoardListForm> selectIndex(int start, int end, String species, String animalState, String keyword) {
         List<LookBoardListForm> result = new ArrayList<>();
 
@@ -141,5 +145,9 @@ public class LookBoardDao implements BasicDao {
         }
 
         return liList;
+    }
+
+    public List<LookBoard> selectAll() {
+        return mapper.selectAll();
     }
 }

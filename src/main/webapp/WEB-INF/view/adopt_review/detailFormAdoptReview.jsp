@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,7 +91,12 @@ pageEncoding="UTF-8" %>
 
 					<span>
             		<button type="button" class="btn btn-primary"
-							onclick="location.href = document.referrer">글 목록</button>
+						<c:if test="${authUser.grade == '일반'}">
+							onclick="location.href='/adopt_review/list?kindOfBoard=${param.kindOfBoard}'"
+						</c:if>
+						<c:if test="${authUser.grade == '관리자'}">
+							onclick="location.href='/admin/board?kindOfBoard=${param.kindOfBoard}'"
+						</c:if>>목록으로</button>
             	    </span>
 
 					<!-- 댓글 작성하기 버튼 -->

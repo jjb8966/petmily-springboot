@@ -93,7 +93,7 @@
                                                                                          name="kind" id="kindInput"
                                                                                          value="${lookMod.kind}"
                                                                                          required="required"/>
-                                                <label for="locationInput">실종 장소:</label><input type="text"
+                                                <label for="locationInput">발견 장소:</label><input type="text"
                                                                                                 class="form-control"
                                                                                                 name="location"
                                                                                                 id="locationInput"

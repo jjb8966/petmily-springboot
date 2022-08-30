@@ -149,4 +149,10 @@
         select MAX(LANUMBER)
         from LOOKANIMALBOARD
     </select>
+
+    <select id="selectAll" resultType="kh.petmily.domain.look_board.LookBoard">
+        select *
+        from LOOKANIMALBOARD
+        order by LANUMBER desc
+    </select>
 </mapper>

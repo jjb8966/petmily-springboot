@@ -29,4 +29,6 @@ public interface AdoptReviewMapper {
 
     // ====== 조회수 추가 ======
     int updateViewCount(int pk);
+
+    List<AdoptReview> selectAll(String kindOfBoard);
 }

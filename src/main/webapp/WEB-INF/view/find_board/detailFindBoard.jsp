@@ -100,7 +100,12 @@
                         </button>
                     </c:if>
                     <button type="button" class="btn btn-primary"
-                            onclick="location.href= document.referrer">목록으로
+                        <c:if test="${authUser.grade == '일반'}">
+                           onclick="location.href='/findBoard/list'"
+                        </c:if>
+                        <c:if test="${authUser.grade == '관리자'}">
+                            onclick="location.href='/admin/board?kindOfBoard=find'"
+                        </c:if>>목록으로
                     </button>
                 </div>
             </div>

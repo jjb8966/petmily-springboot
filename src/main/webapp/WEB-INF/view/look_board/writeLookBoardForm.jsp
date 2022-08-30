@@ -51,12 +51,26 @@
                                   enctype="multipart/form-data">
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="form-group">
-                                            <label for="threadTitle"></label><input type="text" class="form-control"
-                                                                                    name="title" id="threadTitle"
-                                                                                    placeholder="제목을 입력해주세요"
-                                                                                    autofocus="" required="required"/>
-                                        </div>
+                                        <c:if test="${authUser.grade == '관리자'}">
+                                            <div>
+                                                <label for="mNumber">
+                                                    작성자 :
+                                                </label>
+                                                <select name="mNumber" id="mNumber">
+                                                    <c:forEach var="mem" items="${Mems}">
+                                                        <option value="${mem.getMNumber()}">${mem.getMNumber()} - ${mem.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <hr color="#6c757d" width="100%">
+                                        </c:if>
+                                        <div>
+                                            <div class="form-group">
+                                                <label for="threadTitle"></label><input type="text" class="form-control"
+                                                                                        name="title" id="threadTitle"
+                                                                                        placeholder="제목을 입력해주세요"
+                                                                                        autofocus="" required="required"/>
+                                            </div>
 
                                         <hr color="#6c757d" width="100%">
 
@@ -75,7 +89,7 @@
                                                                                          name="kind" id="kindInput"
                                                                                          placeholder="모르는 경우 '모름' 작성"
                                                                                          required="required"/>
-                                                <label for="locationInput">목격 장소:</label><input type="text"
+                                                <label for="locationInput">발견 장소:</label><input type="text"
                                                                                                 class="form-control"
                                                                                                 name="location"
                                                                                                 id="locationInput"
@@ -84,7 +98,7 @@
                                             </div>
                                         </div>
 
-                                        <hr color="#6c757d" width="100%">
+                                            <hr color="#6c757d" width="100%">
 
                                         <textarea rows="20" class="form-control" name="content" id="content"
                                                   placeholder=" 내용을 입력해주세요" required="required"></textarea>

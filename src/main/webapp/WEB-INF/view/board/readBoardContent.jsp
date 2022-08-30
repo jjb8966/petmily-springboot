@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,13 +80,13 @@
 
                             <c:if test="${authUser.mNumber == readBoardForm.mNumber}">
                                 <button type="button" class="btn btn-light"
-                                        onclick="location.href='/board/modify?kindOfBoard=${param.kindOfBoard}&bNumber=${readBoardForm.bNumber}'">
+                                        onclick="location.href='/board/modify?kindOfBoard=${param.kindOfBoard}&bNumber=${readBoardForm.getBNumber()}'">
                                     수정
                                 </button>
 
                                 <button type="button" class="btn btn-light"
                                         onclick="if(confirm('정말로 삭제하시겠습니까?'))
-                                                {return location.href='/board/delete?kindOfBoard=${param.kindOfBoard}&bNumber=${readBoardForm.bNumber}';}">
+                                                {return location.href='/board/delete?kindOfBoard=${param.kindOfBoard}&bNumber=${readBoardForm.getBNumber()}';}">
                                     삭제
                                 </button>
                             </c:if>
@@ -125,7 +124,7 @@
 								<c:if test="${authUser.mNumber == reply.mNumber}">
                                 <button class="btn btn-light" onclick="if(confirm('정말로 삭제하시겠습니까?'))
                                         {return location.href=
-                                        '/board/replyDelete?kindOfBoard=${param.kindOfBoard}&bNumber=${readBoardForm.bNumber}&brNumber=${reply.brNumber}';}">
+                                        '/board/replyDelete?kindOfBoard=${param.kindOfBoard}&bNumber=${readBoardForm.getBNumber()}&brNumber=${reply.brNumber}';}">
                                         삭제</button>
                                 </c:if>
                             </span>
@@ -150,7 +149,7 @@
                         <div class="panel panel-info">
                             <div class="panel-body">
 
-                                <form action="/board/reply?kindOfBoard=${param.kindOfBoard}&bNumber=${readBoardForm.bNumber}"
+                                <form action="/board/reply?kindOfBoard=${param.kindOfBoard}&bNumber=${readBoardForm.getBNumber()}"
                                       method="post">
                                     <div class="form-group">
                                         <label for="message">댓글</label>

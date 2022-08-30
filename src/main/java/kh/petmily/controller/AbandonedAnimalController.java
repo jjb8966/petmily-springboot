@@ -1,10 +1,6 @@
 package kh.petmily.controller;
 
-import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalDetailForm;
-import kh.petmily.domain.abandoned_animal.form.AbandonedAnimalPageForm;
-import kh.petmily.domain.abandoned_animal.form.AdoptTempSubmitForm;
-import kh.petmily.domain.abandoned_animal.form.DonateSubmitForm;
-import kh.petmily.domain.abandoned_animal.form.VolunteerApplySubmitForm;
+import kh.petmily.domain.abandoned_animal.form.*;
 import kh.petmily.domain.member.Member;
 import kh.petmily.service.*;
 import lombok.RequiredArgsConstructor;
@@ -80,15 +76,16 @@ public class AbandonedAnimalController {
         Member member = getAuthMember(request);
 
         int mNumber = member.getMNumber();
-        String animalName = donateService.findAnimalName(abNumber);
-        String memberName = donateService.findMemberName(mNumber);
+
+        String animalName = abandonedAnimalService.findName(abNumber);
+        String memberName = memberService.findName(mNumber);
 
         if (animalName != null) {
-            model.addAttribute("animalName", animalName);
+            request.setAttribute("animalName", animalName);
         }
 
         if (memberName != null) {
-            model.addAttribute("memberName", memberName);
+            request.setAttribute("memberName", memberName);
         }
 
         return "/abandoned_animal/donateSubmitForm";

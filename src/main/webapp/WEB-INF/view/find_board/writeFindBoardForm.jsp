@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -51,36 +52,48 @@
                                   enctype="multipart/form-data">
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="form-group">
-                                            <label for="threadTitle"></label><input type="text" class="form-control"
-                                                                                    name="title" id="threadTitle"
-                                                                                    placeholder="제목을 입력해주세요"
-                                                                                    autofocus="" required="required"/>
-                                        </div>
-
-                                        <hr color="#6c757d" width="100%">
-
-                                        <div><label for="speciesInput">종:</label><br>
-                                            <div id="speciesInput" class="form-check form-check-inline">
-                                                <input type="radio" class="form-check-input" name="species"
-                                                       id="speciesInput1" value="개"/>개<span>&emsp;</span>
-                                                <input type="radio" class="form-check-input" name="species"
-                                                       id="speciesInput2" value="고양이"/>고양이<span>&emsp;</span>
-                                                <input type="radio" class="form-check-input" name="species"
-                                                       id="speciesInput3" value="기타" checked="checked"/>기타
+                                        <c:if test="${authUser.grade == '관리자'}">
+                                            <div>
+                                                <label for="mNumber">
+                                                    작성자 :
+                                                </label>
+                                                <select name="mNumber" id="mNumber">
+                                                    <c:forEach var="mem" items="${Mems}">
+                                                        <option value="${mem.getMNumber()}">${mem.getMNumber()} - ${mem.name}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
-                                            <div class="write-input">
-                                                <label for="kindInput">품종:</label><input type="text"
-                                                                                         class="form-control"
-                                                                                         name="kind" id="kindInput"
-                                                                                         placeholder="모르는 경우 '모름' 작성"
-                                                                                         required="required"/>
-                                                <label for="locationInput">실종 장소:</label><input type="text"
-                                                                                                class="form-control"
-                                                                                                name="location"
-                                                                                                id="locationInput"
-                                                                                                placeholder="모르는 경우 '모름' 작성"
-                                                                                                required="required"/>
+                                            <hr color="#6c757d" width="100%">
+                                        </c:if>
+                                        <div>
+                                            <div class="form-group">
+                                                <label for="threadTitle"></label><input type="text" class="form-control"
+                                                                                        name="title" id="threadTitle"
+                                                                                        placeholder="제목을 입력해주세요"
+                                                                                        autofocus="" required="required"/>
+                                            </div>
+                                            <div><label for="speciesInput">종:</label><br>
+                                                <div id="speciesInput" class="form-check form-check-inline">
+                                                    <input type="radio" class="form-check-input" name="species"
+                                                           id="speciesInput1" value="개"/>개<span>&emsp;</span>
+                                                    <input type="radio" class="form-check-input" name="species"
+                                                           id="speciesInput2" value="고양이"/>고양이<span>&emsp;</span>
+                                                    <input type="radio" class="form-check-input" name="species"
+                                                           id="speciesInput3" value="기타" checked="checked"/>기타
+                                                </div>
+                                                <div class="write-input">
+                                                    <label for="kindInput">품종:</label><input type="text"
+                                                                                             class="form-control"
+                                                                                             name="kind" id="kindInput"
+                                                                                             placeholder="모르는 경우 '모름' 작성"
+                                                                                             required="required"/>
+                                                    <label for="locationInput">실종 장소:</label><input type="text"
+                                                                                                    class="form-control"
+                                                                                                    name="location"
+                                                                                                    id="locationInput"
+                                                                                                    placeholder="모르는 경우 '모름' 작성"
+                                                                                                    required="required"/>
+                                                </div>
                                             </div>
                                         </div>
 

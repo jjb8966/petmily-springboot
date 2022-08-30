@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Blob;
-import java.util.Date;
+import java.sql.Date;
 
 @Getter
 @NoArgsConstructor
 public class Board implements DomainObj {
-
     private int bNumber;
     private int mNumber;
     private String name;

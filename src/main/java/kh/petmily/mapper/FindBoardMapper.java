@@ -41,4 +41,6 @@ public interface FindBoardMapper {
     int selectMemberCount(@Param("mNumber") int mNumber, @Param("matched")String matched);
 
     List<FindBoard> selectMemberIndex(@Param("start") int start, @Param("end") int end, @Param("mNumber") int mNumber, @Param("matched") String matched);
+
+    List<FindBoard> selectAll();
 }

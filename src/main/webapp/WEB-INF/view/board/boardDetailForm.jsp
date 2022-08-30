@@ -97,7 +97,12 @@
 
                             <span>
 								<button type="button" class="btn btn-primary"
-                                        onclick="location.href = document.referrer">글 목록</button>
+                                    <c:if test="${authUser.grade == '일반'}">
+                                        onclick="location.href='/board/list?kindOfBoard=${param.kindOfBoard}&sort=bno'"
+                                    </c:if>
+                                    <c:if test="${authUser.grade == '관리자'}">
+                                        onclick="location.href='/admin/board?kindOfBoard=${param.kindOfBoard}'"
+                                    </c:if>>목록으로</button>
 							</span>
 
                             <!-- 댓글 작성하기 버튼 -->

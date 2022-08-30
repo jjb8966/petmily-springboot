@@ -75,4 +75,8 @@ public class AdoptReviewDao implements BasicDao {
     public int updateViewCount(int pk) {
         return mapper.updateViewCount(pk);
     }
+
+    public List<AdoptReview> selectAll(String kindOfBoard) {
+        return mapper.selectAll(kindOfBoard);
+    }
 }
