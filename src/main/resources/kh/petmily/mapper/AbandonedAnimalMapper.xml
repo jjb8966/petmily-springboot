@@ -71,6 +71,13 @@
         </where>
     </select>
 
+    <select id="selectIndex" resultType="kh.petmily.domain.abandoned_animal.AbandonedAnimal">
+        select * from
+            (select ROWNUM as NUM, A.* FROM
+                    (select * from ABANDONEDANIMAL order by ABNUMBER DESC) A)
+        where NUM between #{start} and #{end}
+    </select>
+
     <select id="selectIndexWithCondition" resultType="kh.petmily.domain.abandoned_animal.AbandonedAnimal">
         select * from
         (select ROWNUM as NUM, A.ABNUMBER, A.NAME, A.LOCATION, A.ADMISSIONDATE, A.IMGPATH FROM
@@ -126,6 +133,7 @@
         select count(*)
         from Pet
     </select>
+
     <select id="selectPetIndex" resultType="kh.petmily.domain.pet.Pet">
         select *
         from (select ROWNUM as NUM, a.*

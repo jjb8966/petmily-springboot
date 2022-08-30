@@ -23,6 +23,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class AdoptReviewServiceImpl implements AdoptReviewService {
+
     private final AdoptReviewDao adoptReviewDao;
     private final MemberDao memberDao;
     private int size = 6;

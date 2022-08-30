@@ -71,14 +71,13 @@ public class AbandonedAnimalServiceImpl implements AbandonedAnimalService{
         int total = abandonedAnimalDao.selectCount(species, gender, animalState, keyword);
         log.info("total = {}", total);
 
-        List<AbandonedAnimal> content = abandonedAnimalDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, species, gender, animalState, keyword);
+        List<AbandonedAnimalDetailForm> content = abandonedAnimalDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, species, gender, animalState, keyword);
 
         AbandonedAnimalPageForm result = new AbandonedAnimalPageForm(total, pageNo, size, content);
         log.info("start = {}, end = {}", result.getStartPage(), result.getEndPage());
 
         return new AbandonedAnimalPageForm(total, pageNo, size, content);
     }
-
     @Override
     public PetPageForm getPetPage(int pageNum) {
         int total = abandonedAnimalDao.selectPetCount();

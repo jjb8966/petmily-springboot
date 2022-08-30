@@ -2,11 +2,13 @@ package kh.petmily.dao;
 
 import kh.petmily.domain.DomainObj;
 import kh.petmily.domain.find_board.FindBoard;
+import kh.petmily.domain.find_board.form.FindBoardListForm;
 import kh.petmily.mapper.FindBoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository

@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.List;
 
 public interface AdoptReviewService {
-    public BoardPage getAdoptReviewPage(int pbNumber, String kindOfBoard);
 
     public BoardPage getAdoptReviewPage(int pbNumber, String kindOfBoard, String searchType, String keyword);
 

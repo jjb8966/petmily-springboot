@@ -66,6 +66,13 @@
         </where>
     </select>
 
+    <select id="selectIndex" resultType="kh.petmily.domain.look_board.LookBoard">
+        select *
+        from (select ROWNUM as NUM, A.*
+              FROM (select * from LOOKANIMALBOARD order by LANUMBER DESC) A)
+        where NUM between #{start} and #{end}
+    </select>
+
     <select id="selectIndexWithCondition" resultType="kh.petmily.domain.look_board.LookBoard">
         select *
         from (select ROWNUM as NUM, A.*

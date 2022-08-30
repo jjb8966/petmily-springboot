@@ -39,6 +39,10 @@ public class AbandonedAnimalDao implements BasicDao {
     }
     // =======BasicDao 메소드=======
 
+    public int selectCount() {
+        return mapper.selectCount();
+    }
+
     public int selectCount(String species, String gender, String animalState, String keyword) {
         return mapper.selectCountWithCondition(species, gender, animalState, keyword);
     }
@@ -50,6 +54,19 @@ public class AbandonedAnimalDao implements BasicDao {
         for (AbandonedAnimal a : list) {
             AbandonedAnimalDetailForm ab = new AbandonedAnimalDetailForm(a.getAbNumber(), a.getSNumber(), a.getAge(), a.getWeight(), a.getGender(), a.getName(), a.getSpecies(), a.getKind(), a.getLocation(), a.getUniqueness(), a.getDescription(), a.getAnimalState(), a.getImgPath(), a.getAdmissionDate());
             abandonedAnimalDetailForm.add(ab);
+        }
+
+        return abandonedAnimalDetailForm;
+    }
+
+    public List<AbandonedAnimalDetailForm> selectIndex(int start, int end, String species, String gender, String animalState, String keyword) {
+        List<AbandonedAnimal> abandonedAnimals = mapper.selectIndexWithCondition(start, end, species, gender, animalState, keyword);
+
+        List<AbandonedAnimalDetailForm> abandonedAnimalDetailForm = new ArrayList<>();
+
+        for (AbandonedAnimal abandonedAnimal : abandonedAnimals) {
+            AbandonedAnimalDetailForm form = new AbandonedAnimalDetailForm(abandonedAnimal.getAbNumber(), abandonedAnimal.getSNumber(), abandonedAnimal.getAge(), abandonedAnimal.getWeight(), abandonedAnimal.getGender(), abandonedAnimal.getName(), abandonedAnimal.getSpecies(), abandonedAnimal.getKind(), abandonedAnimal.getLocation(), abandonedAnimal.getUniqueness(), abandonedAnimal.getDescription(), abandonedAnimal.getAnimalState(), abandonedAnimal.getImgPath(), abandonedAnimal.getAdmissionDate());
+            abandonedAnimalDetailForm.add(form);
         }
 
         return abandonedAnimalDetailForm;

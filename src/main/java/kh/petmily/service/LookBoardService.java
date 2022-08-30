@@ -27,7 +27,9 @@ public interface LookBoardService {
 
     public LookBoardModifyForm getModifyForm(int laNumber);
 
-    String findName(int laNumber);
+    public String findLookBoardName(int laNumber);
+
+    public String findMemberName(int mNumber);
 
     //====== 조회수 추가 ======
     public int updateViewCount(int laNumber);

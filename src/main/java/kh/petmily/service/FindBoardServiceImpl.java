@@ -89,26 +89,6 @@ public class FindBoardServiceImpl implements FindBoardService {
         return detailForm;
     }
 
-    private FindBoardDetailForm toDetailForm(FindBoard findBoard) {
-        return new FindBoardDetailForm(findBoard.getFaNumber(), findBoard.getMNumber(), findName(findBoard.getMNumber()), findBoard.getSpecies(), findBoard.getKind(), findBoard.getLocation(), findBoard.getAnimalState(), findBoard.getImgPath(), findBoard.getWrTime(), findBoard.getTitle(), findBoard.getContent());
-    }
-
-    @Override
-    public FindBoardPageForm getFindPage(int pageNo) {
-        int total = findBoardDao.selectCount();
-
-        List<FindBoard> content = findBoardDao.selectIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size);
-
-        List<FindBoardListForm> fiList = new ArrayList<>();
-
-        for (FindBoard f : content) {
-            FindBoardListForm fi = new FindBoardListForm(f.getFaNumber(), findName(f.getMNumber()), f.getSpecies(), f.getKind(), f.getLocation(), f.getAnimalState(), f.getImgPath(), f.getWrTime(), f.getTitle());
-            fiList.add(fi);
-        }
-
-        return new FindBoardPageForm(total, pageNo, size, fiList);
-    }
-
     @Override
     public FindBoardPageForm getFindPage(int pageNo, String species, String animalState, String keyword) {
         int total = findBoardDao.selectCount(species, animalState, keyword);
@@ -139,16 +119,9 @@ public class FindBoardServiceImpl implements FindBoardService {
     public FindBoardPageForm getMembersFindPage(int pageNo, int mNumber, String matched) {
         int total = findBoardDao.selectMemberCount(mNumber, matched);
 
-        List<FindBoard> content = findBoardDao.selectMemberIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, mNumber, matched);
+        List<FindBoardListForm> content = findBoardDao.selectMemberIndex((pageNo - 1) * size + 1, (pageNo - 1) * size + size, mNumber, matched);
 
-        List<FindBoardListForm> fiList = new ArrayList<>();
-
-        for (FindBoard f : content) {
-            FindBoardListForm fi = new FindBoardListForm(f.getFaNumber(), findName(f.getMNumber()), f.getSpecies(), f.getKind(), f.getLocation(), f.getAnimalState(), f.getImgPath(), f.getWrTime(), f.getTitle());
-            fiList.add(fi);
-        }
-
-        return new FindBoardPageForm(total, pageNo, size, fiList);
+        return new FindBoardPageForm(total, pageNo, size, content);
     }
 
     @Override
