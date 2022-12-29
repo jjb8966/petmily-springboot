@@ -1,5 +1,17 @@
 ![슬라이드1](https://user-images.githubusercontent.com/87421893/209895179-6c885b27-d6ee-4b8c-a393-23c7006133c5.jpeg)
 
+# 목차
+### [1. 개발 배경](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#1-%EA%B0%9C%EB%B0%9C-%EB%B0%B0%EA%B2%BD)
+### [2. 프로그램 개요](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#2-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EC%9A%94-1)
+### [3. 개발 환경](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#3-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-1)
+### [4. 주요 기능](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#4-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-1)
+### [5. 개발 스케쥴](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#5-%EA%B0%9C%EB%B0%9C-%EC%8A%A4%EC%BC%80%EC%A5%B4-1)
+### [6. Usecase Diagram](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#6-usecase-diagram-1)
+### [7. ERD](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#7-erd-1)
+### [8. 와이어프레임](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#8-%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84-1)
+### [9. 시연 영상](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#9-%EC%8B%9C%EC%97%B0-%EC%98%81%EC%83%81-1)
+### [10. 역할](https://github.com/jjb8966/petmily-springboot/edit/main/README.md#10-%EC%97%AD%ED%95%A0-1)
+
 # 1. 개발 배경
 
 ![슬라이드5](https://user-images.githubusercontent.com/87421893/209895212-37374844-246c-482c-919e-978ac1833a06.jpeg)
@@ -51,7 +63,7 @@
 
 [<img width="1440" alt="스크린샷 2022-12-29 오전 11 52 49" src="https://user-images.githubusercontent.com/87421893/209897295-d8a45e96-484c-4f09-96c4-987e1d9a90c7.png">](https://www.youtube.com/watch?v=CTiAOdxYDOA&ab_channel=9%3DZ)
 
-# 10. 역할 / 기능
+# 10. 역할
 
 ![슬라이드41](https://user-images.githubusercontent.com/87421893/209896270-4e13181d-e520-4cb5-8d0e-81ccd41abaa6.jpeg)
 ![슬라이드42](https://user-images.githubusercontent.com/87421893/209896278-f7dd72be-d7df-40f2-be4d-3a71486782dd.jpeg)
